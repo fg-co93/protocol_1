@@ -1,0 +1,588 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NFT Guides - Creating Orders &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Smart Nonces" href="smart_nonce.html" />
+    <link rel="prev" title="Optimized Uniswap Router" href="../advanced/uniswap.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NFT Guides - Creating Orders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#create-an-erc721order">Create an ERC721Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sign-an-erc721-order">Sign an ERC721 Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#filling-an-erc721-order">Filling an ERC721 Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cancelling-an-erc721-order">Cancelling an ERC721 Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetching-nft-order-data">Fetching NFT Order Data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NFT Guides - Creating Orders</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guides/nft_guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nft-guides-creating-orders">
+<h1>NFT Guides - Creating Orders<a class="headerlink" href="#nft-guides-creating-orders" title="Link to this heading"></a></h1>
+<p>The easiest way of creating a 0x NFT order is to use the npm packages <cite>&#64;0x/protocol-utils</cite> and <cite>&#64;0x/utils</cite></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">yarn</span> <span class="n">add</span> <span class="o">@</span><span class="mi">0</span><span class="n">x</span><span class="o">/</span><span class="n">protocol</span><span class="o">-</span><span class="n">utils</span> <span class="o">@</span><span class="mi">0</span><span class="n">x</span><span class="o">/</span><span class="n">utils</span>
+<span class="go">or</span>
+<span class="go">npm install @0x/protocol-utils @0x/utils</span>
+</pre></div>
+</div>
+<section id="create-an-erc721order">
+<h2>Create an ERC721Order<a class="headerlink" href="#create-an-erc721order" title="Link to this heading"></a></h2>
+<p>The following code snippet shows how to construct a basic ERC721 sell order in JavaScript. In the following example, the seller indicates that they would like to receive ether by providing the sentinel value <cite>0xeee…`</cite> as the <cite>erc20Token</cite>.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">,</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/protocol-utils&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/utils&quot;</span><span class="p">);</span>
+
+<span class="c1">// Construct sell order</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">sellOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">({</span>
+<span class="w">    </span><span class="c1">// The EVM blockchain that this order is for, in this case Ethereum mainnet.</span>
+<span class="w">    </span><span class="nx">chainId</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// The address of the 0x v4 ExchangeProxy contract on Ethereum.</span>
+<span class="w">    </span><span class="nx">verifyingContract</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xdef1c0ded9bec7f1a1670819833240f027b25eff&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Whether to sell or buy the given NFT</span>
+<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">TradeDirection</span><span class="p">.</span><span class="nx">SellNFT</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// This indicates that the seller would like to receive ETH.</span>
+<span class="w">    </span><span class="nx">erc20Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// The price, in this case 1 ETH.</span>
+<span class="w">    </span><span class="nx">erc20TokenAmount</span><span class="o">:</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;1e18&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="c1">// Address of the ERC721 contract.</span>
+<span class="w">    </span><span class="nx">erc721Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x5180db8f5c931aae63c74266b211f580155ecac8&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Token ID of the NFT to sell.</span>
+<span class="w">    </span><span class="nx">erc721TokenId</span><span class="o">:</span><span class="w"> </span><span class="mf">123</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Address of the seller. This is also the address that will be</span>
+<span class="w">    </span><span class="c1">// signing this order.</span>
+<span class="w">    </span><span class="nx">maker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x6cc5f688a315f3dc28a7781717a9a798a59fda7b&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// A null taker address allows anyone to fill this order</span>
+<span class="w">    </span><span class="nx">taker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// A unique order nonce</span>
+<span class="w">    </span><span class="nx">nonce</span><span class="o">:</span><span class="w"> </span><span class="mf">420</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Order expires in one hour</span>
+<span class="w">    </span><span class="nx">expiry</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3600</span><span class="p">)),</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>An ERC721 sell order can be created similarly. Note that buy orders must use WETH instead of ether, because the ERC20 <cite>transferFrom</cite> functionality is needed to execute a buy order.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">,</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/protocol-utils&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/utils&quot;</span><span class="p">);</span>
+
+<span class="c1">// Construct buy order</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">buyOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">({</span>
+<span class="w">    </span><span class="c1">// The EVM blockchain that this order is for, in this case Ethereum mainnet.</span>
+<span class="w">    </span><span class="nx">chainId</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// The address of the 0x v4 ExchangeProxy contract on Ethereum.</span>
+<span class="w">    </span><span class="nx">verifyingContract</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xdef1c0ded9bec7f1a1670819833240f027b25eff&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Whether to sell or buy the given NFT</span>
+<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">TradeDirection</span><span class="p">.</span><span class="nx">BuyNFT</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Address of the ERC20 token to buy with, in this case WETH.</span>
+<span class="w">    </span><span class="nx">erc20Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// The price, in this case 1 WETH.</span>
+<span class="w">    </span><span class="nx">erc20TokenAmount</span><span class="o">:</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;1e18&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="c1">// Address of the ERC721 contract.</span>
+<span class="w">    </span><span class="nx">erc721Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x5180db8f5c931aae63c74266b211f580155ecac8&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Token ID of the NFT to buy.</span>
+<span class="w">    </span><span class="nx">erc721TokenId</span><span class="o">:</span><span class="w"> </span><span class="mf">234</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Address of the buyer. This is also the address that will be</span>
+<span class="w">    </span><span class="c1">// signing this order.</span>
+<span class="w">    </span><span class="nx">maker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x6cc5f688a315f3dc28a7781717a9a798a59fda7b&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// A null taker address allows anyone to fill this order</span>
+<span class="w">    </span><span class="nx">taker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// A unique order nonce</span>
+<span class="w">    </span><span class="nx">nonce</span><span class="o">:</span><span class="w"> </span><span class="mf">421</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// Order expires in one hour</span>
+<span class="w">    </span><span class="nx">expiry</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3600</span><span class="p">)),</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p><strong>Choosing a nonce</strong></p>
+<p>If two orders signed by the same maker have the same nonce, filling or cancelling one can result in the other becoming unfillable.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Two</span> <span class="n">ERC721</span> <span class="n">orders</span> <span class="k">with</span> <span class="n">the</span> <span class="n">same</span> <span class="n">nonce</span> <span class="n">cannot</span> <span class="n">both</span> <span class="n">be</span> <span class="n">filled</span><span class="p">,</span> <span class="n">but</span> <span class="n">two</span> <span class="n">ERC1155</span> <span class="n">orders</span> <span class="k">with</span> <span class="n">the</span> <span class="n">same</span> <span class="n">nonce</span> <span class="n">can</span> <span class="n">both</span> <span class="n">be</span> <span class="n">filled</span> <span class="p">(</span><span class="k">as</span> <span class="n">long</span> <span class="k">as</span> <span class="n">the</span> <span class="n">orders</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">identical</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>You can use a pseudorandom value or the current timestamp as the order nonce, but nonces can be chosen in a specific way to enable more gas-efficient fills and cancellations. See <a class="reference external" href="./smart_nonce.rst">Smart Nonces</a> for explanation.</p>
+<p>We recommend using the most significant 128 bits of the nonce as an application/marketplace identifier. The least significant 128 bits of the nonce can be incremented from 0 for each order created by a particular maker.</p>
+<p><strong>Royalties and Fees</strong></p>
+<p>0x V4 has flexible support for creator royalties and platform fees. Marketplaces can pay out royalties to creators in real-time, and even have the option to send fees to their own custom fee disbursement contract.
+Fees are paid by the <strong>buyer</strong>, denominated in the asset paid by the buyer, and are paid <strong>in addition</strong> to the <cite>erc20TokenAmount</cite> specified in the order.
+The following code snippet shows how to create an ERC721 order with a single fee. Multiple fees can be specified by providing multiple fee objects in the order fees field.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">,</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/protocol-utils&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/utils&quot;</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">fee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Address to receive the fee. Can be a smart contract.</span>
+<span class="w">    </span><span class="nx">recipient</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x871dd7c2b4b25e1aa18728e9d5f2af4c4e431f5c&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">amount</span><span class="o">:</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;1e17&#39;</span><span class="p">),</span><span class="w"> </span><span class="c1">// 0.1 ETH</span>
+<span class="w">    </span><span class="c1">// If the fee recipient is a contract, this field can be used</span>
+<span class="w">    </span><span class="c1">// to invoke a callback. In this case, there is no callback.</span>
+<span class="w">    </span><span class="nx">feeData</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x&#39;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// Construct sell order</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">chainId</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">verifyingContract</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xdef1c0ded9bec7f1a1670819833240f027b25eff&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">TradeDirection</span><span class="p">.</span><span class="nx">SellNFT</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20TokenAmount</span><span class="o">:</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;1e18&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">erc721Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x5180db8f5c931aae63c74266b211f580155ecac8&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc721TokenId</span><span class="o">:</span><span class="w"> </span><span class="mf">123</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">maker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x6cc5f688a315f3dc28a7781717a9a798a59fda7b&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">taker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">fees</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">fee</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">nonce</span><span class="o">:</span><span class="w"> </span><span class="mf">420</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">expiry</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3600</span><span class="p">)),</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p><strong>Collection Offers</strong></p>
+<p>In 0x V4, it is possible to create a bid for any NFT in a particular collection. The following code snippet shows how to create an order to buy any CryptoCoven $WITCH.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">,</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/protocol-utils&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/utils&quot;</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Providing `address(0)` and `0x` serves as the sentinel</span>
+<span class="w">    </span><span class="c1">// values for a &quot;null property&quot;, i.e. any token ID from the</span>
+<span class="w">    </span><span class="c1">// given collection can be used to fill the order.</span>
+<span class="w">    </span><span class="nx">propertyValidator</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">propertyData</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x&#39;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="c1">// Construct sell order</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">chainId</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">verifyingContract</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xdef1c0ded9bec7f1a1670819833240f027b25eff&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">TradeDirection</span><span class="p">.</span><span class="nx">SellNFT</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20TokenAmount</span><span class="o">:</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;1e18&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">erc721Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x5180db8f5c931aae63c74266b211f580155ecac8&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// If one or more properties are specified in the order, the</span>
+<span class="w">    </span><span class="c1">// `erc721TokenId` must be 0.</span>
+<span class="w">    </span><span class="nx">erc721TokenId</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">maker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x6cc5f688a315f3dc28a7781717a9a798a59fda7b&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">taker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc721TokenProperties</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="nx">property</span><span class="p">],</span>
+<span class="w">    </span><span class="nx">nonce</span><span class="o">:</span><span class="w"> </span><span class="mf">420</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">expiry</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3600</span><span class="p">)),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="sign-an-erc721-order">
+<h2>Sign an ERC721 Order<a class="headerlink" href="#sign-an-erc721-order" title="Link to this heading"></a></h2>
+<p>Off-chain orders must be signed by the order maker to be filled. For on-chain orders, refer to the next section.</p>
+<p><strong>Signing with a private key</strong></p>
+<p>Signing an order with a private key is easy: the <cite>ERC721Order</cite> and <cite>ERC1155Order</cite> classes from <cite>&#64;0x/protocol-utils</cite> expose a <cite>getSignatureWithKey</cite> function that take a 0x-prefixed private key string.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">,</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">,</span><span class="w"> </span><span class="nx">SignatureType</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/protocol-utils&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/utils&quot;</span><span class="p">);</span>
+
+<span class="c1">// Construct order</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">chainId</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">verifyingContract</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xdef1c0ded9bec7f1a1670819833240f027b25eff&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">TradeDirection</span><span class="p">.</span><span class="nx">SellNFT</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20TokenAmount</span><span class="o">:</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;1e18&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">erc721Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x5180db8f5c931aae63c74266b211f580155ecac8&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc721TokenId</span><span class="o">:</span><span class="w"> </span><span class="mf">123</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">maker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x6cc5f688a315f3dc28a7781717a9a798a59fda7b&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">taker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">nonce</span><span class="o">:</span><span class="w"> </span><span class="mf">420</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">expiry</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3600</span><span class="p">)),</span>
+<span class="p">});</span>
+
+<span class="c1">// Sign order with private key</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">getSignatureWithKey</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">PRIVATE_KEY</span><span class="p">,</span><span class="w"> </span><span class="c1">// &#39;0x123456789...&#39;</span>
+<span class="w">    </span><span class="nx">SignatureType</span><span class="p">.</span><span class="nx">EIP712</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Signing with ethers</strong></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">,</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">,</span><span class="w"> </span><span class="nx">SignatureType</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/protocol-utils&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;@0x/utils&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ethers</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;ethers&quot;</span><span class="p">);</span>
+
+<span class="c1">// Construct order</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">chainId</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">verifyingContract</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xdef1c0ded9bec7f1a1670819833240f027b25eff&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">direction</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">TradeDirection</span><span class="p">.</span><span class="nx">SellNFT</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc20TokenAmount</span><span class="o">:</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;1e18&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nx">erc721Token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x5180db8f5c931aae63c74266b211f580155ecac8&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">erc721TokenId</span><span class="o">:</span><span class="w"> </span><span class="mf">123</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">maker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x6cc5f688a315f3dc28a7781717a9a798a59fda7b&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">taker</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">nonce</span><span class="o">:</span><span class="w"> </span><span class="mf">420</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">expiry</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">BigNumber</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">1000</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">3600</span><span class="p">)),</span>
+<span class="p">});</span>
+
+<span class="c1">// Get ethers Signer</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ethers</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">JsonRpcProvider</span><span class="p">(</span><span class="cm">/* constructor params */</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">provider</span><span class="p">.</span><span class="nx">getSigner</span><span class="p">(</span><span class="cm">/* address */</span><span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">domain</span><span class="p">,</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">getEIP712TypedData</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">types</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">[</span><span class="nx">ERC721Order</span><span class="p">.</span><span class="nx">STRUCT_NAME</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">ERC721Order</span><span class="p">.</span><span class="nx">STRUCT_ABI</span><span class="p">,</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">&#39;Fee&#39;</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">FEE_ABI</span><span class="p">,</span>
+<span class="w">    </span><span class="p">[</span><span class="s1">&#39;Property&#39;</span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="nx">NFTOrder</span><span class="p">.</span><span class="nx">PROPERTY_ABI</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">rawSignature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">signer</span><span class="p">.</span><span class="nx">_signTypedData</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">domain</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">types</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">message</span>
+<span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ethers</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">splitSignature</span><span class="p">(</span><span class="nx">rawSignature</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">v</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">s</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">signatureType</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><strong>On-chain Orders</strong></p>
+<p>Orders can be simultaneously “signed” and listed on-chain using the <cite>preSignERC721Order</cite> or <cite>preSignERC1155Order</cite> functions. Orders can only be signed by the maker address specified in the order.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Approves an ERC721 order on-chain. After pre-signing</span>
+<span class="c1">///      the order, the `PRESIGNED` signature type will become</span>
+<span class="c1">///      valid for that order and signer.</span>
+<span class="c1">/// @param order An ERC721 order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">preSignERC721Order</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+
+<span class="c1">/// @dev Approves an ERC1155 order on-chain. After pre-signing</span>
+<span class="c1">///      the order, the `PRESIGNED` signature type will become</span>
+<span class="c1">///      valid for that order and signer.</span>
+<span class="c1">/// @param order An ERC1155 order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">preSignERC1155Order</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>If an order has been pre-signed, it can be filled by providing a “null” signature with the PRESIGNED signature type (see <a class="reference external" href="https://github.com/0xProject/protocol/blob/refactor/nft-orders/contracts/zero-ex/contracts/src/features/libs/LibSignature.sol#L42-L61">LibSignature.sol</a>):</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span>LibSignature<span class="p">.</span>Signature<span class="p">({</span>
+signatureType<span class="o">:</span><span class="w"> </span>LibSignature<span class="p">.</span>SignatureType<span class="p">.</span>PRESIGNED<span class="p">,</span>
+v<span class="o">:</span><span class="w"> </span><span class="kt">uint8</span><span class="p">(</span><span class="m m-Decimal">0</span><span class="p">),</span>
+r<span class="o">:</span><span class="w"> </span><span class="kt">bytes32</span><span class="p">(</span><span class="m m-Decimal">0</span><span class="p">),</span>
+s<span class="o">:</span><span class="w"> </span><span class="kt">bytes32</span><span class="p">(</span><span class="m m-Decimal">0</span><span class="p">)</span>
+<span class="p">});</span>
+</pre></div>
+</div>
+<p>The pre-sign functions emit the entire order as an event, so that the order is easily indexable by subgraphs and thus easily indexable by subgraphs and thus easily discoverable without the need for an off-chain database.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when an `ERC721Order` is pre-signed.</span>
+<span class="c1">///      Contains all the fields of the order.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC721OrderPreSigned</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>TradeDirection<span class="w"> </span>direction<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">expiry</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">,</span>
+<span class="w">    </span>IERC20TokenV06<span class="w"> </span>erc20Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc20TokenAmount</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Fee<span class="p">[]</span><span class="w"> </span>fees<span class="p">,</span>
+<span class="w">    </span>IERC721Token<span class="w"> </span>erc721Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc721TokenId</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Property<span class="p">[]</span><span class="w"> </span>erc721TokenProperties
+<span class="p">);</span>
+
+<span class="c1">/// @dev Emitted when an `ERC1155Order` is pre-signed.</span>
+<span class="c1">///      Contains all the fields of the order.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC1155OrderPreSigned</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>TradeDirection<span class="w"> </span>direction<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">expiry</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">,</span>
+<span class="w">    </span>IERC20TokenV06<span class="w"> </span>erc20Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc20TokenAmount</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Fee<span class="p">[]</span><span class="w"> </span>fees<span class="p">,</span>
+<span class="w">    </span>IERC1155Token<span class="w"> </span>erc1155Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc1155TokenId</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Property<span class="p">[]</span><span class="w"> </span>erc1155TokenProperties<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">erc1155TokenAmount</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>The pre-sign functions also enable smart contracts to create and “sign” NFT orders, opening the door for potential integrations with e.g. multisig wallets.</p>
+</section>
+<section id="filling-an-erc721-order">
+<h2>Filling an ERC721 Order<a class="headerlink" href="#filling-an-erc721-order" title="Link to this heading"></a></h2>
+<p>The basic functions used for filling NFT orders are the following:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Sells an ERC721 asset to fill the given order.</span>
+<span class="c1">/// @param buyOrder The ERC721 buy order.</span>
+<span class="c1">/// @param signature The order signature from the maker.</span>
+<span class="c1">/// @param erc721TokenId The ID of the ERC721 asset being</span>
+<span class="c1">///        sold. If the given order specifies properties,</span>
+<span class="c1">///        the asset must satisfy those properties. Otherwise,</span>
+<span class="c1">///        it must equal the tokenId in the order.</span>
+<span class="c1">/// @param unwrapNativeToken If this parameter is true and the</span>
+<span class="c1">///        ERC20 token of the order is e.g. WETH, unwraps the</span>
+<span class="c1">///        token before transferring it to the taker.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC721OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC20 tokens have been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC721 asset to the buyer.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">sellERC721</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>calldata<span class="w"> </span>buyOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc721TokenId</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">unwrapNativeToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+
+<span class="c1">/// @dev Buys an ERC721 asset by filling the given order.</span>
+<span class="c1">/// @param sellOrder The ERC721 sell order.</span>
+<span class="c1">/// @param signature The order signature.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC721OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC721 asset has been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC20 tokens to the seller.</span>
+<span class="c1">///        Native tokens acquired during the callback can be used</span>
+<span class="c1">///        to fill the order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">buyERC721</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>calldata<span class="w"> </span>sellOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span><span class="p">;</span>
+
+<span class="c1">/// @dev Sells an ERC1155 asset to fill the given order.</span>
+<span class="c1">/// @param buyOrder The ERC1155 buy order.</span>
+<span class="c1">/// @param signature The order signature from the maker.</span>
+<span class="c1">/// @param erc1155TokenId The ID of the ERC1155 asset being</span>
+<span class="c1">///        sold. If the given order specifies properties,</span>
+<span class="c1">///        the asset must satisfy those properties. Otherwise,</span>
+<span class="c1">///        it must equal the tokenId in the order.</span>
+<span class="c1">/// @param erc1155SellAmount The amount of the ERC1155 asset</span>
+<span class="c1">///        to sell.</span>
+<span class="c1">/// @param unwrapNativeToken If this parameter is true and the</span>
+<span class="c1">///        ERC20 token of the order is e.g. WETH, unwraps the</span>
+<span class="c1">///        token before transferring it to the taker.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC1155OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC20 tokens have been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC1155 asset to the buyer.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">sellERC1155</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>calldata<span class="w"> </span>buyOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc1155TokenId</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">erc1155SellAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">unwrapNativeToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+
+<span class="c1">/// @dev Buys an ERC1155 asset by filling the given order.</span>
+<span class="c1">/// @param sellOrder The ERC1155 sell order.</span>
+<span class="c1">/// @param signature The order signature.</span>
+<span class="c1">/// @param erc1155BuyAmount The amount of the ERC1155 asset</span>
+<span class="c1">///        to buy.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC1155OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC1155 asset has been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC20 tokens to the seller.</span>
+<span class="c1">///        Native tokens acquired during the callback can be used</span>
+<span class="c1">///        to fill the order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">buyERC1155</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>calldata<span class="w"> </span>sellOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">erc1155BuyAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><cite>sellERC721</cite> and <cite>sellERC1155</cite> are used when the caller is <strong>selling</strong> an NFT, so the order being filled is a <strong>buy</strong> order.
+<cite>buyERC721</cite> and <cite>buyERC1155</cite> are used when the caller is <strong>buying</strong> an NFT, so the order being filled is a <strong>sell</strong> order.
+Note that the only difference in parameters between the ERC721 and ERC1155 functions is <cite>erc1155BuyAmount</cite>. This value specifies the amount of the ERC1155 asset to sell/buy from the given order, which may be greater than one in the case of semi-fungible ERC1155 assets.</p>
+</section>
+<section id="cancelling-an-erc721-order">
+<h2>Cancelling an ERC721 Order<a class="headerlink" href="#cancelling-an-erc721-order" title="Link to this heading"></a></h2>
+<p>All orders, whether off-chain or on-chain, can only be cancelled on-chain. The following contract functions are used to cancel individual ERC721 and ERC1155 orders.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel a single ERC721 order by its nonce. The caller</span>
+<span class="c1">///      should be the maker of the order. Silently succeeds if</span>
+<span class="c1">///      an order with the same nonce has already been filled or</span>
+<span class="c1">///      cancelled.</span>
+<span class="c1">/// @param orderNonce The order nonce.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">cancelERC721Order</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">orderNonce</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+
+<span class="c1">/// @dev Cancel a single ERC1155 order by its nonce. The caller</span>
+<span class="c1">///      should be the maker of the order. Silently succeeds if</span>
+<span class="c1">///      an order with the same nonce has already been filled or</span>
+<span class="c1">///      cancelled.</span>
+<span class="c1">/// @param orderNonce The order nonce.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">cancelERC1155Order</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">orderNonce</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Note that if there are multiple outstanding orders with the same nonce, calling <cite>cancelERC721Order</cite> or <cite>cancelERC1155Order</cite> would cancel all those orders.
+The following functions can be used to cancel multiple orders.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel multiple ERC721 orders by their nonces. The caller</span>
+<span class="c1">///      should be the maker of the orders. Silently succeeds if</span>
+<span class="c1">///      an order with the same nonce has already been filled or</span>
+<span class="c1">///      cancelled.</span>
+<span class="c1">/// @param orderNonces The order nonces.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelERC721Orders</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>orderNonces<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+
+<span class="c1">/// @dev Cancel multiple ERC1155 orders by their nonces. The caller</span>
+<span class="c1">///      should be the maker of the orders. Silently succeeds if</span>
+<span class="c1">///      an order with the same nonce has already been filled or</span>
+<span class="c1">///      cancelled.</span>
+<span class="c1">/// @param orderNonces The order nonces.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelERC1155Orders</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>orderNonces<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="fetching-nft-order-data">
+<h2>Fetching NFT Order Data<a class="headerlink" href="#fetching-nft-order-data" title="Link to this heading"></a></h2>
+<p>To fetch collection-level NFT stats from 0x orders (e.g. floor price, total volume), checkout the following tools:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://module.readme.io/reference/retrieve-collection-floor">https://module.readme.io/reference/retrieve-collection-floor</a></p></li>
+<li><p><a class="reference external" href="https://api.reservoir.tools/#/2.%20Aggregator/getEventsCollectionsFlooraskV1">https://api.reservoir.tools/#/2.%20Aggregator/getEventsCollectionsFlooraskV1</a></p></li>
+</ul>
+<p>These tools are not 0x specific but NFT data is somewhat universal so these tools should do the trick.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../advanced/uniswap.html" class="btn btn-neutral float-left" title="Optimized Uniswap Router" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="smart_nonce.html" class="btn btn-neutral float-right" title="Smart Nonces" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

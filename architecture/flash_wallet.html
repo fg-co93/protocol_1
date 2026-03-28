@@ -1,0 +1,196 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flash Wallet &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Governor" href="governor.html" />
+    <link rel="prev" title="Transformers" href="transformers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html">Transformers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Flash Wallet</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/architecture/flash_wallet.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flash-wallet">
+<h1>Flash Wallet<a class="headerlink" href="#flash-wallet" title="Link to this heading"></a></h1>
+<p>The Flash Wallet is a sandboxed escrow contract that holds funds for <a class="reference external" href="./transformers.html">Transformers</a> to operate on. A <a class="reference external" href="./features.html">Feature</a> contract transfers tokens to the Flash Wallet, which then delegate call’s into a Transformer to run operations on the escrowed funds. Transformers are trustless and therefore only have access to the funds deposted into the Flash Wallet; they do not have access to user allowances.</p>
+<p>The wallet is currently only used by the <code class="docutils literal notranslate"><span class="pre">TransformERC20</span></code> feature. It is deployed using the  <code class="docutils literal notranslate"><span class="pre">createTransformWallet()</span></code> function on the feature, which is only callable by the owner/governor. This allows us to deploy a fresh wallet in case we somehow break the old one, like if we accidentally selfdestruct it or clobber its state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The wallet is currently only used for ERC20 tokens, but can be extended to work with other standards, like ERC1155 and ERC223, by implementing the required fallbacks for those standards.</p>
+</div>
+<p>The Flash Wallet exposes two functions of interest: <code class="docutils literal notranslate"><span class="pre">executeCall()</span></code> and <code class="docutils literal notranslate"><span class="pre">executeDelegateCall()</span></code>. The former executes a <code class="docutils literal notranslate"><span class="pre">call</span></code> and reverts if the callee reverts. The latter executes a <code class="docutils literal notranslate"><span class="pre">delegatecall</span></code> and reverts if the callee reverts.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Execute an arbitrary call. Only an authority can call this.</span>
+<span class="c1">/// @param target The call target.</span>
+<span class="c1">/// @param callData The call data.</span>
+<span class="c1">/// @param value Ether to attach to the call.</span>
+<span class="c1">/// @return resultData The data returned by the call.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">executeCall</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">payable</span><span class="w"> </span>target<span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>callData<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">value</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span>override
+<span class="w">    </span>onlyOwner
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>resultData<span class="p">);</span>
+
+<span class="c1">/// @dev Execute an arbitrary delegatecall, in the context of this puppet.</span>
+<span class="c1">///      Only an authority can call this.</span>
+<span class="c1">/// @param target The call target.</span>
+<span class="c1">/// @param callData The call data.</span>
+<span class="c1">/// @return resultData The data returned by the call.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">executeDelegateCall</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">payable</span><span class="w"> </span>target<span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>callData
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span>override
+<span class="w">    </span>onlyOwner
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>resultData<span class="p">);</span>
+</pre></div>
+</div>
+<p>View the code for the Flash Wallet <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/zero-ex/contracts/src/external/FlashWallet.sol">here</a>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="transformers.html" class="btn btn-neutral float-left" title="Transformers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="governor.html" class="btn btn-neutral float-right" title="Governor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

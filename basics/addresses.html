@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Addresses &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Meta-Transactions" href="../advanced/mtx.html" />
+    <link rel="prev" title="Protocol Fees" href="protocol_fees.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Addresses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#exchange-v4">Exchange V4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transformers">Transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#zrx-staking">ZRX / Staking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exchange-proxy-addresses">Exchange Proxy Addresses</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Addresses</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basics/addresses.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="addresses">
+<h1>Addresses<a class="headerlink" href="#addresses" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This page is auto-generated. See the <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/packages/contract-addresses/addresses.json">contract-addresses</a> package for an exhaustive list of contracts across all networks.</p>
+<p>The Exchange Proxy may have different addresses on various networks, see the <a class="reference external" href="./addresses.html#exchange-proxy-addresses">Exchange Proxy Addresses</a> table for an exhaustive list.</p>
+</div>
+<section id="exchange-v4">
+<h2>Exchange V4<a class="headerlink" href="#exchange-v4" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>exchangeProxy</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-even"><td><p>exchangeProxyFlashWallet</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0x22f9dcf4647084d6c31b2765f6910cd85c178c18">0x22f9dcf4647084d6c31b2765f6910cd85c178c18</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>exchangeProxyGovernor</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0x618f9c67ce7bf1a50afa1e7e0238422601b0ff6e">0x618f9c67ce7bf1a50afa1e7e0238422601b0ff6e</a></p></td>
+</tr>
+<tr class="row-even"><td><p>exchangeProxyLiquidityProviderSandbox</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0x407b4128e9ecad8769b2332312a9f655cb9f5f3a">0x407b4128e9ecad8769b2332312a9f655cb9f5f3a</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>exchangeProxyTransformerDeployer</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0x39dce47a67ad34344eab877eae3ef1fa2a1d50bb">0x39dce47a67ad34344eab877eae3ef1fa2a1d50bb</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="transformers">
+<h2>Transformers<a class="headerlink" href="#transformers" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>wethTransformer</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xb2bc06a4efb20fc6553a69dbfa49b7be938034a7">0xb2bc06a4efb20fc6553a69dbfa49b7be938034a7</a></p></td>
+</tr>
+<tr class="row-even"><td><p>payTakerTransformer</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0x4638a7ebe75b911b995d0ec73a81e4f85f41f24e">0x4638a7ebe75b911b995d0ec73a81e4f85f41f24e</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>affiliateFeeTransformer</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xda6d9fc5998f550a094585cf9171f0e8ee3ac59f">0xda6d9fc5998f550a094585cf9171f0e8ee3ac59f</a></p></td>
+</tr>
+<tr class="row-even"><td><p>fillQuoteTransformer</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xb4fa284689c9784a60d840eb136bb16c5246191f">0xb4fa284689c9784a60d840eb136bb16c5246191f</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>positiveSlippageFeeTransformer</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xa9416ce1dbde8d331210c07b5c253d94ee4cc3fd">0xa9416ce1dbde8d331210c07b5c253d94ee4cc3fd</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="zrx-staking">
+<h2>ZRX / Staking<a class="headerlink" href="#zrx-staking" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>staking</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0x2a17c35ff147b32f13f19f2e311446eeb02503f3">0x2a17c35ff147b32f13f19f2e311446eeb02503f3</a></p></td>
+</tr>
+<tr class="row-even"><td><p>stakingProxy</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xa26e80e7dea86279c6d778d702cc413e6cffa777">0xa26e80e7dea86279c6d778d702cc413e6cffa777</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>zrxToken</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xe41d2489571d322189246dafa5ebde1f4699f498">0xe41d2489571d322189246dafa5ebde1f4699f498</a></p></td>
+</tr>
+<tr class="row-even"><td><p>zrxVault</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xba7f8b5fb1b19c1211c5d49550fcd149177a5eaf">0xba7f8b5fb1b19c1211c5d49550fcd149177a5eaf</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>devUtils</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0x74134cf88b21383713e096a5ecf59e297dc7f547">0x74134cf88b21383713e096a5ecf59e297dc7f547</a></p></td>
+</tr>
+<tr class="row-even"><td><p>etherToken</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2">0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>erc20BridgeSampler</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xd8c38704c9937ea3312de29f824b4ad3450a5e61">0xd8c38704c9937ea3312de29f824b4ad3450a5e61</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="exchange-proxy-addresses">
+<h2>Exchange Proxy Addresses<a class="headerlink" href="#exchange-proxy-addresses" title="Link to this heading"></a></h2>
+<p>Note: Some addresses have changed across various networks</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Ethereum</p></td>
+<td><p><a class="reference external" href="https://etherscan.io/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Optimism</p></td>
+<td><p><a class="reference external" href="https://optimistic.etherscan.io/address/0xdef1abe32c034e558cdd535791643c58a13acc10">0xdef1abe32c034e558cdd535791643c58a13acc10</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Binance Smart Chain</p></td>
+<td><p><a class="reference external" href="https://bscscan.com/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Polygon</p></td>
+<td><p><a class="reference external" href="https://polygonscan.com/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Avalanche</p></td>
+<td><p><a class="reference external" href="https://snowtrace.io/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Fantom</p></td>
+<td><p><a class="reference external" href="https://ftmscan.com/address/0xdef189deaef76e379df891899eb5a00a94cbc250">0xdef189deaef76e379df891899eb5a00a94cbc250</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Celo</p></td>
+<td><p><a class="reference external" href="https://explorer.celo.org/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Arbitrum</p></td>
+<td><p><a class="reference external" href="https://arbiscan.io/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Base</p></td>
+<td><p><a class="reference external" href="https://basescan.org/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-even"><td><p>zkEVM</p></td>
+<td><p><a class="reference external" href="https://zkevm.polygonscan.com/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Sepolia</p></td>
+<td><p><a class="reference external" href="https://sepolia.etherscan.io/address/0xdef1c0ded9bec7f1a1670819833240f027b25eff">0xdef1c0ded9bec7f1a1670819833240f027b25eff</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Mumbai</p></td>
+<td><p><a class="reference external" href="https://mumbai.polygonscan.com/address/0xf471d32cb40837bf24529fcf17418fc1a4807626">0xf471d32cb40837bf24529fcf17418fc1a4807626</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="protocol_fees.html" class="btn btn-neutral float-left" title="Protocol Fees" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../advanced/mtx.html" class="btn btn-neutral float-right" title="Meta-Transactions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

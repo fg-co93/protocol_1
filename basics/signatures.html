@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signatures &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Signatures</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basics/signatures.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="signatures">
+<h1>Signatures<a class="headerlink" href="#signatures" title="Link to this heading"></a></h1>
+<p>Signatures are used in several places in 0x Protocol to prove an actor
+has agreed to the behavior in some off-chain message.</p>
+<p>Signatures are represented by the following struct:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">struct</span><span class="w"> </span><span class="nv">Signature</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// How to validate the signature.</span>
+<span class="w">    </span>SignatureType<span class="w"> </span>signatureType<span class="p">;</span>
+<span class="w">    </span><span class="c1">// EC Signature data.</span>
+<span class="w">    </span><span class="kt">uint8</span><span class="w"> </span><span class="nv">v</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// EC Signature data.</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">r</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// EC Signature data.</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">s</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">SignatureType</span></code> is:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">enum</span><span class="w"> </span><span class="nv">SignatureType</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>ILLEGAL<span class="p">,</span>
+<span class="w">    </span>INVALID<span class="p">,</span>
+<span class="w">    </span>EIP712<span class="p">,</span>
+<span class="w">    </span>ETHSIGN<span class="p">,</span>
+<span class="w">    </span>PRESIGNED
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Descriptions of the valid signature types follow.</p>
+<p><strong>EIP712 (``2``)</strong></p>
+<p>This is the signature type typically used when an order is signed
+through a UI, such as Metamask. This is commonly achieved by calling
+some variant of the <code class="docutils literal notranslate"><span class="pre">eth_signTypedData</span></code> (which fully utilizes EIP712)
+JSONRPC command on the Ethereum provider.</p>
+<p>It can also be generated in a headless manner using a standard
+<code class="docutils literal notranslate"><span class="pre">ecsign()</span></code> implementation
+(<a class="reference external" href="https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/modules/_signature_.md#const-ecsign">example</a>)
+by re-hashing the <a class="reference external" href="signatures.md#limit-order-hashes">canonical order
+hash</a> with a prefix as follows and
+signing the result:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span>eip712HashToSign<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">    </span><span class="s2">&quot;\x19Ethereum Signed Message:\n32&quot;</span><span class="p">,</span>
+<span class="w">    </span>orderHash
+<span class="p">));</span>
+</pre></div>
+</div>
+<section id="ethsign-3">
+<h2>ETHSIGN (<code class="docutils literal notranslate"><span class="pre">3</span></code>)<a class="headerlink" href="#ethsign-3" title="Link to this heading"></a></h2>
+<p>This is the signature type typically used when an order is signed in a
+headless environment (e.g., script or backend). This commonly achieved
+by calling the <code class="docutils literal notranslate"><span class="pre">eth_sign</span></code> JSONRPC command on the Ethereum provider or,
+perhaps more straight-forwardly, using a standard <code class="docutils literal notranslate"><span class="pre">ecsign()</span></code>
+implementation
+(<a class="reference external" href="https://github.com/ethereumjs/ethereumjs-util/blob/master/docs/modules/_signature_.md#const-ecsign">example</a>).
+Unlike the <code class="docutils literal notranslate"><span class="pre">EIP712</span></code> signature type, the hash to sign is simply the
+<a class="reference external" href="signatures.md#limit-order-hashes">canonical order hash</a> (no prefix).</p>
+</section>
+<section id="presigned-4">
+<h2>PRESIGNED (<code class="docutils literal notranslate"><span class="pre">4</span></code>)<a class="headerlink" href="#presigned-4" title="Link to this heading"></a></h2>
+<p>This signature type is used exclusively with NFT orders (721 and 1155)
+for now. This value indicates that the order maker has previously marked
+the order as fillable on-chain. The remaining fields in the
+<code class="docutils literal notranslate"><span class="pre">Signature</span></code> struct will be ignored.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

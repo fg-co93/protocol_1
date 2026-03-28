@@ -1,0 +1,205 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transformer Deployer &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Fee Collectors" href="fee_collectors.html" />
+    <link rel="prev" title="Governor" href="governor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governor.html">Governor</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Transformer Deployer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#permissionless-transfomer-deployer">Permissionless Transfomer Deployer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Transformer Deployer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/architecture/transformer_deployer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="transformer-deployer">
+<h1>Transformer Deployer<a class="headerlink" href="#transformer-deployer" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="./transformers.html">Transformers</a> need to be permissioned because they are executed in the context of the <a class="reference external" href="./flash_wallet.html">Flash Wallet</a>. This means that a malicious Transformer could grief the protocol by destroying the Flash Wallet via <code class="docutils literal notranslate"><span class="pre">selfdestruct</span></code>, so we need some way to authenticate that the Transformer is safe to use at runtime.</p>
+<p>The Transformer Deployer <code class="docutils literal notranslate"><span class="pre">create</span></code>’s all Transformers, and its deployment nonce is used to validate a Transformer at runtime. The deployer is owned by 0x Labs, so only we are able to deploy Transformers.</p>
+<p>The deployer implements two functions: <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> and <code class="docutils literal notranslate"><span class="pre">kill()</span></code>. The former is used to deploy new Transformers; it will emit a <a class="reference external" href="../basics/events.html#deployed">Deployed</a> event (that includes the nonce) or reverts if it fails to <code class="docutils literal notranslate"><span class="pre">create</span></code> the Transformer. The <code class="docutils literal notranslate"><span class="pre">kill()</span></code> function is used to destroy deprecated Transformers; this emits a <a class="reference external" href="../basics/events.html#killed">Killed</a> event or reverts if the Transformer’s <code class="docutils literal notranslate"><span class="pre">die()</span></code> function reverts. Note that we cannot verify a Transformer called <code class="docutils literal notranslate"><span class="pre">selfdestruct</span></code> in the <code class="docutils literal notranslate"><span class="pre">kill</span></code> function because this information is not available until after the transaction executes.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Deploy a new contract. Only callable by an authority.</span>
+<span class="c1">///      Any attached ETH will also be forwarded.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">deploy</span><span class="p">(</span><span class="kt">bytes</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>bytecode<span class="p">)</span>
+<span class="w">    </span><span class="kt">public</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span>onlyAuthorized
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">deployedAddress</span><span class="p">);</span>
+
+<span class="c1">/// @dev Call `die()` on a contract. Only callable by an authority.</span>
+<span class="c1">/// @param target The target contract to call `die()` on.</span>
+<span class="c1">/// @param ethRecipient The Recipient of any ETH locked in `target`.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">kill</span><span class="p">(</span>IKillable<span class="w"> </span>target<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">payable</span><span class="w"> </span>ethRecipient<span class="p">)</span>
+<span class="w">    </span><span class="kt">public</span>
+<span class="w">    </span>onlyAuthorized<span class="p">;</span>
+</pre></div>
+</div>
+<p>View the code for the Transformer Deployer <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/zero-ex/contracts/src/external/TransformerDeployer.sol">here</a>.</p>
+<section id="permissionless-transfomer-deployer">
+<h2>Permissionless Transfomer Deployer<a class="headerlink" href="#permissionless-transfomer-deployer" title="Link to this heading"></a></h2>
+<p>A permissionless deployer has been developed and can be seen <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/zero-ex/contracts/src/external/PermissionlessTransformerDeployer.sol">here</a>. This serves a similar function to the current delployer, only it is capable of validating the Transformer’s bytecode before deploying. It does this by tracing the bytecode in search of reachable opcodes that could post a threat to the Flash Wallet.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">isDelegateCallSafe</span></code> function performs this check. It will return <code class="docutils literal notranslate"><span class="pre">false</span></code> if any of the following opcodes are reachable: <code class="docutils literal notranslate"><span class="pre">callcode</span></code>, <code class="docutils literal notranslate"><span class="pre">delegatecall</span></code>, <code class="docutils literal notranslate"><span class="pre">selfdestruct</span></code>, <code class="docutils literal notranslate"><span class="pre">create</span></code>, <code class="docutils literal notranslate"><span class="pre">create2</span></code>, <code class="docutils literal notranslate"><span class="pre">sload</span></code>, <code class="docutils literal notranslate"><span class="pre">sstore</span></code>.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Checks whether a given address is safe to be called via</span>
+<span class="c1">///      delegatecall. A contract is considered unsafe if it includes any</span>
+<span class="c1">///      of the following opcodes: CALLCODE, DELEGATECALL, SELFDESTRUCT,</span>
+<span class="c1">///      CREATE, CREATE2, SLOAD, and STORE. This code is adapted from</span>
+<span class="c1">///      https://github.com/dharma-eng/dharma-smart-wallet/blob/master/contracts/helpers/IndestructibleRegistry.sol</span>
+<span class="c1">/// @param target The address to check.</span>
+<span class="c1">/// @return True if the contract is considered safe for delegatecall.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">isDelegateCallSafe</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">target</span><span class="p">)</span><span class="w"> </span><span class="kt">public</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>THe <code class="docutils literal notranslate"><span class="pre">deploy</span></code> function is similar to the existing Transformer Deployer, only it uses a user-provided nonce to deploy the Transformer.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Deploy a new contract. Any attached ETH will be forwarded.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">deploy</span><span class="p">(</span><span class="kt">bytes</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>bytecode<span class="p">,</span><span class="w"> </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">salt</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">public</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">deployedAddress</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note that there is no <code class="docutils literal notranslate"><span class="pre">kill</span></code> function in this deployer.</p>
+<p>View the code for the Permissionless Transformer Deployer <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/zero-ex/contracts/src/external/PermissionlessTransformerDeployer.sol">here</a>.</p>
+<p>There is some overhead to switching over to this deployer, as the <a class="reference external" href="./flash_wallet.html">Flash Wallet</a> would need to be redeployed and some integrators would need to update their code. Therefore, this will be put into production once there is community-demand for permissionless transformers. Reach out to us on <a class="reference external" href="https://discord.com/invite/d3FTX3M">Discord</a> if you’d like to deploy a Transformer!</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="governor.html" class="btn btn-neutral float-left" title="Governor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fee_collectors.html" class="btn btn-neutral float-right" title="Fee Collectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meta-Transactions &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ERC20 Transformations" href="erc20_transformations.html" />
+    <link rel="prev" title="Addresses" href="../basics/addresses.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Meta-Transactions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#constructing">Constructing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#signing">Signing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functionality">Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#executemetatransaction">executeMetaTransaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchexecutemetatransactions">batchExecuteMetaTransactions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getmetatransactionexecutedblock">getMetaTransactionExecutedBlock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getmetatransactionhashexecutedblock">getMetaTransactionHashExecutedBlock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getmetatransactionhash">getMetaTransactionHash</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Meta-Transactions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced/mtx.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="meta-transactions">
+<h1>Meta-Transactions<a class="headerlink" href="#meta-transactions" title="Link to this heading"></a></h1>
+<p>Meta-Transactions are signed messages that instruct the 0x Protocol to run function(s) in the context of the signer. This signed mtx can then be shared off-chain, allowing anyone to execute on-chain. This is useful for integrators who would like to subsidize the Ethereum Gas Fee, or add custom smart contract logic to run atomically a fill. A signed meta-transaction can only be executed once.</p>
+<p>A common use case for this is in Request For Quote (RFQ) systems. The Maker creates an order; the Taker signs a mtx permitting 0x Protocol to fill the order on their behalf; the mtx is returned to the Maker who submits it on-chain.</p>
+<img alt="Meta-Transaction Example" class="align-center" src="../_images/rfqm.png" />
+<section id="constructing">
+<h2>Constructing<a class="headerlink" href="#constructing" title="Link to this heading"></a></h2>
+<p>To construct a Meta-Transaction, abi-encode the following struct and sign it.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Describes an exchange proxy meta transaction.</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">MetaTransactionData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Signer of meta-transaction. On whose behalf to execute the MTX.</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">payable</span><span class="w"> </span>signer<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Required sender, or NULL for anyone.</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">sender</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Minimum gas price.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">minGasPrice</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Maximum gas price.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">maxGasPrice</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// MTX is invalid after this time.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">expirationTimeSeconds</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Nonce to make this MTX unique.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">salt</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Encoded call data to a function on the exchange proxy.</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">callData</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Amount of ETH to attach to the call.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">value</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// ERC20 fee `signer` pays `sender`.</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>feeToken<span class="p">;</span>
+<span class="w">    </span><span class="c1">// ERC20 fee amount.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">feeAmount</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">calldata</span></code> field is specific to the function you wish to execute. At this time, the following functions are supported:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../basics/functions.html#filllimitorder">fillLimitOrder</a></p></li>
+<li><p><a class="reference external" href="../basics/functions.html#fillrfqorder">fillRfqOrder</a></p></li>
+<li><p><a class="reference external" href="../advanced/erc20_transformations.html">transformERC20</a></p></li>
+</ul>
+</section>
+<section id="signing">
+<h2>Signing<a class="headerlink" href="#signing" title="Link to this heading"></a></h2>
+<p>Meta-Transactions use the same signing technique as 0x Orders; see the <a class="reference external" href="../basics/orders.html#how-to-sign">How to Sign</a> section of the Orders documentation. See <a class="reference internal" href="#getmetatransactionhash">getMetaTransactionHash</a> for generating a unique hash for your mtx.</p>
+</section>
+<section id="functionality">
+<h2>Functionality<a class="headerlink" href="#functionality" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Function</p></td>
+<td><p>Overview</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#executemetatransaction">executeMetaTransaction</a></p></td>
+<td><p>Executes a single meta-transaction</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#batchexecutemetatransactions">batchExecuteMetaTransactions</a></p></td>
+<td><p>Executes a batch of meta-transactions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#getmetatransactionexecutedblock">getMetaTransactionExecutedBlock</a></p></td>
+<td><p>Returns the block that a meta-transaction was executed at.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#getmetatransactionhashexecutedblock">getMetaTransactionHashExecutedBlock</a></p></td>
+<td><p>Same as <code class="docutils literal notranslate"><span class="pre">getMetaTransactionExecutedBlock</span></code>, only this function takes a meta-transaction hash.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#getmetatransactionhash">getMetaTransactionHash</a></p></td>
+<td><p>Returns the hash of a meta-transaction.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="executemetatransaction">
+<h3>executeMetaTransaction<a class="headerlink" href="#executemetatransaction" title="Link to this heading"></a></h3>
+<p>A single Meta-Transaction is executed by calling <code class="docutils literal notranslate"><span class="pre">executeMetaTransaction</span></code>. A batch of mtx’s can be executed by calling <code class="docutils literal notranslate"><span class="pre">batchExecuteMetaTransactions</span></code>.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Execute a single meta-transaction.</span>
+<span class="c1">/// @param mtx The meta-transaction.</span>
+<span class="c1">/// @param signature The signature by `mtx.signer`.</span>
+<span class="c1">/// @return returnResult The ABI-encoded result of the underlying call.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">executeMetaTransaction</span><span class="p">(</span>
+<span class="w">    </span>MetaTransactionData<span class="w"> </span>calldata<span class="w"> </span>mtx<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>returnResult<span class="p">);</span>
+</pre></div>
+</div>
+<p>A <a class="reference external" href="../basics/events.html#metatransactionexecuted">MetaTransactionExecuted</a> event is emitted on succes. The <code class="docutils literal notranslate"><span class="pre">returnResult</span></code> contains the raw return data for the executed function. For example, if the function returns a <code class="docutils literal notranslate"><span class="pre">uint256</span></code> then the <code class="docutils literal notranslate"><span class="pre">returnResult</span></code> could be abi-decoded into a <code class="docutils literal notranslate"><span class="pre">uint256</span></code>.</p>
+<p>This call will revert in the following scenarios:</p>
+<ul class="simple">
+<li><p>The address in the <code class="docutils literal notranslate"><span class="pre">mtx.sender</span></code> field does not match <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code>.</p></li>
+<li><p>The mtx has expired.</p></li>
+<li><p>The Ethereum transaction’s gas price (<code class="docutils literal notranslate"><span class="pre">tx.gasprice</span></code>) is outside of the range <code class="docutils literal notranslate"><span class="pre">[mtx.minGasPrice..mtx.maxGasPrice]</span></code></p></li>
+<li><p>The ETH sent with the mtx is less than <code class="docutils literal notranslate"><span class="pre">mtx.value</span></code></p></li>
+<li><p>The allowance/balance of <code class="docutils literal notranslate"><span class="pre">signer</span></code> is insufficient to pay <code class="docutils literal notranslate"><span class="pre">feeAmount</span></code> of <code class="docutils literal notranslate"><span class="pre">feeToken</span></code> to the <code class="docutils literal notranslate"><span class="pre">sender</span></code> (if specified)</p></li>
+<li><p>The signature is invalid.</p></li>
+<li><p>The mtx was already executed</p></li>
+<li><p>The underlying function is not supported by meta-transactions (see list above).</p></li>
+<li><p>The underlying function call reverts.</p></li>
+</ul>
+</section>
+<section id="batchexecutemetatransactions">
+<h3>batchExecuteMetaTransactions<a class="headerlink" href="#batchexecutemetatransactions" title="Link to this heading"></a></h3>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Execute multiple meta-transactions.</span>
+<span class="c1">/// @param mtxs The meta-transactions.</span>
+<span class="c1">/// @param signatures The signature by each respective `mtx.signer`.</span>
+<span class="c1">/// @return returnResults The ABI-encoded results of the underlying calls.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchExecuteMetaTransactions</span><span class="p">(</span>
+<span class="w">    </span>MetaTransactionData<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>mtxs<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>signatures
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>returnResults<span class="p">);</span>
+</pre></div>
+</div>
+<p>A <a class="reference external" href="../basics/events.html#metatransactionexecuted">MetaTransactionExecuted</a> event is emitted for each mtx on succes. The <code class="docutils literal notranslate"><span class="pre">returnResult</span></code> contains the raw return data for the executed function This call will revert if the one of the <code class="docutils literal notranslate"><span class="pre">mtxs</span></code> reverts. Any exceess Ether will be refunded to the <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code>.</p>
+</section>
+<section id="getmetatransactionexecutedblock">
+<h3>getMetaTransactionExecutedBlock<a class="headerlink" href="#getmetatransactionexecutedblock" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">block.number</span></code> is stored on-chain when a mtx is executed. This value can be retrieved using the following function.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the block at which a meta-transaction has been executed.</span>
+<span class="c1">/// @param mtx The meta-transaction.</span>
+<span class="c1">/// @return blockNumber The block height when the meta-transactioin was executed.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getMetaTransactionExecutedBlock</span><span class="p">(</span>MetaTransactionData<span class="w"> </span>calldata<span class="w"> </span>mtx<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">blockNumber</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="getmetatransactionhashexecutedblock">
+<h3>getMetaTransactionHashExecutedBlock<a class="headerlink" href="#getmetatransactionhashexecutedblock" title="Link to this heading"></a></h3>
+<p>This is a more gas-efficient implementation of <code class="docutils literal notranslate"><span class="pre">getMetaTransactionExecutedBlock</span></code>.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the block at which a meta-transaction hash has been executed.</span>
+<span class="c1">/// @param mtxHash The meta-transaction hash.</span>
+<span class="c1">/// @return blockNumber The block height when the meta-transactioin was executed.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getMetaTransactionHashExecutedBlock</span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">mtxHash</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">blockNumber</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="getmetatransactionhash">
+<h3>getMetaTransactionHash<a class="headerlink" href="#getmetatransactionhash" title="Link to this heading"></a></h3>
+<p>The hash of the mtx is used to uniquely identify it inside the protocol. It is computed following the <a class="reference external" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md">EIP712 spec</a> standard. In solidity, the hash is computed using:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the EIP712 hash of a meta-transaction.</span>
+<span class="c1">/// @param mtx The meta-transaction.</span>
+<span class="c1">/// @return mtxHash The EIP712 hash of `mtx`.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getMetaTransactionHash</span><span class="p">(</span>MetaTransactionData<span class="w"> </span>calldata<span class="w"> </span>mtx<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">mtxHash</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The simplest way to generate an order hash is by calling this function, ex:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>IZeroEx<span class="p">(</span><span class="mh">0xDef1C0ded9bec7F1a1670819833240f027b25EfF</span><span class="p">).</span>getMetaTransactionHash<span class="p">(</span>mtx<span class="p">);</span>
+</pre></div>
+</div>
+<p>The hash can be manually generated using the following code:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;\x19\x01&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// The domain separator.</span>
+<span class="w">    </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encode<span class="p">(</span>
+<span class="w">        </span><span class="c1">// The EIP712 domain separator type hash.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">            </span><span class="s1">&#39;EIP712Domain(&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;string name,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;string version,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint256 chainId,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address verifyingContract)&#39;</span>
+<span class="w">        </span><span class="p">)),</span>
+<span class="w">        </span><span class="c1">// The EIP712 domain separator values.</span>
+<span class="w">        </span><span class="s1">&#39;ZeroEx&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="m m-Decimal">1</span><span class="p">,</span><span class="w"> </span><span class="c1">// For mainnet</span>
+<span class="w">        </span><span class="mh">0xDef1C0ded9bec7F1a1670819833240f027b25EfF</span><span class="p">,</span><span class="w"> </span><span class="c1">// Address of the Exchange Proxy</span>
+<span class="w">    </span><span class="p">)),</span>
+<span class="w">    </span><span class="c1">// The struct hash.</span>
+<span class="w">    </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encode<span class="p">(</span>
+<span class="w">        </span><span class="c1">// The EIP712 type hash.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">            </span><span class="s2">&quot;MetaTransactionData(&quot;</span>
+<span class="w">            </span><span class="s2">&quot;address signer,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;address sender,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;uint256 minGasPrice,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;uint256 maxGasPrice,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;uint256 expirationTimeSeconds,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;uint256 salt,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;bytes callData,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;uint256 value,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;address feeToken,&quot;</span>
+<span class="w">            </span><span class="s2">&quot;uint256 feeAmount&quot;</span>
+<span class="w">        </span><span class="s2">&quot;)&quot;</span>
+<span class="w">        </span><span class="p">)),</span>
+<span class="w">        </span><span class="c1">// The struct values.</span>
+<span class="w">        </span>mtx<span class="p">.</span>signer<span class="p">,</span>
+<span class="w">        </span>mtx<span class="p">.</span>sender<span class="p">,</span>
+<span class="w">        </span>mtx<span class="p">.</span>minGasPrice<span class="p">,</span>
+<span class="w">        </span>mtx<span class="p">.</span>maxGasPrice<span class="p">,</span>
+<span class="w">        </span>mtx<span class="p">.</span>expirationTimeSeconds<span class="p">,</span>
+<span class="w">        </span>mtx<span class="p">.</span>salt<span class="p">,</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span>mtx<span class="p">.</span>callData<span class="p">),</span>
+<span class="w">        </span>mtx<span class="p">.</span>value<span class="p">,</span>
+<span class="w">        </span>mtx<span class="p">.</span>feeToken<span class="p">,</span>
+<span class="w">        </span>mtx<span class="p">.</span>feeAmount
+<span class="w">    </span><span class="p">))</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../basics/addresses.html" class="btn btn-neutral float-left" title="Addresses" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="erc20_transformations.html" class="btn btn-neutral float-right" title="ERC20 Transformations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

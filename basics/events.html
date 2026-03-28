@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Allowances" href="allowances.html" />
+    <link rel="prev" title="Basic Functionality" href="functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Basic Functionality</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Events</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deployed">Deployed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#erc20bridgetransfer">ERC20BridgeTransfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fill">Fill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#killed">Killed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limitorderfilled">LimitOrderFilled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metatransactionexecuted">MetaTransactionExecuted</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#liquidityproviderswap">LiquidityProviderSwap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#migrated">Migrated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ordercancelled">OrderCancelled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#paircancelledlimitorders">PairCancelledLimitOrders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#paircancelledrfqorders">PairCancelledRfqOrders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#protocolfeeunfunded">ProtocolFeeUnfunded</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#proxyfunctionupdated">ProxyFunctionUpdated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quotesignerupdated">QuoteSignerUpdated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rfqorderfilled">RfqOrderFilled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rfqorderoriginsallowed">RfqOrderOriginsAllowed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ordersignerregistered">OrderSignerRegistered</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transformederc20">TransformedERC20</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transformerdeployerupdated">TransformerDeployerUpdated</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transformermetadata">TransformerMetadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#erc721orderfilled">ERC721OrderFilled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#erc721ordercancelled">ERC721OrderCancelled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#erc721orderpresigned">ERC721OrderPreSigned</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#erc1155orderfilled">ERC1155OrderFilled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#erc1155ordercancelled">ERC1155OrderCancelled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#erc1155orderpresigned">ERC1155OrderPreSigned</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Events</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basics/events.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="events">
+<h1>Events<a class="headerlink" href="#events" title="Link to this heading"></a></h1>
+<p>This is a complete catalogue of 0x events emitted when interacting with the Exchange Proxy system of contracts. The diagram below
+illustrates how events are emitted when trading through the Exchange Proxy.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There are pending upgrades that impact these events. Please see the <a class="reference external" href="../additional/releases.html">Releases</a> page for more details.</p>
+</div>
+<a class="reference internal image-reference" href="../_images/events.png"><img alt="../_images/events.png" height="227" src="../_images/events.png" width="640" />
+</a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This catalogue does not include events emitted by tokens or other exchanges, like Uniswap. It also only lists 0x V3 events
+that are emitted during a Fill; for an extensive list of V3 events, see the <a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/v3/v3-specification.md#events">V3 Spec</a>.</p>
+</div>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Event</strong></p></td>
+<td><p><strong>Description</strong></p></td>
+<td><p><strong>Emitted By</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#deployed">Deployed</a></p></td>
+<td><p>Emitted by the <a class="reference external" href="../architecture/transformer_deployer.html">Transformer Deployer</a> when a <a class="reference external" href="../architecture/transformers.html">Transformer</a> is deployed.</p></td>
+<td><p>TransformerDeployer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#erc20bridgetransfer">ERC20BridgeTransfer</a></p></td>
+<td><p>Emitted when a trade occurs.</p></td>
+<td><p>FlashWallet</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fill">Fill</a></p></td>
+<td><p>Emitted by Exchange V3 when an order is filled.</p></td>
+<td><p>Exchange V3</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#killed">Killed</a></p></td>
+<td><p>Emitted by the <a class="reference external" href="../architecture/transformer_deployer.html">Transformer Deployer</a> when a <a class="reference external" href="../architecture/transformers.html">Transformer</a> is killed.</p></td>
+<td><p>TransformerDeployer</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#limitorderfilled">LimitOrderFilled</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#limit-orders">V4 Limit Order</a> is filled.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#liquidityproviderswap">LiquidityProviderSwap</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="../advanced/plp.html">PLP</a> executes a swap.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ordercancelled">OrderCancelled</a></p></td>
+<td><p>Emitted when a V4 Limit or RFQ Order is cancelled.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#metatransactionexecuted">MetaTransactionExecuted</a></p></td>
+<td><p>Emitted when a meta-transaction is executed on the Exchange Proxy.
+Note that this differs from meta-transactions that are executed on Exchange V3.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#migrated">Migrated</a></p></td>
+<td><p>Emitted when <cite>ExchangeProxy.migrate()</cite> is called.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#paircancelledlimitorders">PairCancelledLimitOrders</a></p></td>
+<td><p>Emitted when a Market Pair is cancelled for Limit Orders (see <a class="reference external" href="./functions.html#cancelpairlimitorders">cancelPairLimitOrders</a>).</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#paircancelledrfqorders">PairCancelledRfqOrders</a></p></td>
+<td><p>Emitted when a Market Pair is cancelled for RFQ Orders (see <a class="reference external" href="./functions.html#cancelpairrfqorders">cancelPairRfqOrders</a>).</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#protocolfeeunfunded">ProtocolFeeUnfunded</a></p></td>
+<td><p>Emitted when an order is skipped due to a lack of funds to pay the 0x Protocol fee.</p></td>
+<td><p>FlashWallet</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#proxyfunctionupdated">ProxyFunctionUpdated</a></p></td>
+<td><p>Emitted when a function is upgraded via <cite>extend()</cite> or <cite>rollback()</cite></p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#quotesignerupdated">QuoteSignerUpdated</a></p></td>
+<td><p>Emitted when <cite>ExchangeProxy.setQuoteSigner()</cite> is called.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rfqorderfilled">RfqOrderFilled</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#rfq-orders">V4 RFQ Order</a> is filled.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rfqorderoriginsallowed">RfqOrderOriginsAllowed</a></p></td>
+<td><p>Emitted when a tx.origin is added/removed for RFQ, via <a class="reference external" href="./functions.html#registerallowedrfqorigins">registerAllowedRfqOrigins</a></p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ordersignerregistered">OrderSignerRegistered</a></p></td>
+<td><p>Emitted when an order signer is added/removed for a maker, via <a class="reference external" href="./functions.html#registerallowedordersigner">registerAllowedOrderSigner</a></p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#transformederc20">TransformedERC20</a></p></td>
+<td><p>Emitted when an <a class="reference external" href="../advanced/erc20_transformations.html">ERC20 Transformation</a> completes.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#transformerdeployerupdated">TransformerDeployerUpdated</a></p></td>
+<td><p>Emitted when the Transformer Deployer is upgraded.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#transformermetadata">TransformerMetadata</a></p></td>
+<td><p>A general, customizable event emitted that can be emitted by transformers as-needed.</p></td>
+<td><p>FlashWallet</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#erc1155orderfilled">ERC1155OrderFilled</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#erc1155-orders">V4 ERC1155 Order</a> is filled.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#erc721orderfilled">ERC721OrderFilled</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#erc721-orders">V4 ERC721 Order</a> is filled.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#erc1155ordercancelled">ERC1155OrderCancelled</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#erc1155-orders">V4 ERC1155 Order</a> is cancelled.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#erc721ordercancelled">ERC721OrderCancelled</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#erc721-orders">V4 ERC721 Order</a> is cancelled.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#erc1155orderpresigned">ERC1155OrderPreSigned</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#erc1155-orders">V4 ERC1155 Order</a> is signed on-chain.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#erc721orderpresigned">ERC721OrderPreSigned</a></p></td>
+<td><p>Emitted when a <a class="reference external" href="./orders.html#erc721-orders">V4 ERC721 Order</a> is signed on-chain.</p></td>
+<td><p>ExchangeProxy</p></td>
+</tr>
+</tbody>
+</table>
+<section id="deployed">
+<h2>Deployed<a class="headerlink" href="#deployed" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when a contract is deployed via `deploy()`.</span>
+<span class="c1">/// @param deployedAddress The address of the deployed contract.</span>
+<span class="c1">/// @param nonce The deployment nonce.</span>
+<span class="c1">/// @param sender The caller of `deploy()`.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">Deployed</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">deployedAddress</span><span class="p">,</span><span class="w"> </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">sender</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="erc20bridgetransfer">
+<h2>ERC20BridgeTransfer<a class="headerlink" href="#erc20bridgetransfer" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when a trade occurs.</span>
+<span class="c1">/// @param inputToken The token the bridge is converting from.</span>
+<span class="c1">/// @param outputToken The token the bridge is converting to.</span>
+<span class="c1">/// @param inputTokenAmount Amount of input token.</span>
+<span class="c1">/// @param outputTokenAmount Amount of output token.</span>
+<span class="c1">/// @param from The bridge address, indicating the underlying source of the fill.</span>
+<span class="c1">/// @param to The `to` address, currrently `address(this)`</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC20BridgeTransfer</span><span class="p">(</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>inputToken<span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>outputToken<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">inputTokenAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">outputTokenAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">from</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">to</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="fill">
+<h2>Fill<a class="headerlink" href="#fill" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">event</span><span class="w"> </span><span class="nv">Fill</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>makerAddress<span class="p">,</span><span class="w">         </span><span class="c1">// Address that created the order.</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>feeRecipientAddress<span class="p">,</span><span class="w">  </span><span class="c1">// Address that received fees.</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">makerAssetData</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Encoded data specific to makerAsset.</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">takerAssetData</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Encoded data specific to takerAsset.</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">makerFeeAssetData</span><span class="p">,</span><span class="w">              </span><span class="c1">// Encoded data specific to makerFeeAsset.</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">takerFeeAssetData</span><span class="p">,</span><span class="w">              </span><span class="c1">// Encoded data specific to takerFeeAsset.</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>orderHash<span class="p">,</span><span class="w">            </span><span class="c1">// EIP712 hash of order (see LibOrder.getTypedDataHash).</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">takerAddress</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Address that filled the order.</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">senderAddress</span><span class="p">,</span><span class="w">                </span><span class="c1">// Address that called the Exchange contract (msg.sender).</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">makerAssetFilledAmount</span><span class="p">,</span><span class="w">       </span><span class="c1">// Amount of makerAsset sold by maker and bought by taker.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">takerAssetFilledAmount</span><span class="p">,</span><span class="w">       </span><span class="c1">// Amount of takerAsset sold by taker and bought by maker.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">makerFeePaid</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Amount of makerFeeAssetData paid to feeRecipient by maker.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">takerFeePaid</span><span class="p">,</span><span class="w">                 </span><span class="c1">// Amount of takerFeeAssetData paid to feeRecipient by taker.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">protocolFeePaid</span><span class="w">               </span><span class="c1">// Amount of eth or weth paid to the staking contract.</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="killed">
+<h2>Killed<a class="headerlink" href="#killed" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when a contract is killed via `kill()`.</span>
+<span class="c1">/// @param target The address of the contract being killed..</span>
+<span class="c1">/// @param sender The caller of `kill()`.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">Killed</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">target</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">sender</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="limitorderfilled">
+<h2>LimitOrderFilled<a class="headerlink" href="#limitorderfilled" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever a `LimitOrder` is filled.</span>
+<span class="c1">/// @param orderHash The canonical hash of the order.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param taker The taker of the order.</span>
+<span class="c1">/// @param feeRecipient Fee recipient of the order.</span>
+<span class="c1">/// @param takerTokenFilledAmount How much taker token was filled.</span>
+<span class="c1">/// @param makerTokenFilledAmount How much maker token was filled.</span>
+<span class="c1">/// @param protocolFeePaid How much protocol fee was paid.</span>
+<span class="c1">/// @param pool The fee pool associated with this order.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">LimitOrderFilled</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">feeRecipient</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">makerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">takerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFilledAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">makerTokenFilledAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFeeFilledAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">protocolFeePaid</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">pool</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="metatransactionexecuted">
+<h2>MetaTransactionExecuted<a class="headerlink" href="#metatransactionexecuted" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever a meta-transaction is executed via</span>
+<span class="c1">///      `executeMetaTransaction()` or `executeMetaTransactions()`.</span>
+<span class="c1">/// @param hash The meta-transaction hash.</span>
+<span class="c1">/// @param selector The selector of the function being executed.</span>
+<span class="c1">/// @param signer Who to execute the meta-transaction on behalf of.</span>
+<span class="c1">/// @param sender Who executed the meta-transaction.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">MetaTransactionExecuted</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">hash</span><span class="p">,</span>
+<span class="w">    </span>bytes4<span class="w"> </span>indexed<span class="w"> </span>selector<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">signer</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">sender</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="liquidityproviderswap">
+<h2>LiquidityProviderSwap<a class="headerlink" href="#liquidityproviderswap" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">event</span><span class="w"> </span><span class="nv">LiquidityProviderSwap</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">inputToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">outputToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">inputTokenAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">outputTokenAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">provider</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">recipient</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="migrated">
+<h2>Migrated<a class="headerlink" href="#migrated" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when `migrate()` is called.</span>
+<span class="c1">/// @param caller The caller of `migrate()`.</span>
+<span class="c1">/// @param migrator The migration contract.</span>
+<span class="c1">/// @param newOwner The address of the new owner.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">Migrated</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">caller</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">migrator</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">newOwner</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="ordercancelled">
+<h2>OrderCancelled<a class="headerlink" href="#ordercancelled" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever a limit or RFQ order is cancelled.</span>
+<span class="c1">/// @param orderHash The canonical hash of the order.</span>
+<span class="c1">/// @param maker The order maker.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">OrderCancelled</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="paircancelledlimitorders">
+<h2>PairCancelledLimitOrders<a class="headerlink" href="#paircancelledlimitorders" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever limit or RFQ orders are cancelled by pair by a maker.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param makerToken The maker token in a pair for the orders cancelled.</span>
+<span class="c1">/// @param takerToken The taker token in a pair for the orders cancelled.</span>
+<span class="c1">/// @param minValidSalt The new minimum valid salt an order with this pair must</span>
+<span class="c1">///        have.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">PairCancelledLimitOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">makerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">takerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">minValidSalt</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="paircancelledrfqorders">
+<h2>PairCancelledRfqOrders<a class="headerlink" href="#paircancelledrfqorders" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever limit or RFQ orders are cancelled by pair by a maker.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param makerToken The maker token in a pair for the orders cancelled.</span>
+<span class="c1">/// @param takerToken The taker token in a pair for the orders cancelled.</span>
+<span class="c1">/// @param minValidSalt The new minimum valid salt an order with this pair must</span>
+<span class="c1">///        have.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">PairCancelledRfqOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">makerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">takerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">minValidSalt</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="protocolfeeunfunded">
+<h2>ProtocolFeeUnfunded<a class="headerlink" href="#protocolfeeunfunded" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when a trade is skipped due to a lack of funds</span>
+<span class="c1">///      to pay the 0x Protocol fee.</span>
+<span class="c1">/// @param orderHash The hash of the order that was skipped.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ProtocolFeeUnfunded</span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="proxyfunctionupdated">
+<h2>ProxyFunctionUpdated<a class="headerlink" href="#proxyfunctionupdated" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev A function implementation was updated via `extend()` or `rollback()`.</span>
+<span class="c1">/// @param selector The function selector.</span>
+<span class="c1">/// @param oldImpl The implementation contract address being replaced.</span>
+<span class="c1">/// @param newImpl The replacement implementation contract address.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ProxyFunctionUpdated</span><span class="p">(</span>bytes4<span class="w"> </span>indexed<span class="w"> </span>selector<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">oldImpl</span><span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">newImpl</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="quotesignerupdated">
+<h2>QuoteSignerUpdated<a class="headerlink" href="#quotesignerupdated" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Raised when `setQuoteSigner()` is called.</span>
+<span class="c1">/// @param quoteSigner The new quote signer.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">QuoteSignerUpdated</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">quoteSigner</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="rfqorderfilled">
+<h2>RfqOrderFilled<a class="headerlink" href="#rfqorderfilled" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever an `RfqOrder` is filled.</span>
+<span class="c1">/// @param orderHash The canonical hash of the order.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param taker The taker of the order.</span>
+<span class="c1">/// @param takerTokenFilledAmount How much taker token was filled.</span>
+<span class="c1">/// @param makerTokenFilledAmount How much maker token was filled.</span>
+<span class="c1">/// @param pool The fee pool associated with this order.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">RfqOrderFilled</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">makerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">takerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFilledAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">makerTokenFilledAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">pool</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="rfqorderoriginsallowed">
+<h2>RfqOrderOriginsAllowed<a class="headerlink" href="#rfqorderoriginsallowed" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when new addresses are allowed or disallowed to fill</span>
+<span class="c1">///      orders with a given txOrigin.</span>
+<span class="c1">/// @param origin The address doing the allowing.</span>
+<span class="c1">/// @param addrs The address being allowed/disallowed.</span>
+<span class="c1">/// @param allowed Indicates whether the address should be allowed.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">RfqOrderOriginsAllowed</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">origin</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span>addrs<span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">allowed</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="ordersignerregistered">
+<h2>OrderSignerRegistered<a class="headerlink" href="#ordersignerregistered" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when new order signers are registered</span>
+<span class="c1">/// @param maker The maker address that is registering a designated signer.</span>
+<span class="c1">/// @param signer The address that will sign on behalf of maker.</span>
+<span class="c1">/// @param allowed Indicates whether the address should be allowed.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">OrderSignerRegistered</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">signer</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">allowed</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="transformederc20">
+<h2>TransformedERC20<a class="headerlink" href="#transformederc20" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Raised upon a successful `transformERC20`.</span>
+<span class="c1">/// @param taker The taker (caller) address.</span>
+<span class="c1">/// @param inputToken The token being provided by the taker.</span>
+<span class="c1">///        If `0xeee...`, ETH is implied and should be provided with the call.`</span>
+<span class="c1">/// @param outputToken The token to be acquired by the taker.</span>
+<span class="c1">///        `0xeee...` implies ETH.</span>
+<span class="c1">/// @param inputTokenAmount The amount of `inputToken` to take from the taker.</span>
+<span class="c1">/// @param outputTokenAmount The amount of `outputToken` received by the taker.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">TransformedERC20</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">indexed</span><span class="w"> </span>taker<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">inputToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">outputToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">inputTokenAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">outputTokenAmount</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="transformerdeployerupdated">
+<h2>TransformerDeployerUpdated<a class="headerlink" href="#transformerdeployerupdated" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Raised when `setTransformerDeployer()` is called.</span>
+<span class="c1">/// @param transformerDeployer The new deployer address.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">TransformerDeployerUpdated</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">transformerDeployer</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="transformermetadata">
+<h2>TransformerMetadata<a class="headerlink" href="#transformermetadata" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev A transformer that just emits an event with an arbitrary byte payload.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">TransformerMetadata</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">callDataHash</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">sender</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">data</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="erc721orderfilled">
+<h2>ERC721OrderFilled<a class="headerlink" href="#erc721orderfilled" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever an `ERC721Order` is filled.</span>
+<span class="c1">/// @param direction Whether the order is selling or</span>
+<span class="c1">///        buying the ERC721 token.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param taker The taker of the order.</span>
+<span class="c1">/// @param nonce The unique maker nonce in the order.</span>
+<span class="c1">/// @param erc20Token The address of the ERC20 token.</span>
+<span class="c1">/// @param erc20TokenAmount The amount of ERC20 token</span>
+<span class="c1">///        to sell or buy.</span>
+<span class="c1">/// @param erc721Token The address of the ERC721 token.</span>
+<span class="c1">/// @param erc721TokenId The ID of the ERC721 asset.</span>
+<span class="c1">/// @param matcher If this order was matched with another using `matchERC721Orders()`,</span>
+<span class="c1">///                this will be the address of the caller. If not, this will be `address(0)`.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC721OrderFilled</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>TradeDirection<span class="w"> </span>direction<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>erc20Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc20TokenAmount</span><span class="p">,</span>
+<span class="w">    </span>IERC721Token<span class="w"> </span>erc721Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc721TokenId</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">matcher</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="erc721ordercancelled">
+<h2>ERC721OrderCancelled<a class="headerlink" href="#erc721ordercancelled" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever an `ERC721Order` is cancelled.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param nonce The nonce of the order that was cancelled.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC721OrderCancelled</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="erc721orderpresigned">
+<h2>ERC721OrderPreSigned<a class="headerlink" href="#erc721orderpresigned" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when an `ERC721Order` is pre-signed.</span>
+<span class="c1">///      Contains all the fields of the order.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC721OrderPreSigned</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>TradeDirection<span class="w"> </span>direction<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">expiry</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>erc20Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc20TokenAmount</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Fee<span class="p">[]</span><span class="w"> </span>fees<span class="p">,</span>
+<span class="w">    </span>IERC721Token<span class="w"> </span>erc721Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc721TokenId</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Property<span class="p">[]</span><span class="w"> </span>erc721TokenProperties
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="erc1155orderfilled">
+<h2>ERC1155OrderFilled<a class="headerlink" href="#erc1155orderfilled" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever an `ERC1155Order` is filled.</span>
+<span class="c1">/// @param direction Whether the order is selling or</span>
+<span class="c1">///        buying the ERC1155 token.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param taker The taker of the order.</span>
+<span class="c1">/// @param nonce The unique maker nonce in the order.</span>
+<span class="c1">/// @param erc20Token The address of the ERC20 token.</span>
+<span class="c1">/// @param erc20FillAmount The amount of ERC20 token filled.</span>
+<span class="c1">/// @param erc1155Token The address of the ERC1155 token.</span>
+<span class="c1">/// @param erc1155TokenId The ID of the ERC1155 asset.</span>
+<span class="c1">/// @param erc1155FillAmount The amount of ERC1155 asset filled.</span>
+<span class="c1">/// @param matcher Currently unused.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC1155OrderFilled</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>TradeDirection<span class="w"> </span>direction<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>erc20Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc20FillAmount</span><span class="p">,</span>
+<span class="w">    </span>IERC1155Token<span class="w"> </span>erc1155Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc1155TokenId</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">erc1155FillAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">matcher</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="erc1155ordercancelled">
+<h2>ERC1155OrderCancelled<a class="headerlink" href="#erc1155ordercancelled" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted whenever an `ERC1155Order` is cancelled.</span>
+<span class="c1">/// @param orderHash The hash the order.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC1155OrderCancelled</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="erc1155orderpresigned">
+<h2>ERC1155OrderPreSigned<a class="headerlink" href="#erc1155orderpresigned" title="Link to this heading"></a></h2>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Emitted when an `ERC1155Order` is pre-signed.</span>
+<span class="c1">///      Contains all the fields of the order.</span>
+<span class="kt">event</span><span class="w"> </span><span class="nv">ERC1155OrderPreSigned</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>TradeDirection<span class="w"> </span>direction<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">taker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">expiry</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">nonce</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>erc20Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc20TokenAmount</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Fee<span class="p">[]</span><span class="w"> </span>fees<span class="p">,</span>
+<span class="w">    </span>IERC1155Token<span class="w"> </span>erc1155Token<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc1155TokenId</span><span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>Property<span class="p">[]</span><span class="w"> </span>erc1155TokenProperties<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">erc1155TokenAmount</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="functions.html" class="btn btn-neutral float-left" title="Basic Functionality" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="allowances.html" class="btn btn-neutral float-right" title="Allowances" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

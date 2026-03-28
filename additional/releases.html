@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Releases &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EMERGENCY" href="emergency.html" />
+    <link rel="prev" title="Exceptional ERC20s" href="exceptional_erc20s.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#upcoming">Upcoming</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nifty">Nifty</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#past">Past</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#amaretto">Amaretto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#babooshka">Babooshka</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#squire">Squire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#big-pantsuit-energy">big-pantsuit-energy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#panettone">Panettone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cyberpants2077">cyberpants2077</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hot-pants">Hot-Pants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plop">Plop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tinker">Tinker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#elphaba">Elphaba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#champagne-problems">Champagne-Problems</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Releases</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/additional/releases.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="releases">
+<h1>Releases<a class="headerlink" href="#releases" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These releases are approved by the 0x Community. Come out and vote <a class="reference external" href="https://0x.org/zrx/vote/">HERE</a>!</p>
+</div>
+<p>This page outlines upcoming releases and expected changes.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 50.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+<col style="width: 10.0%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Name</strong></p></td>
+<td><p><strong>Overview</strong></p></td>
+<td><p><strong>Est Release Date</strong></p></td>
+<td><p><strong>Status</strong></p></td>
+<td><p><strong>Additional</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nifty">Nifty</a></p></td>
+<td><p>ERC721 and ERC1155 support</p></td>
+<td><p>02/14/22</p></td>
+<td><p>Vote</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><em>The following releases have been deployed</em></p></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#amaretto">Amaretto</a></p></td>
+<td><p>Protocol 4.1: Efficiency + Batch Fills</p></td>
+<td><p>03/15/21</p></td>
+<td><p>Deployed</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#babooshka">Babooshka</a></p></td>
+<td><p>Connect Exchange Proxy to Staking</p></td>
+<td><p>02/08/21</p></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/9_babooshka.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#squire">Squire</a></p></td>
+<td><p>Aggregation for <a class="reference external" href="../basics/orders.html">V4 Orders</a></p></td>
+<td><p>02/04/21</p></td>
+<td><p>Deployed</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#big-pantsuit-energy">big-pantsuit-energy</a></p></td>
+<td><p>Patch batch <code class="docutils literal notranslate"><span class="pre">`getOrderRelevantState()`</span></code> functions</p></td>
+<td><p>01/25/21</p></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/8_big-pantsuit-energy.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#panettone">Panettone</a></p></td>
+<td><p>Minor patches from <a class="reference external" href="./audits.html">Consensys Audit</a></p></td>
+<td><p>01/12/21</p></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/7_panettone.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cyberpants2077">cyberpants2077</a></p></td>
+<td><p><a class="reference external" href="../basics/orders.html">V4 Orders</a></p></td>
+<td><p>01/05/21</p></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/6_cyberpants2077.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hot-pants">Hot-Pants</a></p></td>
+<td><p>Remove calldata signing / DeFi Saver Fix / Allowance on Proxy</p></td>
+<td><p>12/07/20</p></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/5_hot_pants.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#plop">Plop</a></p></td>
+<td><p>PLP VIP</p></td>
+<td><p>12/01/20</p></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/4_plop.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tinker">Tinker</a></p></td>
+<td><p>Set allowances directly on Exchange Proxy</p></td>
+<td><p>11/12/20</p></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/3_tinker.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#elphaba">Elphaba</a></p></td>
+<td><p>Meta-Transactions + Uniswap VIP</p></td>
+<td></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/2_elphaba.md">Release Notes</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#champagne-problems">Champagne-Problems</a></p></td>
+<td><p>Signed Calldata</p></td>
+<td></td>
+<td><p>Deployed</p></td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-migrations/blob/main/src/exchange-proxy/migrations/log/1_champagne_problems.md">Release Notes</a></p></td>
+</tr>
+</tbody>
+</table>
+<section id="upcoming">
+<h2>Upcoming<a class="headerlink" href="#upcoming" title="Link to this heading"></a></h2>
+<section id="nifty">
+<h3>Nifty<a class="headerlink" href="#nifty" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>ERC721 and ERC1155 order types</p></li>
+<li><p>Batch fills for NFT orders</p></li>
+<li><p>Property based orders</p></li>
+<li><p>Ability to receive ETH in NFT orders</p></li>
+</ul>
+</section>
+</section>
+<section id="past">
+<h2>Past<a class="headerlink" href="#past" title="Link to this heading"></a></h2>
+<section id="amaretto">
+<h3>Amaretto<a class="headerlink" href="#amaretto" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>RFQ VIP (fallback to DEX if RFQ orders is unfillable)</p></li>
+<li><p>Batch fills for native orders</p></li>
+<li><p>Mooniswap VIP</p></li>
+<li><p>Curve / Swerve VIP (via PLP Sandbox)</p></li>
+</ul>
+</section>
+<section id="babooshka">
+<h3>Babooshka<a class="headerlink" href="#babooshka" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Register the 0x Exchange Proxy with the Staking Proxy, allowing protocol fees from V4 Orders to be paid to Staking Pools.</p></li>
+</ul>
+</section>
+<section id="squire">
+<h3>Squire<a class="headerlink" href="#squire" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Deploy updated <a class="reference external" href="../architecture/transformers.html">FillQuoteTransformer</a>, which can fill <a class="reference external" href="../basics/orders.html">V4 Orders</a>. This transformer will no longer call Exchange V3.</p></li>
+<li><p>This will replace the <a class="reference external" href="../basics/events.html#erc20bridgetransfer">ERC20BridgeTransfer Event</a></p></li>
+</ul>
+</section>
+<section id="big-pantsuit-energy">
+<h3>big-pantsuit-energy<a class="headerlink" href="#big-pantsuit-energy" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Swallow reverts in <cite>batchGetRfqOrderRelevantStates()</cite> and <cite>batchGetLimitOrderRelevantStates()</cite> functions.</p></li>
+</ul>
+</section>
+<section id="panettone">
+<h3>Panettone<a class="headerlink" href="#panettone" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Minor patches from the Consensys Audit. No breaking changes.</p></li>
+<li><p>Decommissions the internal <cite>_executeMetaTransaction</cite> function.</p></li>
+<li><p>Extends deployment timelock from 24h to 48h.</p></li>
+<li><p>Decommission <a class="reference external" href="../architecture/features.html">SignatureValidationFeature</a>.</p></li>
+<li><p>Decommission <a class="reference external" href="../architecture/features.html">TokenSpenderFeature</a>.</p></li>
+</ul>
+</section>
+<section id="cyberpants2077">
+<h3>cyberpants2077<a class="headerlink" href="#cyberpants2077" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Deploy <a class="reference external" href="../architecture/features.html">NativeLiquidityFeature</a>. This incldues order validation that was previously in Dev-Utils.</p></li>
+<li><p>Introduces <a class="reference external" href="../basics/events.html">new events</a>.</p></li>
+</ul>
+</section>
+<section id="hot-pants">
+<h3>Hot-Pants<a class="headerlink" href="#hot-pants" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Removes calldata signing from <code class="docutils literal notranslate"><span class="pre">TransformERC20</span></code> Feature.</p></li>
+<li><p>Redeploying all <a class="reference external" href="../architecture/transformers.html">Transformers</a> (new interface w/o <code class="docutils literal notranslate"><span class="pre">calldataHash</span></code>)</p></li>
+<li><p>Allowances can now be set on the <a class="reference external" href="../architecture/features/proxy.html">Proxy</a>. See more on the <a class="reference external" href="../basics/allowances.html">Allowances Page</a>. This involves redeploying the following <a class="reference external" href="../architecture/features.html">Features</a>: <code class="docutils literal notranslate"><span class="pre">MetaTransactionsFeature</span></code>, <code class="docutils literal notranslate"><span class="pre">TransformERC20Feature</span></code>, <code class="docutils literal notranslate"><span class="pre">UniswapFeature</span></code>.</p></li>
+</ul>
+</section>
+<section id="plop">
+<h3>Plop<a class="headerlink" href="#plop" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Deploy the <a class="reference external" href="../architecture/features.html">LiquidityProviderFeature</a>, which enables optimized trades directly with <a class="reference external" href="../advanced/plp.html">PLP</a></p></li>
+</ul>
+</section>
+<section id="tinker">
+<h3>Tinker<a class="headerlink" href="#tinker" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This release was partially rolled back due to breaking allowances for some <a class="reference external" href="./exceptional_erc20s.html">Exceptional ERC20 Tokens</a>. These features were fixed and re-deployed in the Hot-Pants release, above.</p>
+</div>
+<ul class="simple">
+<li><p>Upgrade any features that transfer user funds to use allowances on the Proxy contract. Transfers will still fallback to the Allowance Target, but integrators will get reduced transaction costs from setting their allowance on the Proxy. This involves redeploying the following <a class="reference external" href="../architecture/features.html">Features</a>: <code class="docutils literal notranslate"><span class="pre">MetaTransactionsFeature</span></code>, <code class="docutils literal notranslate"><span class="pre">TransformERC20Feature</span></code>, <code class="docutils literal notranslate"><span class="pre">UniswapFeature</span></code>.</p></li>
+</ul>
+</section>
+<section id="elphaba">
+<h3>Elphaba<a class="headerlink" href="#elphaba" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Updates for Meta-Transactions Feature</p></li>
+<li><p>Uniswap VIP for efficient fills through Uniswap.</p></li>
+</ul>
+</section>
+<section id="champagne-problems">
+<h3>Champagne-Problems<a class="headerlink" href="#champagne-problems" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Signed Calldata for Meta-Transactions</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="exceptional_erc20s.html" class="btn btn-neutral float-left" title="Exceptional ERC20s" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="emergency.html" class="btn btn-neutral float-right" title="EMERGENCY" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

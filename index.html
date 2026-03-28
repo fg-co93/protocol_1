@@ -1,0 +1,229 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>0x Protocol &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/js_overrides.js?v=385de118"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview" href="architecture/overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">0x Protocol</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="x-protocol">
+<h1>0x Protocol<a class="headerlink" href="#x-protocol" title="Link to this heading"></a></h1>
+<p>0x Protocol is the trusted open source settlement layer for the permissionless global exchange of value.</p>
+<p>This documentation is aimed to serve as the canonical technical documentation for 0x Protocol and the system of smart contracts that make up its full functionality. The structure of this documentation is as follows:</p>
+<ul class="simple">
+<li><p>Architectural Overview of the whole system of smart contracts that 0x Protocol is comprised of.</p></li>
+<li><p>Subsections will provide a deep dive into each contracts</p></li>
+<li><p>Tutorial and tools to get started building with/on top of 0x Protocol</p></li>
+</ul>
+<p>To learn more about why 0x Protocol was created, read the whitepaper <a class="reference external" href="https://github.com/0xProject/whitepaper/blob/master/0x_white_paper.pdf">here</a> and at <a class="reference external" href="https://0xProtocol.org">0xProtocol.org</a>.</p>
+<p>All code is open sourced on <a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a>.</p>
+<p>Connect with the community on our <a class="reference external" href="https://forum.0xProtocol.org/">Forum</a>, <a class="reference external" href="https://discord.com/invite/official0x">Discord</a>, <a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a>, and <a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a>.</p>
+<a class="reference internal image-reference" href="_images/logo.png"><img alt="0x Protocol logo" class="align-center" src="_images/logo.png" style="width: 60%;" />
+</a>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basics/addresses.html">Addresses</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="additional/emergency.html">EMERGENCY</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture/overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

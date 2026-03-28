@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Basic Functionality" href="functions.html" />
+    <link rel="prev" title="PLP Sandbox" href="../architecture/plp_sandbox.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Orders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#limit-orders">Limit Orders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rfq-orders">RFQ Orders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nft-orders">NFT Orders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#erc721-orders">ERC721 Orders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#erc1155-orders">ERC1155 Orders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nft-order-property">NFT Order Property</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nft-order-fee">NFT Order Fee</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-sign">How To Sign</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-orderbook">The Orderbook</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#json-representation-of-rfq-orders">JSON representation of RFQ Orders</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Orders</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basics/orders.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="orders">
+<h1>Orders<a class="headerlink" href="#orders" title="Link to this heading"></a></h1>
+<p>An order is a message passed into the 0x Protocol to facilitate an ERC20-&gt;ERC20 trade. There are currently two types of orders in 0x V4: <strong>Limit</strong> and <strong>RFQ</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>0x Orders currently support the exchange of ERC20 Tokens. Other asset classes, like ERC721,
+will be added in the future based on community demand.</p>
+</div>
+<section id="limit-orders">
+<h2>Limit Orders<a class="headerlink" href="#limit-orders" title="Link to this heading"></a></h2>
+<p>Limit orders are the standard 0x Order, which encodes a possible trade between a maker and taker at a fixed price. These orders are typically distributed via Mesh/SRA (open orderbook) or OTC, and can be filled through the functions on the Exchange Proxy.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">LimitOrder</span></code> struct has the following fields:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Field</p></td>
+<td><p>Type</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">makerToken</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC20 token the maker is selling and the maker is selling to the taker. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">takerToken</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC20 token the taker is selling and the taker is selling to the maker. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">makerAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint128</span></code></p></td>
+<td><p>The amount of makerToken being sold by the maker. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">takerAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint128</span></code></p></td>
+<td><p>The amount of takerToken being sold by the taker. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">takerTokenFeeAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint128</span></code></p></td>
+<td><p>Amount of takerToken paid by the taker to the feeRecipient. [optional; default 0]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The address of the maker, and signer, of this order. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">taker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>Allowed taker address. Set to zero to allow any taker. [optional; default 0]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sender</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>Allowed address to call <code class="docutils literal notranslate"><span class="pre">fillLimitOrder()</span></code> (<code class="docutils literal notranslate"><span class="pre">msg.sender</span></code>).
+This is the same as <code class="docutils literal notranslate"><span class="pre">taker</span></code>, expect when using meta-transactions.
+Set to zero to allow any caller. [optional; default 0]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feeRecipient</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>Recipient of maker token or taker token fees (if non-zero). [optional; default 0]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bytes32</span></code></p></td>
+<td><p>The staking pool to attribute the 0x protocol fee from this order.
+Set to zero to attribute to the default pool, not owned by anyone. [optional; default 0]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">expiry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64</span></code></p></td>
+<td><p>The Unix timestamp in seconds when this order expires. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">salt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>Arbitrary number to enforce uniqueness of the order hash. [required]</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="rfq-orders">
+<h2>RFQ Orders<a class="headerlink" href="#rfq-orders" title="Link to this heading"></a></h2>
+<p>RFQ orders are a stripped down version of standard limit orders, supporting fewer fields and a leaner settlement process.
+These orders are fielded just-in-time, directly from market makers, during the construction of a swap quote on 0x API,
+and can be filled through the <code class="docutils literal notranslate"><span class="pre">fillRfqOrder()</span></code> function on the Exchange Proxy.</p>
+<p>Some notable differences from regular limit orders are:</p>
+<ul class="simple">
+<li><p>There is no <code class="docutils literal notranslate"><span class="pre">sender</span></code> field.</p></li>
+<li><p>There is no taker fee.</p></li>
+<li><p>Must restrict <code class="docutils literal notranslate"><span class="pre">transaction.origin</span></code> via the <cite>order.txOrigin</cite> field.</p></li>
+<li><p>There is currently no protocol fee paid when filling an RFQ order.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">RFQOrder</span></code> struct has the following fields:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Field</p></td>
+<td><p>Type</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">makerToken</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC20 token the maker is selling and the maker is selling to the taker. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">takerToken</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC20 token the taker is selling and the taker is selling to the maker. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">makerAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint128</span></code></p></td>
+<td><p>The amount of makerToken being sold by the maker. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">takerAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint128</span></code></p></td>
+<td><p>The amount of takerToken being sold by the taker. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The address of the maker, and signer, of this order. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">taker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>Allowed taker address. Set to zero to allow any taker. [optional; default 0]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">txOrigin</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The allowed address of the EOA that submitted the Ethereum transaction. <strong>This must be set</strong>.
+Multiple addresses are supported via <a class="reference external" href="./functions.html#registerallowedrfqorigins">registerAllowedRfqOrigins</a>. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bytes32</span></code></p></td>
+<td><p>The staking pool to attribute the 0x protocol fee from this order.
+Set to zero to attribute to the default pool, not owned by anyone. [optional; default 0]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">expiry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64</span></code></p></td>
+<td><p>The Unix timestamp in seconds when this order expires. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">salt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>Arbitrary number to enforce uniqueness of the order hash. [required]</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nft-orders">
+<h2>NFT Orders<a class="headerlink" href="#nft-orders" title="Link to this heading"></a></h2>
+<p>NFT orders in 0x V4 are optimized for this specific use case. They are up to 54% cheaper than alternatives currently on Ethereum.
+Unlike 0x Limit orders, there is a <cite>direction</cite> of the trade, either buy or sell. ERC20’s can be exchanged for either ERC721 or ERC1155.</p>
+<p>Property based orders can also be created by specifying the properties field in the respective order.</p>
+<p>A number of fees can be embedded in the order.</p>
+<p><a class="reference external" href="https://docs.swapsdk.xyz/0x-v4">NFT Swap SDK</a> is a friendly library that will help you easily create and consume NFT orders in 0x V4. You can find their <a class="reference external" href="https://docs.swapsdk.xyz/0x-v4">documentation here</a>.</p>
+<section id="erc721-orders">
+<h3>ERC721 Orders<a class="headerlink" href="#erc721-orders" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ERC721Order</span></code> struct has the following fields:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Field</p></td>
+<td><p>Type</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">direction</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enum</span></code></p></td>
+<td><p>The trade direction, either sell the NFT or buy the NFT</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The address of the maker, and signer, of this order. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">taker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>Allowed taker address. Set to zero to allow any taker. [optional; default 0]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">expiry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>The Unix timestamp in seconds when this order expires. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nonce</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>Number used to uniquiely represent this order. Used for cancellations. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">erc20Token</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC20 token used to pay for the ERC721 token. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">erc20TokenAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>The amount of erc20Token being sold. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fees</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Fees[]</span></code></p></td>
+<td><p>An array of structs containing the fee data  [optional]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">erc721Token</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC721 token. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">erc721TokenId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>The ERC721 token id. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">erc721TokenProperties</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Property[]</span></code></p></td>
+<td><p>Properties to validate for a property based order. [optional]</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="erc1155-orders">
+<h3>ERC1155 Orders<a class="headerlink" href="#erc1155-orders" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ERC1155Order</span></code> struct has the following fields:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Field</p></td>
+<td><p>Type</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">direction</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enum</span></code></p></td>
+<td><p>The trade direction, either sell the NFT or buy the NFT</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The address of the maker, and signer, of this order. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">taker</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>Allowed taker address. Set to zero to allow any taker. [optional; default 0]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">expiry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>The Unix timestamp in seconds when this order expires. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nonce</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>Number used to uniquiely represent this order. Used for cancellations. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">erc20Token</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC20 token used to pay for the ERC721 token. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">erc20TokenAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>The amount of erc20Token being sold. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fees</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Fees[]</span></code></p></td>
+<td><p>An array of structs containing the fee data  [optional]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">erc1155Token</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The ERC1155 token. [required]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">erc1155TokenId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>The ERC1155 token id. [required]</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">erc1155TokenProperties</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Property[]</span></code></p></td>
+<td><p>Properties to validate for a property based order. [optional]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">erc1155TokenAmount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uin128</span></code></p></td>
+<td><p>The ERC1155 amount. [required]</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nft-order-property">
+<h3>NFT Order Property<a class="headerlink" href="#nft-order-property" title="Link to this heading"></a></h3>
+<p>For Property based NFT orders, the properties have the following fields:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Field</p></td>
+<td><p>Type</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">propertyValidator</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The address of the contract which implements <cite>IPropertyValidator</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">propertyData</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bytes</span></code></p></td>
+<td><p>The address of the maker, and signer, of this order.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The property validator contract must implement the following interface when Property based orders are used.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Checks that the given ERC721/ERC1155 asset satisfies the properties encoded in `propertyData`.</span>
+<span class="c1">///      Should revert if the asset does not satisfy the specified properties.</span>
+<span class="c1">/// @param tokenAddress The ERC721/ERC1155 token contract address.</span>
+<span class="c1">/// @param tokenId The ERC721/ERC1155 tokenId of the asset to check.</span>
+<span class="c1">/// @param propertyData Encoded properties or auxiliary data needed to perform the check.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">validateProperty</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">tokenAddress</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">tokenId</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>propertyData
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="nft-order-fee">
+<h3>NFT Order Fee<a class="headerlink" href="#nft-order-fee" title="Link to this heading"></a></h3>
+<p>For NFT orders with fees, the fees have the following fields:</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Field</p></td>
+<td><p>Type</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">receipient</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">address</span></code></p></td>
+<td><p>The receipient of the fees.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">amount</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint256</span></code></p></td>
+<td><p>The amount of fee to be paid to recipient.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feeData</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bytes</span></code></p></td>
+<td><p>If provided the recipient (contract) will be called with this feeData [optional]</p></td>
+</tr>
+</tbody>
+</table>
+<p>The contract must implement the following interface when the <cite>feeData</cite> is present.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span>interface<span class="w"> </span>IFeeRecipient<span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">/// @dev A callback function invoked in the ERC721Feature for each ERC721</span>
+<span class="w">    </span><span class="c1">///      order fee that get paid. Integrators can make use of this callback</span>
+<span class="w">    </span><span class="c1">///      to implement arbitrary fee-handling logic, e.g. splitting the fee</span>
+<span class="w">    </span><span class="c1">///      between multiple parties.</span>
+<span class="w">    </span><span class="c1">/// @param tokenAddress The address of the token in which the received fee is</span>
+<span class="w">    </span><span class="c1">///        denominated. `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE` indicates</span>
+<span class="w">    </span><span class="c1">///        that the fee was paid in the native token (e.g. ETH).</span>
+<span class="w">    </span><span class="c1">/// @param amount The amount of the given token received.</span>
+<span class="w">    </span><span class="c1">/// @param feeData Arbitrary data encoded in the `Fee` used by this callback.</span>
+<span class="w">    </span><span class="c1">/// @return success The selector of this function (0x0190805e),</span>
+<span class="w">    </span><span class="c1">///         indicating that the callback succeeded.</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">receiveFeeCallback</span><span class="p">(</span>
+<span class="w">        </span><span class="kt">address</span><span class="w"> </span><span class="nv">tokenAddress</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">amount</span><span class="p">,</span>
+<span class="w">        </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>feeData
+<span class="w">    </span><span class="p">)</span>
+<span class="w">        </span><span class="kt">external</span>
+<span class="w">        </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span>bytes4<span class="w"> </span>success<span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="how-to-sign">
+<h2>How To Sign<a class="headerlink" href="#how-to-sign" title="Link to this heading"></a></h2>
+<p>Orders must be signed by the <cite>maker</cite> or a registered order signer (<a class="reference external" href="./functions.html#registerallowedrfqorigins">registerAllowedOrderSigner</a>). This signature is needed to fill an order, see <a class="reference external" href="./functions.html">Basic Functionality</a>.</p>
+<p>The protocol accepts signatures defined by the following struct:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="kt">uint8</span><span class="w"> </span><span class="nv">signatureType</span><span class="p">;</span><span class="w"> </span><span class="c1">// Either 2 or 3</span>
+<span class="w">     </span><span class="kt">uint8</span><span class="w"> </span><span class="nv">v</span><span class="p">;</span><span class="w"> </span><span class="c1">// Signature data.</span>
+<span class="w">     </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">r</span><span class="p">;</span><span class="w"> </span><span class="c1">// Signature data.</span>
+<span class="w">     </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">s</span><span class="p">;</span><span class="w"> </span><span class="c1">// Signature data.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There are two types of signatures supported: <code class="docutils literal notranslate"><span class="pre">EIP712</span></code> and <code class="docutils literal notranslate"><span class="pre">EthSign</span></code>.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">EIP712</span></code> signature type is best for web frontends that present an order to be signed through Metamask in a human-readable format. It relies on the <a class="reference external" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md#specification-of-the-eth_signtypeddata-json-rpc">eth_signTypedData</a> JSON-RPC method exposed by MetaMask. This signature has the <code class="docutils literal notranslate"><span class="pre">signatureType</span></code> of <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">EthSign</span></code> signature is best for use with headless providers, such as when using a geth node. This relies on the <code class="docutils literal notranslate"><span class="pre">eth_sign</span></code> JSON-RPC method common to all nodes. This signature has the <code class="docutils literal notranslate"><span class="pre">signatureType</span></code> of <code class="docutils literal notranslate"><span class="pre">3</span></code>.</p></li>
+</ul>
+<p>In both cases, the <code class="docutils literal notranslate"><span class="pre">&#64;0x/protocol-utils</span></code> package simplifies generating these signatures.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Protocol Utils package is still under development. This message will be removed once the package is published. - 11/24/2020.</p>
+</div>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">utils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@0x/protocol-utils&#39;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">utils</span><span class="p">.</span><span class="nx">LimitOrder</span><span class="p">({</span><span class="w"> </span><span class="c1">// or utils.RfqOrder</span>
+<span class="w">    </span><span class="nx">makerToken</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0x6B175474E89094C44Da98b954EedeAC495271d0F&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// DAI</span>
+<span class="w">    </span><span class="nx">takerToken</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// WETH</span>
+<span class="w">    </span><span class="p">...</span><span class="w"> </span><span class="c1">// Other fields</span>
+<span class="p">});</span>
+<span class="c1">// Generate an EthSign signature with a provider.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">getSignatureWithProviderAsync</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">web3</span><span class="p">.</span><span class="nx">currentProvider</span><span class="p">,</span>
+<span class="p">);</span>
+<span class="c1">// Generate an EthSign signature with a private key.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">getSignatureWithKey</span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;0x123456...&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Maker&#39;s 32-byte private key, in hex.</span>
+<span class="p">);</span>
+<span class="c1">// Generate an EIP712 signature with a provider (e.g., metamask).</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">getSignatureWithProviderAsync</span><span class="p">(</span>
+<span class="w">    </span><span class="nx">web3</span><span class="p">.</span><span class="nx">currentProvider</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">utils</span><span class="p">.</span><span class="nx">SignatureType</span><span class="p">.</span><span class="nx">EIP712</span><span class="p">,</span>
+<span class="p">);</span>
+<span class="c1">// Generate an EIP712 signature with a private key.</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">signature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="nx">getSignatureWithKey</span><span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;0x123456...&#39;</span><span class="p">,</span><span class="w"> </span><span class="c1">// Maker&#39;s 32-byte private key, in hex.</span>
+<span class="w">    </span><span class="nx">utils</span><span class="p">.</span><span class="nx">SignatureType</span><span class="p">.</span><span class="nx">EIP712</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="the-orderbook">
+<h2>The Orderbook<a class="headerlink" href="#the-orderbook" title="Link to this heading"></a></h2>
+<p>Orders can be hosted by any server and are usually represented as a JSON object off-chain. For example, one off-chain way to post and discover orders is through <a class="reference external" href="https://0x.org/docs/category/orderbook-api">0x Orderbook API</a>.</p>
+<p>Below is a table represention and example of how orders should be formatted off-chain.</p>
+<section id="json-representation-of-rfq-orders">
+<h3>JSON representation of RFQ Orders<a class="headerlink" href="#json-representation-of-rfq-orders" title="Link to this heading"></a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">RFQOrder</span></code> should be serialized to JSON as following:</p>
+<div class="highlight-typescript notranslate"><div class="highlight"><pre><span></span><span class="kd">interface</span><span class="w"> </span><span class="nx">RfqOrderJson</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">&quot;maker&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;taker&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;makerToken&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;takerToken&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;makerAmount&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;takerAmount&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;txOrigin&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;pool&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;expiry&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;salt&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;chainId&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span><span class="w">             </span><span class="c1">// Ethereum Chain Id where the transaction is submitted.</span>
+<span class="w">    </span><span class="s2">&quot;verifyingContract&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w">   </span><span class="c1">// Address of the contract where the transaction should be sent.</span>
+<span class="w">    </span><span class="s2">&quot;signature&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s2">&quot;signatureType&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;v&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;s&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;r&quot;</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../architecture/plp_sandbox.html" class="btn btn-neutral float-left" title="PLP Sandbox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="functions.html" class="btn btn-neutral float-right" title="Basic Functionality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

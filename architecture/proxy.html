@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proxy &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Features" href="features.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Proxy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#function-registry">Function Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ownership">Ownership</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#migrations">Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storage-buckets">Storage Buckets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version-management">Version Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-risks">Known Risks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initial-bootstrapping">Initial Bootstrapping</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Proxy</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/architecture/proxy.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="proxy">
+<h1>Proxy<a class="headerlink" href="#proxy" title="Link to this heading"></a></h1>
+<p>The <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/zero-ex/contracts/src/ZeroEx.sol">ZeroEx</a> contract (also called Exchange Proxy or EP) is the main contract that manages the process and performs the exchange of assets. It implements a per-function proxy pattern where each function can have a distinct implementation contract, also known as “features”. The <cite>ZeroEx</cite> contract’s sole responsibility is to maintain a mapping of “features” to implementation contracts and route (delegate) calls to per-function implementation contracts through its fallback mechanism.</p>
+<a class="reference internal image-reference" href="../_images/proxy.png"><img alt="../_images/proxy.png" class="align-center" height="481" src="../_images/proxy.png" width="571" />
+</a>
+<p>View the code for the Proxy <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/zero-ex/contracts/src/ZeroEx.sol">here</a>. The deployed contract address for each network can be found in <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/packages/contract-addresses/addresses.json">here</a>.</p>
+<section id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Link to this heading"></a></h2>
+<p>At deployment, the <code class="docutils literal notranslate"><span class="pre">ZeroEx</span></code> contract goes through an <code class="docutils literal notranslate"><span class="pre">InitialMigration</span></code> that bootstraps two core features to the proxy pattern: Function Registry and Ownership.</p>
+</section>
+<section id="function-registry">
+<h2>Function Registry<a class="headerlink" href="#function-registry" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SimpleFunctionRegistry</span></code> is one of the initial and core features of the <cite>ZeroEx</cite> contract boostrapped in during the <code class="docutils literal notranslate"><span class="pre">InitialMigration</span></code>. This feature exposes the following function registry management features: <code class="docutils literal notranslate"><span class="pre">extend()</span></code> and <code class="docutils literal notranslate"><span class="pre">rollback()</span></code>.</p>
+<p>Call <code class="docutils literal notranslate"><span class="pre">extend()</span></code> to register a new function (selector) and implementation (address). This also maintains a history of past implementations so we can roll back to one, if needed.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// Register or replace a function.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">extend</span><span class="p">(</span>bytes4<span class="w"> </span>selector<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">impl</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyOwner<span class="p">;</span>
+</pre></div>
+</div>
+<p>Call <code class="docutils literal notranslate"><span class="pre">rollback()</span></code> to revert a function implementation to a prior version in its history.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// Roll back to a previousimplementation of a function.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">rollback</span><span class="p">(</span>bytes4<span class="w"> </span>selector<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">targetImpl</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyOwner<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="ownership">
+<h2>Ownership<a class="headerlink" href="#ownership" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Ownable</span></code> is another initial and core feature of the <cite>ZeroEx</cite> contract that is bootstrapped into the proxy during the <code class="docutils literal notranslate"><span class="pre">InitialMigration</span></code>. This exposes ownership management functions: <code class="docutils literal notranslate"><span class="pre">transferOwnership()</span></code> and <code class="docutils literal notranslate"><span class="pre">getOwner()</span></code>. This feature also enables ubiquitous modifiers such as onlyOwner, so it is an implicit dependency of nearly every other feature.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// Change the owner of this contract.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">transferOwnership</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">newOwner</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>onlyOwner<span class="p">;</span>
+
+<span class="c1">/// @dev Get the owner of this contract.</span>
+<span class="c1">/// @return owner_ The owner of this contract.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">owner</span><span class="p">()</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">owner_</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="migrations">
+<h2>Migrations<a class="headerlink" href="#migrations" title="Link to this heading"></a></h2>
+<p>Migrations are upgrade logic that run in the context of the proxy contract. To do this, the owner calls the <code class="docutils literal notranslate"><span class="pre">migrate()</span></code> function, provided by the <code class="docutils literal notranslate"><span class="pre">Ownable</span></code> Feature. This follows a similar sequence as the bootstrap process. Notably, it temporarily sets the owner of the contract to itself for the duration of the migration call, which allows the migrator to perform admin-level operations through other features, such as registering or rolling back new functions. Before exiting, the owner is set to the newOwner, which is passed in to the call.</p>
+<p>One motivation for the existence of this function, as opposed to just having the make individual admin calls, is a shortcoming of the ZeroExGoverner contract, which is designed to perform one operation at a time, with no strict ordering of those operations.</p>
+<p>This is a stripped down <code class="docutils literal notranslate"><span class="pre">migrate()</span></code> feature implementation:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="k">contract</span><span class="w"> </span><span class="ni">Ownable</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="c1">// Execute a migration function in the context of the proxy contract.</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">migrate</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">target</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">calldata</span><span class="w"> </span>data<span class="p">,</span><span class="w"> </span><span class="kt">address</span><span class="w"> </span><span class="nv">newOwner</span><span class="p">)</span>
+<span class="w">        </span><span class="kt">external</span>
+<span class="w">        </span>onlyOwner
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// If the owner is already set to ourselves then we&#39;ve reentered.</span>
+<span class="w">        </span><span class="kt">require</span><span class="p">(</span>OwnableStorage<span class="p">.</span>owner<span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">));</span>
+<span class="w">        </span><span class="c1">// Temporarily set the owner to ourselves.</span>
+<span class="w">        </span>OwnableStorage<span class="p">.</span>owner<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">address</span><span class="p">(</span><span class="kt">this</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Perform the migration.</span>
+<span class="w">        </span>target<span class="p">.</span>delegatecall<span class="p">(</span>data<span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// Set the new owner.</span>
+<span class="w">        </span>OwnableStorage<span class="p">.</span>owner<span class="w"> </span><span class="o">=</span><span class="w"> </span>newOWner<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This is an example sequence of a migration (click to enlarge):</p>
+<a class="reference internal image-reference" href="../_images/zero_ex_migrate.png"><img alt="../_images/zero_ex_migrate.png" class="align-center" height="516" src="../_images/zero_ex_migrate.png" width="782" />
+</a>
+</section>
+<section id="storage-buckets">
+<h2>Storage Buckets<a class="headerlink" href="#storage-buckets" title="Link to this heading"></a></h2>
+<p>Because feature functions get delegatecalled into, they all share the same execution context and, thus, state space. It’s critical that storage for each feature be compartmentalized from other features to avoid accidentally writing to the same slot. We solve this by strictly adhering to a storage bucket pattern for our feature contracts. This rule also extends to all inherited contracts/mixins.</p>
+<p>Storage buckets are enabled by new language features in solidity 0.6, which allow us to rewrite a storage variable’s slot reference to a globally unique ID. These IDs are stored in an append-only enum defined in LibStorage, to enforce uniqueness. The true storage slot for a bucket is the feature’s storage ID multiplied by a large constant to prevent overlap between buckets.</p>
+<p>Example:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span>LibStorage<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">enum</span><span class="w"> </span><span class="nv">StorageId</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span>MyFeature
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">getStorageSlot</span><span class="p">(</span>StorageId<span class="w"> </span>id<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">return</span><span class="w"> </span><span class="kt">uint256</span><span class="p">(</span>id<span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="err">1</span>e18<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+LibMyFeatureStorage<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Storage layout for this feature.</span>
+<span class="w">    </span><span class="kt">struct</span><span class="w"> </span><span class="nv">Storage</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">mapping</span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kt">bytes</span><span class="p">)</span><span class="w"> </span>myData<span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Get the storage bucket for this feature.</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">getStorage</span><span class="p">()</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span>Storage<span class="w"> </span>storage<span class="w"> </span>st<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">slot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>LibStorage<span class="p">.</span>getStorageSlot<span class="p">(</span>
+<span class="w">            </span>LibStorage<span class="p">.</span>StorageId<span class="p">.</span>MyFeature
+<span class="w">        </span><span class="p">);</span>
+<span class="w">        </span>assembly<span class="w"> </span><span class="p">{</span><span class="w"> </span>st_slot<span class="w"> </span><span class="o">:=</span><span class="w"> </span>slot<span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With the above pattern, writing to storage is simply:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span>LibMyFeatureStorage<span class="p">.</span>getStorage<span class="p">().</span>myData<span class="p">[...]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span>
+</pre></div>
+</div>
+</section>
+<section id="version-management">
+<h2>Version Management<a class="headerlink" href="#version-management" title="Link to this heading"></a></h2>
+<p><strong>Inspection</strong></p>
+<p>This is a rolling release model, where every feature/function has its own version. All feature contracts (except Bootstrap because it’s ephemeral), implement the IFeature interface:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span>interface<span class="w"> </span>IFeature<span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The name of this feature set.</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">FEATURE_NAME</span><span class="p">()</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span>name<span class="p">);</span>
+
+<span class="w">    </span><span class="c1">// The version of this feature set.</span>
+<span class="w">    </span><span class="kt">function</span><span class="w"> </span><span class="nv">FEATURE_VERSION</span><span class="p">()</span><span class="w"> </span><span class="kt">external</span><span class="w"> </span>view<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">version</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>So, to get the version of a function one could do <code class="docutils literal notranslate"><span class="pre">IFeature(getFunctionImplementation(foo.selector)).FEATURE_VERSION</span></code>.</p>
+<p><strong>Best Practices</strong></p>
+<p>The registry is intentionally not prescriptive on how features should be migrated. But there are some general best practices we can follow to avoid harming users, and ourselves.</p>
+<p><strong>Deprecation</strong></p>
+<p>In general, unless a function has a vulnerability, we should keep it intact for the duration of the deprecation schedule. Afterwards, we can ultimately disable the function by either calling extend() with a null implementation or by calling rollback() to a null implementation.</p>
+<p><strong>Patches</strong></p>
+<p>These include bug-fixes, optimizations, or any other changes that preserve the intended behavior of the function. For these cases, we should upgrade the function in-place, i.e., using the same selector but changing the implementation contract, through extend().</p>
+<p><strong>Vulnerabilities</strong></p>
+<p>If a vulnerability is found in a live function, we should call rollback() immediately to reset it to a non-vulnerable implementation. Because rollback() is a separate function from extend(), it can be exempted from timelocks to allow a swift response.</p>
+<p><strong>Upgrades</strong></p>
+<p>These involve meaningful behavioral changes, such as new settlement logic, changes to the order format (or its interpretation), etc. These should always be registered under a new selector, which comes free if the arguments also change, to allow users the opportunity to opt-in to new behavior. If the upgrade is intended to replace an existing feature, the old version should follow a deprecation schedule, unless we’re confident no one is using it.</p>
+<p><strong>Features used by Features</strong></p>
+<p>Not all features are designed to be exclusively consumed by the public. We can have internal features by applying an onlySelf modifier to the function. We need to be mindful of another class of user: the contract itself. Avoiding missteps on this will require a combination of diligence and good regression test suites.</p>
+</section>
+<section id="known-risks">
+<h2>Known Risks<a class="headerlink" href="#known-risks" title="Link to this heading"></a></h2>
+<p>The extreme flexibility of this model means we have few built-in guardrails that more conventional architectures enjoy. To avoid pitfalls, we’ve established a few new patterns to follow during development, but the following areas will always need careful scrutiny during code reviews.</p>
+<p><strong>Extended Attack Surface for Features</strong></p>
+<p>Because features all run in the same execution context, they inherit potential vulnerabilities from other features. Some vulnerabilities may also arise from the interactions of separate features, which may not be obvious without examining the system as a whole. Reviewers will always need to be mindful of these scenarios and features should try to create as much isolation of responsibilities as possible.</p>
+<p><strong>Storage Layout Risks</strong></p>
+<p>All features registered to the proxy will run in the same storage context as the proxy itself. We employ a pattern of per-feature storage buckets (structs) with globally unique bucket slots to mitigate issues.</p>
+<p><strong>Slot Overlap</strong></p>
+<p>Every time we develop a new feature, an entry is appended to the <code class="docutils literal notranslate"><span class="pre">LibStorage.StorageId</span></code> enum, which is the bucket ID for the feature’s storage. This applies to the storage used by the proxy contract itself. When calculating the true slot for the storage bucket, this enum value is offset by <code class="docutils literal notranslate"><span class="pre">1</span></code> and bit shifted by <code class="docutils literal notranslate"><span class="pre">128</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">getStorageSlot</span><span class="p">(</span>StorageId<span class="w"> </span>id<span class="p">)</span><span class="w"> </span><span class="kt">internal</span><span class="w"> </span>pure<span class="w"> </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">return</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span>id<span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m m-Decimal">1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="m m-Decimal">128</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Given Solidity’s <a class="reference external" href="https://solidity.readthedocs.io/en/v0.6.6/miscellaneous.html)">storage layout rules</a>, subsequent storage buckets should always be 2^128 slots apart, which means buckets can have 2^128 flattened inline fields before overlapping. While it’s not impossible for buckets to overlap with this pattern, it should be extremely unlikely if we follow it closely. Maps and arrays are not stored sequentially but should also be affected by their base slot value to make collisions unlikely.</p>
+<p><strong>Inherited Storage</strong></p>
+<p>A more insidious way to corrupt storage buckets is to have a feature unintentionally inherit from a mixin that has plain (non-bucketed) state variables, because the mixin can potentially read/write to slots shared by other buckets through them. To avoid this:</p>
+<ol class="arabic simple">
+<li><p>We prefix all feature-compatible mixins with “Fixin” (“Feature” + “Mixin”) and only allow contract inheritance from these.</p></li>
+</ol>
+<p>2. Storage IDs are offset by 1 before computing the slot value. This means the first real storage bucket will actually start at slot 2^128, which gives us a safety buffer for these scenarios, since it’s unlikely a mixin would unintentionally access slots beyond 2^128.
+Shared Access to Storage</p>
+<p>There is nothing stopping a feature from reaching into another feature’s storage bucket and reading/modifying it. Generally this pattern is discouraged but may be necessary in some cases, or may be preferable to save gas. This can create an implicit tight coupling between features and we need to take those interactions into account when upgrading the features that own those storage buckets.</p>
+<p><strong>Restricted Functions and Privilege Escalation</strong></p>
+<p>We will also be registering functions that have caller restrictions. Functions designed for internal use only will have an onlySelf modifier that asserts that <code class="docutils literal notranslate"><span class="pre">msg.sender</span> <span class="pre">==</span> <span class="pre">address(this)</span></code>. The other class of restricted functions are owner-only functions, which have an <code class="docutils literal notranslate"><span class="pre">onlyOwner</span></code> modifier that asserts that the <code class="docutils literal notranslate"><span class="pre">msg.sender</span> <span class="pre">==</span> <span class="pre">LibOwnableStorage.Storage.owner</span></code>.</p>
+<p>The check on owner-only functions can be easily circumvented in a feature by directly overwriting <code class="docutils literal notranslate"><span class="pre">LibOwnableStorage.Storage.owner</span></code> with another address. If best practices and patterns are adhered to, doing so would involve deliberate and obvious effort and should be caught in reviews.</p>
+<p><strong>Self-Destructing Features</strong></p>
+<p>A feature contract with self-destruct logic must safeguard this code path to only be executed after the feature is deregistered, otherwise its registered functions will fail. In most cases this would just cause the feature to temporarily go dark until we could redeploy it. But it may leave the proxy in an unusable state if this occurs in the contract of a mission-critical feature, e.g., Ownable or SimpleFunctionRegistry (neither of which can self-destruct).</p>
+<p>Features should also be careful that <code class="docutils literal notranslate"><span class="pre">selfdestruct</span></code> is never executed in the context of the proxy to avoid destroying the proxy itself.</p>
+<p><strong>Allowances</strong></p>
+<p>Although the proxy will not have access to the V3 asset proxies initially, early features will require taker allowances to be accessible to the proxy somehow. Instead of having the proxy contract itself be the allowance target, we intend on using a separate “Puppet” contract, callable only by the proxy contract. This creates a layer of separation between the proxy contract and allowances, so moving user funds is a much more deliberate action. In the event of a major vulnerability, the owner can simply detach the puppet contract from the proxy. This also avoids the situation where the proxy has lingering allowances if we decide grant it asset proxy authorization.</p>
+<p><strong>Balances</strong></p>
+<p>Inevitably, there will be features that will cause the Exchange Proxy to hold temporary balances (e.g., payable functions). Thus, it’s a good idea that no feature should cause the Exchange Proxy to hold a permanent balance of tokens or ether, since these balances can easily get mixed up with temporary balances.</p>
+<p><strong>Reentrancy</strong></p>
+<p>Functions can be re-entered by default; those secured by the <code class="docutils literal notranslate"><span class="pre">nonReentrant</span></code> modifier cannot be re-entered.</p>
+<p><strong>Colliding Function Selectors</strong></p>
+<p>We manually ensure that function selectors do not collide during PR’s. See the <a class="reference external" href="./features.html#best-practices">Feature Checklist</a> for a complete list of our best practices on Feature Development.</p>
+</section>
+<section id="initial-bootstrapping">
+<h2>Initial Bootstrapping<a class="headerlink" href="#initial-bootstrapping" title="Link to this heading"></a></h2>
+<p>The way that the initial bootstrapping is accomplished is through the <code class="docutils literal notranslate"><span class="pre">bootstrap()</span></code> function that can only be called by the deployer. Check <a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/zero-ex/contracts/src/features/BootstrapFeature.sol">here</a> to see the full boostrapping feature.</p>
+<p>This function does a few things:
+1. De-register the bootstrap() function, which prevents it being called again.
+2. Self-destruct.
+3. Delegatecall the bootstrapper target contract and call data.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">// Execute a bootstrapper in the context of the proxy.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">bootstrap</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">target</span><span class="p">,</span><span class="w"> </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">callData</span><span class="p">)</span><span class="w"> </span><span class="kt">external</span>
+</pre></div>
+</div>
+<p>Below is the bootstrap workflow (click to enlarge).</p>
+<a class="reference internal image-reference" href="../_images/bootstrap.png"><img alt="../_images/bootstrap.png" class="align-center" height="680" src="../_images/bootstrap.png" width="823" />
+</a>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="features.html" class="btn btn-neutral float-right" title="Features" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

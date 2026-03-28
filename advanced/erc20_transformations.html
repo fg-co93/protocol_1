@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ERC20 Transformations &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Pluggable Liquidity (PLP)" href="plp.html" />
+    <link rel="prev" title="Meta-Transactions" href="mtx.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ERC20 Transformations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#liquidity-aggregation">Liquidity Aggregation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#weth-wrapping">WETH Wrapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#affiliate-fees">Affiliate Fees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pay-taker">Pay Taker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-custom-transformations">Adding Custom Transformations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ERC20 Transformations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/advanced/erc20_transformations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="erc20-transformations">
+<h1>ERC20 Transformations<a class="headerlink" href="#erc20-transformations" title="Link to this heading"></a></h1>
+<p>The 0x Protocol is able to perform a variety of atomic transformations on ERC20 tokens, in addition to simply executing trades. This is made possible through composable smart contracts, called <a class="reference external" href="../architecture/transformers.html">Transformers</a>. These trustless modules extend the core Exchange logic, enabling workflows like converting between ETH&lt;&gt;WETH or aggregating liquidity across DEX’s. These operations can be combined with trade exeuction to create a seamlesss trading experience.</p>
+<p>Anyone can run transformations using the <code class="docutils literal notranslate"><span class="pre">transformERC20</span></code> Exchange function.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Executes a series of transformations to convert an ERC20 `inputToken`</span>
+<span class="c1">///      to an ERC20 `outputToken`.</span>
+<span class="c1">/// @param inputToken The token being provided by the sender.</span>
+<span class="c1">///        If `0xeee...`, ETH is implied and should be provided with the call.`</span>
+<span class="c1">/// @param outputToken The token to be acquired by the sender.</span>
+<span class="c1">///        `0xeee...` implies ETH.</span>
+<span class="c1">/// @param inputTokenAmount The amount of `inputToken` to take from the sender.</span>
+<span class="c1">///        If set to `uint256(-1)`, the entire spendable balance of the taker</span>
+<span class="c1">///        will be solt.</span>
+<span class="c1">/// @param minOutputTokenAmount The minimum amount of `outputToken` the sender</span>
+<span class="c1">///        must receive for the entire transformation to succeed. If set to zero,</span>
+<span class="c1">///        the minimum output token transfer will not be asserted.</span>
+<span class="c1">/// @param transformations The transformations to execute on the token balance(s)</span>
+<span class="c1">///        in sequence.</span>
+<span class="c1">/// @return outputTokenAmount The amount of `outputToken` received by the sender.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">transformERC20</span><span class="p">(</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>inputToken<span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>outputToken<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">inputTokenAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">minOutputTokenAmount</span><span class="p">,</span>
+<span class="w">    </span>Transformation<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>transformations
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">public</span>
+<span class="w">    </span>override
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">outputTokenAmount</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A Transformation is defined by a <code class="docutils literal notranslate"><span class="pre">deploymentNonce</span></code> (which identifies the contract that implements the transformation) and <code class="docutils literal notranslate"><span class="pre">data</span></code> for that contract.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Defines a transformation to run in `transformERC20()`.</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">Transformation</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The deployment nonce for the transformer.</span>
+<span class="w">    </span><span class="c1">// The address of the transformer contract will be derived from this</span>
+<span class="w">    </span><span class="c1">// value.</span>
+<span class="w">    </span><span class="kt">uint32</span><span class="w"> </span><span class="nv">deploymentNonce</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Arbitrary data to pass to the transformer.</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">data</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The transaction will revert if a transformation fails; the <cite>inputTokenAmount</cite> cannot be transferred from the sender; or the <code class="docutils literal notranslate"><span class="pre">minOutputTokenAmount</span></code> is not transferred to the sender. A single <a class="reference external" href="../basics/events.html#transformederc20">TransformedERC20</a> event is be emitted upon successful execution of all transformations.</p>
+<section id="liquidity-aggregation">
+<h2>Liquidity Aggregation<a class="headerlink" href="#liquidity-aggregation" title="Link to this heading"></a></h2>
+<p>Liquidity can be pulled from other Decentralized Exchanges (DEX) to supplement native liquidity (0x orders). This is currently used by 0x API to provide the aggregate the best prices across the entire DEX Ecosystem. Check out <a class="reference external" href="https://matcha.xyz">https://matcha.xyz</a> to see this in action!</p>
+<p>Below are just a few of the Supported DEX’s on Ethereum:</p>
+<ul class="simple">
+<li><p>Balancer v1/v2</p></li>
+<li><p>Bancor v1/v2</p></li>
+<li><p>Curve</p></li>
+<li><p>Dodo v1/v2</p></li>
+<li><p>Kyber</p></li>
+<li><p>MakerPSM</p></li>
+<li><p>MStable</p></li>
+<li><p>Mooniswap</p></li>
+<li><p>Oasis</p></li>
+<li><p>Shell</p></li>
+<li><p>Sushiswap</p></li>
+<li><p>Shibaswap</p></li>
+<li><p>Smoothy</p></li>
+<li><p>Uniswap v1/v2/v3</p></li>
+</ul>
+<p>This transformation is implemented by the <a class="reference external" href="../architecture/transformers.html">FillQuoteTransformer</a>. Abi-Encode the following struct to get the <code class="docutils literal notranslate"><span class="pre">data</span></code>:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>An upgrade is pending to this transformation. This currently uses Exchange V3 Orders, but will soon be updated to use <a class="reference external" href="../basics/orders.html">V4 Orders</a>. - 11/26/2020</p>
+</div>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Transform data to ABI-encode and pass into `transform()`.</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">TransformData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Whether we are performing a market sell or buy.</span>
+<span class="w">    </span>Side<span class="w"> </span>side<span class="p">;</span>
+<span class="w">    </span><span class="c1">// The token being sold.</span>
+<span class="w">    </span><span class="c1">// This should be an actual token, not the ETH pseudo-token.</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>sellToken<span class="p">;</span>
+<span class="w">    </span><span class="c1">// The token being bought.</span>
+<span class="w">    </span><span class="c1">// This should be an actual token, not the ETH pseudo-token.</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>buyToken<span class="p">;</span>
+<span class="w">    </span><span class="c1">// The orders to fill.</span>
+<span class="w">    </span>IExchange<span class="p">.</span>Order<span class="p">[]</span><span class="w"> </span>orders<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Signatures for each respective order in `orders`.</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="p">[]</span><span class="w"> </span>signatures<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Maximum fill amount for each order. This may be shorter than the</span>
+<span class="w">    </span><span class="c1">// number of orders, where missing entries will be treated as `uint256(-1)`.</span>
+<span class="w">    </span><span class="c1">// For sells, this will be the maximum sell amount (taker asset).</span>
+<span class="w">    </span><span class="c1">// For buys, this will be the maximum buy amount (maker asset).</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>maxOrderFillAmounts<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Amount of `sellToken` to sell or `buyToken` to buy.</span>
+<span class="w">    </span><span class="c1">// For sells, this may be `uint256(-1)` to sell the entire balance of</span>
+<span class="w">    </span><span class="c1">// `sellToken`.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">fillAmount</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Who to transfer unused protocol fees to.</span>
+<span class="w">    </span><span class="c1">// May be a valid address or one of:</span>
+<span class="w">    </span><span class="c1">// `address(0)`: Stay in flash wallet.</span>
+<span class="w">    </span><span class="c1">// `address(1)`: Send to the taker.</span>
+<span class="w">    </span><span class="c1">// `address(2)`: Send to the sender (caller of `transformERC20()`).</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">payable</span><span class="w"> </span>refundReceiver<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Required taker address for RFQT orders.</span>
+<span class="w">    </span><span class="c1">// Null means any taker can fill it.</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">rfqtTakerAddress</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This transformation currently executes a Market Sell or Market Buy on a series of <a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/v3/v3-specification.md#orders">0x V3 Orders</a>. The transaction will revert if the <code class="docutils literal notranslate"><span class="pre">fillAmount</span></code> is not reached; an individual order can fail without the entire transaction reverting. A <a class="reference external" href="../basics/events.html#protocolfeeunfunded">ProtocolFeeUnfunded</a> event will be emitted if an order failed to fill because the Taker did not send a sufficient protocol fee.</p>
+</section>
+<section id="weth-wrapping">
+<h2>WETH Wrapping<a class="headerlink" href="#weth-wrapping" title="Link to this heading"></a></h2>
+<p>This transformation is implemented by the <a class="reference external" href="../architecture/transformers.html">WethTransformer</a>. Abi-Encode the following struct to get the <code class="docutils literal notranslate"><span class="pre">data</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Transform data to ABI-encode and pass into `transform()`.</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">TransformData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The token to wrap/unwrap. Must be either ETH or WETH.</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>token<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Amount of `token` to wrap or unwrap.</span>
+<span class="w">    </span><span class="c1">// `uint(-1)` will unwrap the entire balance.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">amount</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If the supplied token address is <a class="reference external" href="../basics/addresses.html">WETH (etherToken)</a> then the supplied WETH will be unwrapped to <code class="docutils literal notranslate"><span class="pre">ETH</span></code>. If any other address is supplied the any ETH passed in will be wrapped into <code class="docutils literal notranslate"><span class="pre">WETH</span></code>. No events are emitted by 0x during this transformation, although token contracts may have events. This will revert if <code class="docutils literal notranslate"><span class="pre">allowances</span> <span class="pre">&lt;../basics/allowances.html&gt;_</span></code> are not set or the available balance is less than <code class="docutils literal notranslate"><span class="pre">amount</span></code>.</p>
+</section>
+<section id="affiliate-fees">
+<h2>Affiliate Fees<a class="headerlink" href="#affiliate-fees" title="Link to this heading"></a></h2>
+<p>This transformation is implemented by the <a class="reference external" href="../architecture/transformers.html">AffiliateFeeTransformer</a>. Abi-Encode the following struct to get the <code class="docutils literal notranslate"><span class="pre">data</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Information for a single fee.</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">TokenFee</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The token to transfer to `recipient`.</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>token<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Amount of each `token` to transfer to `recipient`.</span>
+<span class="w">    </span><span class="c1">// If `amount == uint256(-1)`, the entire balance of `token` will be</span>
+<span class="w">    </span><span class="c1">// transferred.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">amount</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Recipient of `token`.</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">payable</span><span class="w"> </span>recipient<span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This pays the <code class="docutils literal notranslate"><span class="pre">recipient</span></code> in the <code class="docutils literal notranslate"><span class="pre">amount</span></code> of <code class="docutils literal notranslate"><span class="pre">token</span></code> specified. This can be used by integrators who wish to add an additional fee on top of 0x Orders. No events are emitted by 0x during this transformation, although token contracts may have events. This will revert if <a class="reference external" href="../basics/allowances.html">allowances</a> are not set or the available balance is less than <code class="docutils literal notranslate"><span class="pre">amount</span></code>.</p>
+</section>
+<section id="pay-taker">
+<h2>Pay Taker<a class="headerlink" href="#pay-taker" title="Link to this heading"></a></h2>
+<p>This transformation is implemented by the <a class="reference external" href="../architecture/transformers.html">PayTakerTransformer</a>. Abi-Encode the following struct to get the <code class="docutils literal notranslate"><span class="pre">data</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Transform data to ABI-encode and pass into `transform()`.</span>
+<span class="kt">struct</span><span class="w"> </span><span class="nv">TransformData</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The tokens to transfer to the taker.</span>
+<span class="w">    </span>IERC20Token<span class="p">[]</span><span class="w"> </span>tokens<span class="p">;</span>
+<span class="w">    </span><span class="c1">// Amount of each token in `tokens` to transfer to the taker.</span>
+<span class="w">    </span><span class="c1">// `uint(-1)` will transfer the entire balance.</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>amounts<span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This pays the <code class="docutils literal notranslate"><span class="pre">taker</span></code> in the <code class="docutils literal notranslate"><span class="pre">amounts</span></code> of each <code class="docutils literal notranslate"><span class="pre">tokens</span></code> specified. This is generally run at the end of all other transformations. For example, if you’ve swapped the taker’s ETH for WETH then executed a trade through <a class="reference internal" href="#liquidity-aggregation">Liquidity Aggregation</a>, this transformation will can transfer the final output token back to the Taker.</p>
+<p>No events are emitted by 0x during this transformation, although token contracts may have events. This will revert if <a class="reference external" href="../basics/allowances.html">allowances</a> are not set or the available balance is less than <code class="docutils literal notranslate"><span class="pre">amount</span></code>.</p>
+</section>
+<section id="adding-custom-transformations">
+<h2>Adding Custom Transformations<a class="headerlink" href="#adding-custom-transformations" title="Link to this heading"></a></h2>
+<p>Transformations are trustless, but at this time they are permissioned so only 0x Labs can deploy new Transformers. If you are interested in deploying your own transformation logic, please reach out to us on <a class="reference external" href="https://discord.com/invite/d3FTX3M">Discord</a>. Learn more about why this is permissioned in the <a class="reference external" href="../architecture/transformer_deployer.html">Transformer Deployer</a> section.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mtx.html" class="btn btn-neutral float-left" title="Meta-Transactions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plp.html" class="btn btn-neutral float-right" title="Pluggable Liquidity (PLP)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

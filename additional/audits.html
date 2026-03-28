@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audits &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bounties" href="bounties.html" />
+    <link rel="prev" title="Smart Nonces" href="../guides/smart_nonce.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Audits</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/additional/audits.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="audits">
+<h1>Audits<a class="headerlink" href="#audits" title="Link to this heading"></a></h1>
+<p>Below are links to our third-party audit reports.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Release</strong></p></td>
+<td><p><strong>Reports</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Governance</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/blob/development/contracts/governance/audits/0xProtocol-06-04-2023-Final.pdf">Ourovoros</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>MultiplexFeature</p>
+<p>MetaTransactions</p>
+</td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/ZEIPs/blob/master/zeip96_images/ABDK_0x_MetaTransaction_v_1_0.pdf">ABDK Consulting</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>ERC721OrdersFeature</p>
+<p>ERC1155OrdersFeature</p>
+</td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://s3.us-east-2.amazonaws.com/zeips.0x.org/audits/abdk-consulting/ABDK_0x_Solidity_v_1_0.pdf">ABDK Consulting</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Exchange V4</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://consensys.net/diligence/audits/2020/12/0x-exchange-v4/">Consensys Diligence (December 2020)</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Exchange V3</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="http://zeips.0x.org.s3-website.us-east-2.amazonaws.com/audits/56/trail-of-bits/audit.pdf">Trail of Bits</a></p></li>
+<li><p><a class="reference external" href="https://diligence.consensys.net/audits/2019/09/0x-v3-exchange/">Consensys Diligence (Exchange)</a></p></li>
+<li><p><a class="reference external" href="https://diligence.consensys.net/audits/2019/10/0x-v3-staking/">Consensys Diligence (Staking)</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Exchange V2.1</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://docs.google.com/document/d/1jYv6V21MfCSwCS5fxD6ZyaLWGzkpRSUO0lZpST94XsA/edit">First</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ConsenSys/0x_audit_report_2018-07-23">Consensys Diligence</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>MultiAssetProxy</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ConsenSys/0x-audit-report-2018-12">Consensys Diligence</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>ERC1155Proxy</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ConsenSys/0x-audit-report-2019-05">Consensys Diligence</a></p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>StaticCallProxy</p></td>
+<td><ul class="simple">
+<li><p>No third-party audit.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>ERC20BridgeProxy</p></td>
+<td><ul class="simple">
+<li><p>No third-party audit.</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../guides/smart_nonce.html" class="btn btn-neutral float-left" title="Smart Nonces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bounties.html" class="btn btn-neutral float-right" title="Bounties" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

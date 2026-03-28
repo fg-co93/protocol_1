@@ -1,0 +1,1347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Functionality &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Events" href="events.html" />
+    <link rel="prev" title="Orders" href="orders.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="orders.html">Orders</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Functionality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#limit-orders">Limit Orders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filllimitorder">fillLimitOrder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fillorkilllimitorder">fillOrKillLimitOrder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancellimitorder">cancelLimitOrder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancellimitorders">batchCancelLimitOrders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancelpairlimitorders">cancelPairLimitOrders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancelpairlimitorderswithsigner">cancelPairLimitOrdersWithSigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancelpairlimitorders">batchCancelPairLimitOrders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancelpairlimitorderswithsigner">batchCancelPairLimitOrdersWithSigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getlimitorderinfo">getLimitOrderInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getlimitorderhash">getLimitOrderHash</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rfq-orders">RFQ Orders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fillrfqorder">fillRfqOrder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fillorkillrfqorder">fillOrKillRfqOrder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancelrfqorder">cancelRfqOrder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancelrfqorders">batchCancelRfqOrders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancelpairrfqorders">cancelPairRfqOrders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancelpairrfqorderswithsigner">cancelPairRfqOrdersWithSigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancelpairrfqorders">batchCancelPairRfqOrders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancelpairrfqorderswithsigner">batchCancelPairRfqOrdersWithSigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getrfqorderinfo">getRfqOrderInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#getrfqorderhash">getRfqOrderHash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registerallowedrfqorigins">registerAllowedRfqOrigins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registerallowedordersigner">registerAllowedOrderSigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#isvalidordersigner">isValidOrderSigner</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#protocol-fees">Protocol Fees</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getprotocolfeemultiplier">getProtocolFeeMultiplier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transferprotocolfeesforpools">transferProtocolFeesForPools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nft-orders">NFT Orders</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sellerc721">sellERC721</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buyerc721">buyERC721</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancelerc721order">cancelERC721Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancelerc721orders">batchCancelERC721Orders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchbuyerc721s">batchBuyERC721s</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#matcherc721orders">matchERC721Orders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchmatcherc721orders">batchMatchERC721Orders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#presignerc721order">preSignERC721Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validateerc721ordersignature">validateERC721OrderSignature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validateerc721orderproperties">validateERC721OrderProperties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geterc721orderstatus">getERC721OrderStatus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geterc721orderhash">getERC721OrderHash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geterc721orderstatusbitvector">getERC721OrderStatusBitVector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sellerc1155">sellERC1155</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buyerc1155">buyERC1155</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cancelerc1155order">cancelERC1155Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchcancelerc1155orders">batchCancelERC1155Orders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#batchbuyerc1155s">batchBuyERC1155s</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#presignerc1155order">preSignERC1155Order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validateerc1155ordersignature">validateERC1155OrderSignature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validateerc1155orderproperties">validateERC1155OrderProperties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geterc1155orderinfo">getERC1155OrderInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geterc1155orderhash">getERC1155OrderHash</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../additional/audits.html">Audits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/bounties.html">Bounties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../additional/emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Basic Functionality</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/basics/functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="basic-functionality">
+<h1>Basic Functionality<a class="headerlink" href="#basic-functionality" title="Link to this heading"></a></h1>
+<p>Below is a catalog of basic Exchange functionality. For more advanced usage, like meta-transactions and dex aggregation, see the Advanced section.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Limit Orders</strong></p></td>
+<td><p><strong>Overview</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#filllimitorder">fillLimitOrder</a></p></td>
+<td><p>Fills a Limit Order up to the amount requested.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fillorkilllimitorder">fillOrKillLimitOrder</a></p></td>
+<td><p>Fills exactly the amount requested or reverts.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cancellimitorder">cancelLimitOrder</a></p></td>
+<td><p>Cancels an order so that it can no longer be filled.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#batchcancellimitorders">batchCancelLimitOrders</a></p></td>
+<td><p>A batch call to <cite>cancelLimitOrder</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cancelpairlimitorders">cancelPairLimitOrders</a></p></td>
+<td><p>Cancels Limit orders in a specific market pair.
+Ex: Cancel all Limit Orders selling WETH for USDC.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cancelpairlimitorderswithsigner">cancelPairLimitOrdersWithSigner</a></p></td>
+<td><p>Same functionality to <code class="docutils literal notranslate"><span class="pre">cancelPairLimitOrders</span></code> but called by a
+registered order signer instead of the maker itself.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#batchcancelpairlimitorders">batchCancelPairLimitOrders</a></p></td>
+<td><p>A batch call to <cite>cancelPairLimitOrders</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#batchcancelpairlimitorderswithsigner">batchCancelPairLimitOrdersWithSigner</a></p></td>
+<td><p>Same functionality to <code class="docutils literal notranslate"><span class="pre">cancelPairLimitOrders</span></code> but called by a
+registered order signer instead of the maker itself.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#getlimitorderinfo">getLimitOrderInfo</a></p></td>
+<td><p>Returns the state of a given order.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#getlimitorderhash">getLimitOrderHash</a></p></td>
+<td><p>Returns the EIP-712 hash for an order.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>RFQ Orders</strong></p></td>
+<td><p><strong>Overview</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#fillrfqorder">fillRfqOrder</a></p></td>
+<td rowspan="10"><p>These are analogous to the above LimitOrder functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#fillorkillrfqorder">fillOrKillRfqOrder</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cancelrfqorder">cancelRfqOrder</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#batchcancelrfqorders">batchCancelRfqOrders</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cancelpairrfqorders">cancelPairRfqOrders</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#cancelpairrfqorderswithsigner">cancelPairRfqOrdersWithSigner</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#batchcancelpairrfqorders">batchCancelPairRfqOrders</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#batchcancelpairrfqorderswithsigner">batchCancelPairRfqOrdersWithSigner</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#getrfqorderinfo">getRfqOrderInfo</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#getrfqorderhash">getRfqOrderHash</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#registerallowedrfqorigins">registerAllowedRfqOrigins</a></p></td>
+<td><p>Register tx.origin addresses that are allowed to fill an RFQ order.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#registerallowedordersigner">registerAllowedOrderSigner</a></p></td>
+<td><p>Register addresses that can sign orders on behalf of <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#isvalidordersigner">isValidOrderSigner</a></p></td>
+<td><p>Returns whether a given address is allowed to sign orders for a given
+maker address.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Protocol Fees</strong></p></td>
+<td><p><strong>Overview</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#getprotocolfeemultiplier">getProtocolFeeMultiplier</a></p></td>
+<td><p>Takers of limit orders pay a protocol fee of <cite>Multiplier * tx.gasprice</cite>.
+This returns the <cite>Multiplier</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#transferprotocolfeesforpools">transferProtocolFeesForPools</a></p></td>
+<td><p>Transfers protocol fees from escrow to the 0x Staking System.
+This should be called near the end of each epoch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>NFT Orders</strong></p></td>
+<td><p><strong>Overview</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sellerc721">sellERC721</a></p></td>
+<td rowspan="19"><p>These are specialised orders for NFT trading</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#buyerc721">buyERC721</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#batchbuyerc721s">batchBuyERC721s</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#matcherc721orders">matchERC721Orders</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#batchmatcherc721orders">batchMatchERC721Orders</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#presignerc721order">preSignERC721Order</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#validateerc721ordersignature">validateERC721OrderSignature</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#validateerc721orderproperties">validateERC721OrderProperties</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#geterc721orderstatus">getERC721OrderStatus</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#geterc721orderhash">getERC721OrderHash</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sellerc1155">sellERC1155</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#buyerc1155">buyERC1155</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#batchcancelerc1155orders">batchCancelERC1155Orders</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#batchbuyerc1155s">batchBuyERC1155s</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#presignerc1155order">preSignERC1155Order</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#validateerc1155ordersignature">validateERC1155OrderSignature</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#validateerc1155orderproperties">validateERC1155OrderProperties</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#geterc1155orderinfo">getERC1155OrderInfo</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#geterc1155orderhash">getERC1155OrderHash</a></p></td>
+</tr>
+</tbody>
+</table>
+<section id="limit-orders">
+<h2>Limit Orders<a class="headerlink" href="#limit-orders" title="Link to this heading"></a></h2>
+<p>These are the basic functions for using a <a class="reference external" href="../basics/orders.html#limit-orders">Limit Order</a>.</p>
+<section id="filllimitorder">
+<h3>fillLimitOrder<a class="headerlink" href="#filllimitorder" title="Link to this heading"></a></h3>
+<p>Limit orders can be filled with the <code class="docutils literal notranslate"><span class="pre">fillLimitOrder()</span></code> or <code class="docutils literal notranslate"><span class="pre">fillOrKillLimitOrder()</span></code> functions on the Exchange Proxy. The address calling these function will be considered the “taker” of the order.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fillLimitOrder()</span></code> fills a single limit order for <strong>up to</strong> <code class="docutils literal notranslate"><span class="pre">takerTokenFillAmount</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">fillLimitOrder</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>LimitOrder<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span><span class="c1">// The signature</span>
+<span class="w">    </span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="c1">// How much taker token to fill the order with</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFillAmount</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="c1">// How much maker token from the order the taker received.</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFillAmount</span><span class="p">,</span><span class="w"> </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">makerTokenFillAmount</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the trade is successful a <a class="reference external" href="../basics/events.html#limitorderfilled">LimitOrderFilled</a> will be emitted. This function reverts under any of the following conditions:</p>
+<ul class="simple">
+<li><p>The order is fully filled: taker amount sold greater or equal to <code class="docutils literal notranslate"><span class="pre">order.takerAmount</span></code>.</p></li>
+<li><p>The order has expired.</p></li>
+<li><p>The order was cancelled.</p></li>
+<li><p>The market pair (Ex, <code class="docutils literal notranslate"><span class="pre">WETH/USDT</span></code>) was cancelled (<code class="docutils literal notranslate"><span class="pre">order.salt</span></code> is less than the value passed to <code class="docutils literal notranslate"><span class="pre">cancelPairLimitOrders</span></code>.</p></li>
+<li><p>Either the maker or taker has an insufficient allowance/balance.</p></li>
+<li><p>The order’s <code class="docutils literal notranslate"><span class="pre">taker</span></code> field is non-zero and does not match the actual taker. This is <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code>, unless used with <a class="reference external" href="../advanced/mtx.rst">meta-transactions</a> in which case it is the signer.</p></li>
+<li><p>The order’s <code class="docutils literal notranslate"><span class="pre">sender</span></code> field is non-zero and does not match <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code>.</p></li>
+<li><p>The maker’s signature is invalid.</p></li>
+<li><p>The order’s <code class="docutils literal notranslate"><span class="pre">takerTokenFeeAmount</span></code> is non-zero but the fee cannot be paid due to insufficient allowance/balance.</p></li>
+<li><p>Not enough ETH was sent with the transaction to cover the <a class="reference external" href="../basics/protocol_fees.html">Protocol Fee</a>.</p></li>
+</ul>
+</section>
+<section id="fillorkilllimitorder">
+<h3>fillOrKillLimitOrder<a class="headerlink" href="#fillorkilllimitorder" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fillOrKillLimitOrder()</span></code> fills a single limit order for <strong>exactly</strong> <code class="docutils literal notranslate"><span class="pre">takerTokenFillAmount</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">fillOrKillLimitOrder</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>LimitOrder<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span><span class="c1">// The signature</span>
+<span class="w">    </span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="c1">// How much taker token to fill the order with</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFillAmount</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="c1">// How much maker token from the order the taker received.</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint128</span><span class="w"> </span><span class="nv">makerTokenFillAmount</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the trade is successful a <a class="reference external" href="../basics/events.html#limitorderfilled">LimitOrderFilled</a> will be emitted. This function reverts under any of the conditions outlined above for <code class="docutils literal notranslate"><span class="pre">fillLimitOrder</span></code>. Additionally, it will revert if the amount filled is less than <code class="docutils literal notranslate"><span class="pre">takerTokenFillAmount</span></code>.</p>
+</section>
+<section id="cancellimitorder">
+<h3>cancelLimitOrder<a class="headerlink" href="#cancellimitorder" title="Link to this heading"></a></h3>
+<p>This function cancels a single limit order created by the caller:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">cancelLimitOrder</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>LimitOrder<span class="w"> </span>calldata<span class="w"> </span>order
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits an <a class="reference external" href="../basics/events.html#ordercancelled">OrderCancelled</a> event if the cancellation is successful. The call will revert if <code class="docutils literal notranslate"><span class="pre">msg.sender</span> <span class="pre">!=</span> <span class="pre">order.maker</span></code> or <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code>.</p>
+</section>
+<section id="batchcancellimitorders">
+<h3>batchCancelLimitOrders<a class="headerlink" href="#batchcancellimitorders" title="Link to this heading"></a></h3>
+<p>This function cancels multiple limit orders created by the caller:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelLimitOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The orders</span>
+<span class="w">    </span>LimitOrder<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>orders
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits an <a class="reference external" href="../basics/events.html#ordercancelled">OrderCancelled</a> event for each order it cancels. The call will revert if <code class="docutils literal notranslate"><span class="pre">msg.sender</span> <span class="pre">!=</span> <span class="pre">order.maker</span></code> or <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code> for any of the orders.</p>
+</section>
+<section id="cancelpairlimitorders">
+<h3>cancelPairLimitOrders<a class="headerlink" href="#cancelpairlimitorders" title="Link to this heading"></a></h3>
+<p>This function cancels all limit orders created by the caller with with a maker and taker token pair and a <code class="docutils literal notranslate"><span class="pre">salt</span></code> field &lt; the <code class="docutils literal notranslate"><span class="pre">salt</span></code> provided. Subsequent calls to this function with the same tokens must provide a <code class="docutils literal notranslate"><span class="pre">salt</span></code> &gt;= the last call to succeed.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">cancelPairLimitOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">makerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">takerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">salt</span><span class="p">;</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits a <a class="reference external" href="../basics/events.html#paircancelledlimitorders">PairCancelledLimitOrders</a> event, or reverts if the <code class="docutils literal notranslate"><span class="pre">salt</span></code> parameter is ≤ to a previous <code class="docutils literal notranslate"><span class="pre">salt</span></code>.</p>
+</section>
+<section id="cancelpairlimitorderswithsigner">
+<h3>cancelPairLimitOrdersWithSigner<a class="headerlink" href="#cancelpairlimitorderswithsigner" title="Link to this heading"></a></h3>
+<p>Same functionality as <code class="docutils literal notranslate"><span class="pre">cancelPairLimitOrders</span></code> but <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code> is a registered order signer instead of the maker itself.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel all limit orders for a given maker and pair with a salt less</span>
+<span class="c1">///      than the value provided. The caller must be a signer registered to the maker.</span>
+<span class="c1">///      Subsequent calls to this function with the same maker and pair require the</span>
+<span class="c1">///      new salt to be &gt;= the old salt.</span>
+<span class="c1">/// @param maker The maker for which to cancel.</span>
+<span class="c1">/// @param makerToken The maker token.</span>
+<span class="c1">/// @param takerToken The taker token.</span>
+<span class="c1">/// @param minValidSalt The new minimum valid salt.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">cancelPairLimitOrdersWithSigner</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>makerToken<span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>takerToken<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">minValidSalt</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Reverts if <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code>.</p>
+</section>
+<section id="batchcancelpairlimitorders">
+<h3>batchCancelPairLimitOrders<a class="headerlink" href="#batchcancelpairlimitorders" title="Link to this heading"></a></h3>
+<p>This function performs multiple <code class="docutils literal notranslate"><span class="pre">cancelPairLimitOrders()</span></code> at once. Each respective index across arrays is equivalent to a single call.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelPairLimitOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span>makerTokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span>takerTokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>salts<span class="p">;</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits a <a class="reference external" href="../basics/events.html#paircancelledlimitorders">PairCancelledLimitOrders</a> event for each market pair it cancels. It reverts if any of the individual cancellations revert.</p>
+</section>
+<section id="batchcancelpairlimitorderswithsigner">
+<h3>batchCancelPairLimitOrdersWithSigner<a class="headerlink" href="#batchcancelpairlimitorderswithsigner" title="Link to this heading"></a></h3>
+<p>Same functionality as <code class="docutils literal notranslate"><span class="pre">batchCancelPairLimitOrders</span></code> but <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code> is a registered order signer instead of the maker itself.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel all limit orders for a given maker and pairs with salts less</span>
+<span class="c1">///      than the values provided. The caller must be a signer registered to the maker.</span>
+<span class="c1">///      Subsequent calls to this function with the same maker and pair require the</span>
+<span class="c1">///      new salt to be &gt;= the old salt.</span>
+<span class="c1">/// @param maker The maker for which to cancel.</span>
+<span class="c1">/// @param makerTokens The maker tokens.</span>
+<span class="c1">/// @param takerTokens The taker tokens.</span>
+<span class="c1">/// @param minValidSalts The new minimum valid salts.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelPairLimitOrdersWithSigner</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>makerTokens<span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>takerTokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>minValidSalts
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Reverts if <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code>.</p>
+</section>
+<section id="getlimitorderinfo">
+<h3>getLimitOrderInfo<a class="headerlink" href="#getlimitorderinfo" title="Link to this heading"></a></h3>
+<p>The Exchange Proxy exposes a function <code class="docutils literal notranslate"><span class="pre">getLimitOrderInfo()</span></code> to query information about a limit order, such as its fillable state and how much it has been filled by.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">enum</span><span class="w"> </span><span class="nv">OrderStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>INVALID<span class="p">,</span>
+<span class="w">    </span>FILLABLE<span class="p">,</span>
+<span class="w">    </span>FILLED<span class="p">,</span>
+<span class="w">    </span>CANCELLED<span class="p">,</span>
+<span class="w">    </span>EXPIRED
+<span class="p">}</span>
+
+<span class="kt">struct</span><span class="w"> </span><span class="nv">OrderInfo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The order hash.</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Current state of the order.</span>
+<span class="w">    </span>OrderStatus<span class="w"> </span>status<span class="p">;</span>
+<span class="w">    </span><span class="c1">// How much taker token has been filled in the order.</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFilledAmount</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">function</span><span class="w"> </span><span class="nv">getLimitOrderInfo</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>LimitOrder<span class="w"> </span>calldata<span class="w"> </span>order
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span>OrderInfo<span class="w"> </span><span class="kt">memory</span><span class="w"> </span>orderInfo<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="getlimitorderhash">
+<h3>getLimitOrderHash<a class="headerlink" href="#getlimitorderhash" title="Link to this heading"></a></h3>
+<p>The hash of the order is used to uniquely identify an order inside the protocol. It is computed following the <a class="reference external" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md">EIP712 spec</a> standard. In solidity, the hash is computed as:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the canonical hash of a limit order.</span>
+<span class="c1">/// @param order The limit order.</span>
+<span class="c1">/// @return orderHash The order hash.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getLimitOrderHash</span><span class="p">(</span>LibNativeOrder<span class="p">.</span>LimitOrder<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The simplest way to generate an order hash is by calling this function, ex:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>IZeroEx<span class="p">(</span><span class="mh">0xDef1C0ded9bec7F1a1670819833240f027b25EfF</span><span class="p">).</span>getLimitOrderHash<span class="p">(</span>order<span class="p">);</span>
+</pre></div>
+</div>
+<p>The hash can be manually generated using the following code:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;\x19\x01&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// The domain separator.</span>
+<span class="w">    </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encode<span class="p">(</span>
+<span class="w">        </span><span class="c1">// The EIP712 domain separator type hash.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">            </span><span class="s1">&#39;EIP712Domain(&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;string name,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;string version,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint256 chainId,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address verifyingContract)&#39;</span>
+<span class="w">        </span><span class="p">)),</span>
+<span class="w">        </span><span class="c1">// The EIP712 domain separator values.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span><span class="s1">&#39;ZeroEx&#39;</span><span class="p">),</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">),</span>
+<span class="w">        </span><span class="m m-Decimal">1</span><span class="p">,</span><span class="w"> </span><span class="c1">// For mainnet</span>
+<span class="w">        </span><span class="mh">0xDef1C0ded9bec7F1a1670819833240f027b25EfF</span><span class="p">,</span><span class="w"> </span><span class="c1">// Address of the Exchange Proxy</span>
+<span class="w">    </span><span class="p">)),</span>
+<span class="w">    </span><span class="c1">// The struct hash.</span>
+<span class="w">    </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encode<span class="p">(</span>
+<span class="w">        </span><span class="c1">// The EIP712 type hash.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">            </span><span class="s1">&#39;LimitOrder(&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address makerToken,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address takerToken,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint128 makerAmount,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint128 takerAmount,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint128 takerTokenFeeAmount,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address maker,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address taker,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address sender,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address feeRecipient,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;bytes32 pool,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint64 expiry,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint256 salt)&#39;</span>
+<span class="w">        </span><span class="p">)),</span>
+<span class="w">        </span><span class="c1">// The struct values.</span>
+<span class="w">        </span>order<span class="p">.</span>makerToken<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>takerToken<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>makerAmount<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>takerAmount<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>takerTokenFeeAmount<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>maker<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>taker<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>sender<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>feeRecipient<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>pool<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>expiry<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>salt
+<span class="w">    </span><span class="p">))</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="rfq-orders">
+<h2>RFQ Orders<a class="headerlink" href="#rfq-orders" title="Link to this heading"></a></h2>
+<p>These are the basic functions for using an <a class="reference external" href="../basics/orders.html#rfq-orders">RFQ Order</a>.</p>
+<section id="fillrfqorder">
+<h3>fillRfqOrder<a class="headerlink" href="#fillrfqorder" title="Link to this heading"></a></h3>
+<p>RFQ orders can be filled with the <code class="docutils literal notranslate"><span class="pre">fillRfqOrder()</span></code> or <code class="docutils literal notranslate"><span class="pre">fillOrKillRfqOrder()</span></code> functions on the Exchange Proxy. The address calling this function will be considered the “taker” of the order.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fillRfqOrder()</span></code> fills a single RFQ order for <strong>up to</strong> <code class="docutils literal notranslate"><span class="pre">takerTokenFillAmount</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">fillRfqOrder</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>RfqOrder<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span><span class="c1">// The signature</span>
+<span class="w">    </span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="c1">// How much taker token to fill the order with</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFillAmount</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="c1">// How much maker token from the order the taker received.</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFillAmount</span><span class="p">,</span><span class="w"> </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">makerTokenFillAmount</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the trade is successful a <a class="reference external" href="../basics/events.html#rfqorderfilled">RfqOrderFilled</a> will be emitted. This function reverts under any of the following conditions:</p>
+<ul class="simple">
+<li><p>The order is fully filled: taker amount sold greater or equal to <code class="docutils literal notranslate"><span class="pre">order.takerAmount</span></code>.</p></li>
+<li><p>The order has expired.</p></li>
+<li><p>The order was cancelled.</p></li>
+<li><p>The market pair (Ex, <code class="docutils literal notranslate"><span class="pre">WETH/USDT</span></code>) was cancelled (<code class="docutils literal notranslate"><span class="pre">order.salt</span></code> is less than the value passed to <code class="docutils literal notranslate"><span class="pre">cancelPairLimitOrders</span></code>.</p></li>
+<li><p>Either the maker or taker has an insufficient allowance/balance.</p></li>
+<li><p>The order’s <code class="docutils literal notranslate"><span class="pre">taker</span></code> field is non-zero and does not match the actual taker. This is <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code>, unless used with <a class="reference external" href="../advanced/mtx.rst">meta-transactions</a> in which case it is the signer.</p></li>
+<li><p>The order’s <code class="docutils literal notranslate"><span class="pre">origin</span></code> field is non-zero and does not match <code class="docutils literal notranslate"><span class="pre">tx.origin</span></code> or a valid origin (see <a class="reference internal" href="#registerallowedrfqorigins">registerAllowedRfqOrigins</a>).</p></li>
+<li><p>The maker’s signature is invalid.</p></li>
+</ul>
+</section>
+<section id="fillorkillrfqorder">
+<h3>fillOrKillRfqOrder<a class="headerlink" href="#fillorkillrfqorder" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">fillOrKillRfqOrder()</span></code> fills a single RFQ order for <strong>exactly</strong> <code class="docutils literal notranslate"><span class="pre">takerTokenFillAmount</span></code>:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">fillOrKillRfqOrder</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>RfqOrder<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span><span class="c1">// The signature</span>
+<span class="w">    </span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="c1">// How much taker token to fill the order with</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFillAmount</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span><span class="kt">payable</span>
+<span class="w">    </span><span class="c1">// How much maker token from the order the taker received.</span>
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint128</span><span class="w"> </span><span class="nv">makerTokenFillAmount</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the trade is successful a <a class="reference external" href="../basics/events.html#rfqorderfilled">RfqOrderFilled</a> will be emitted. This function reverts under any of the conditions outlined above for <code class="docutils literal notranslate"><span class="pre">fillRfqOrder</span></code>. Additionally, it will revert if the amount filled is less than <code class="docutils literal notranslate"><span class="pre">takerTokenFillAmount</span></code>.</p>
+</section>
+<section id="cancelrfqorder">
+<h3>cancelRfqOrder<a class="headerlink" href="#cancelrfqorder" title="Link to this heading"></a></h3>
+<p>Similar to limit orders, RFQ orders can be cancelled on-chain through a variety of functions, which can only be called by the order’s maker.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cancelRfqOrder()</span></code> cancels a single RFQ order created by the caller:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">cancelRfqOrder</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>RfqOrder<span class="w"> </span>calldata<span class="w"> </span>order
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits an <a class="reference external" href="../basics/events.html#ordercancelled">OrderCancelled</a> event if the cancellation is successful. The call will revert if <code class="docutils literal notranslate"><span class="pre">msg.sender</span> <span class="pre">!=</span> <span class="pre">order.maker</span></code> or <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code>.</p>
+</section>
+<section id="batchcancelrfqorders">
+<h3>batchCancelRfqOrders<a class="headerlink" href="#batchcancelrfqorders" title="Link to this heading"></a></h3>
+<p>This function cancels multiple RFQ orders created by the caller:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelRfqOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The orders</span>
+<span class="w">    </span>RfqOrder<span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>orders
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits an <a class="reference external" href="../basics/events.html#ordercancelled">OrderCancelled</a> event for each order it cancels. The call will revert if <code class="docutils literal notranslate"><span class="pre">msg.sender</span> <span class="pre">!=</span> <span class="pre">order.maker</span></code> or <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code> for any orders for any of the orders.</p>
+</section>
+<section id="cancelpairrfqorders">
+<h3>cancelPairRfqOrders<a class="headerlink" href="#cancelpairrfqorders" title="Link to this heading"></a></h3>
+<p>This function cancels all RFQ orders created by the caller with with a maker and taker token pair and a <code class="docutils literal notranslate"><span class="pre">salt</span></code> field &lt; the <code class="docutils literal notranslate"><span class="pre">salt</span></code> provided. Subsequent calls to this function with the same tokens must provide a <code class="docutils literal notranslate"><span class="pre">salt</span></code> &gt;= the last call to succeed.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">cancelPairRfqOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">makerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">takerToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">salt</span><span class="p">;</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits a <a class="reference external" href="../basics/events.html#paircancelledrfqorders">PairCancelledRfqOrders</a> event, or reverts if the <code class="docutils literal notranslate"><span class="pre">salt</span></code> parameter is ≤ to a previous <code class="docutils literal notranslate"><span class="pre">salt</span></code>.</p>
+</section>
+<section id="cancelpairrfqorderswithsigner">
+<h3>cancelPairRfqOrdersWithSigner<a class="headerlink" href="#cancelpairrfqorderswithsigner" title="Link to this heading"></a></h3>
+<p>Same functionality as <code class="docutils literal notranslate"><span class="pre">cancelPairRfqOrders</span></code> but <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code> is a registered order signer instead of the maker itself.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel all RFQ orders for a given maker and pair with a salt less</span>
+<span class="c1">///      than the value provided. The caller must be a signer registered to the maker.</span>
+<span class="c1">///      Subsequent calls to this function with the same maker and pair require the</span>
+<span class="c1">///      new salt to be &gt;= the old salt.</span>
+<span class="c1">/// @param maker The maker for which to cancel.</span>
+<span class="c1">/// @param makerToken The maker token.</span>
+<span class="c1">/// @param takerToken The taker token.</span>
+<span class="c1">/// @param minValidSalt The new minimum valid salt.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">cancelPairRfqOrdersWithSigner</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>makerToken<span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="w"> </span>takerToken<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">minValidSalt</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Reverts if <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code>.</p>
+</section>
+<section id="batchcancelpairrfqorders">
+<h3>batchCancelPairRfqOrders<a class="headerlink" href="#batchcancelpairrfqorders" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">batchCancelPairRfqOrders()</span></code> performs multiple <code class="docutils literal notranslate"><span class="pre">cancelPairRfqOrders()</span></code> at once. Each respective index across arrays is equivalent to a single call.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelPairRfqOrders</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span>makerTokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span>takerTokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>salts<span class="p">;</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits a <a class="reference external" href="../basics/events.html#paircancelledrfqorders">PairCancelledRfqOrders</a>  event for each market pair it cancels. It reverts if any of the individual cancellations revert.</p>
+</section>
+<section id="batchcancelpairrfqorderswithsigner">
+<h3>batchCancelPairRfqOrdersWithSigner<a class="headerlink" href="#batchcancelpairrfqorderswithsigner" title="Link to this heading"></a></h3>
+<p>Same functionality as <code class="docutils literal notranslate"><span class="pre">batchCancelPairRfqOrders</span></code> but <code class="docutils literal notranslate"><span class="pre">msg.sender</span></code> is a registered order signer instead of the maker itself.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel all RFQ orders for a given maker and pairs with salts less</span>
+<span class="c1">///      than the values provided. The caller must be a signer registered to the maker.</span>
+<span class="c1">///      Subsequent calls to this function with the same maker and pair require the</span>
+<span class="c1">///      new salt to be &gt;= the old salt.</span>
+<span class="c1">/// @param maker The maker for which to cancel.</span>
+<span class="c1">/// @param makerTokens The maker tokens.</span>
+<span class="c1">/// @param takerTokens The taker tokens.</span>
+<span class="c1">/// @param minValidSalts The new minimum valid salts.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelPairRfqOrdersWithSigner</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>makerTokens<span class="p">,</span>
+<span class="w">    </span>IERC20Token<span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>takerTokens<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>minValidSalts
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Reverts if <code class="docutils literal notranslate"><span class="pre">!isValidOrderSigner(maker,</span> <span class="pre">msg.sender)</span></code>.</p>
+</section>
+<section id="getrfqorderinfo">
+<h3>getRfqOrderInfo<a class="headerlink" href="#getrfqorderinfo" title="Link to this heading"></a></h3>
+<p>The Exchange Proxy exposes a function <code class="docutils literal notranslate"><span class="pre">getRfqOrderInfo()</span></code> to query information about an RFQ order, such as its fillable state and how much it has been filled by.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">enum</span><span class="w"> </span><span class="nv">OrderStatus</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span>INVALID<span class="p">,</span>
+<span class="w">    </span>FILLABLE<span class="p">,</span>
+<span class="w">    </span>FILLED<span class="p">,</span>
+<span class="w">    </span>CANCELLED<span class="p">,</span>
+<span class="w">    </span>EXPIRED
+<span class="p">}</span>
+
+<span class="kt">struct</span><span class="w"> </span><span class="nv">OrderInfo</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// The order hash.</span>
+<span class="w">    </span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Current state of the order.</span>
+<span class="w">    </span>OrderStatus<span class="w"> </span>status<span class="p">;</span>
+<span class="w">    </span><span class="c1">// How much taker token has been filled in the order.</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">takerTokenFilledAmount</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">function</span><span class="w"> </span><span class="nv">getRfqOrderInfo</span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// The order</span>
+<span class="w">    </span>RfqOrder<span class="w"> </span>calldata<span class="w"> </span>order
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span>OrderInfo<span class="w"> </span><span class="kt">memory</span><span class="w"> </span>orderInfo<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="getrfqorderhash">
+<h3>getRfqOrderHash<a class="headerlink" href="#getrfqorderhash" title="Link to this heading"></a></h3>
+<p>The hash of the order is used to uniquely identify an order inside the protocol. It is computed following the <a class="reference external" href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-712.md">EIP712 spec</a> standard. In solidity, the hash is computed using:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the canonical hash of an RFQ order.</span>
+<span class="c1">/// @param order The RFQ order.</span>
+<span class="c1">/// @return orderHash The order hash.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getRfqOrderHash</span><span class="p">(</span>LibNativeOrder<span class="p">.</span>RfqOrder<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The simplest way to generate an order hash is by calling this function, ex:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>IZeroEx<span class="p">(</span><span class="mh">0xDef1C0ded9bec7F1a1670819833240f027b25EfF</span><span class="p">).</span>getRfqOrderHash<span class="p">(</span>order<span class="p">);</span>
+</pre></div>
+</div>
+<p>The hash can be manually generated using the following code:</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">    </span><span class="s1">&#39;\x19\x01&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="c1">// The domain separator.</span>
+<span class="w">    </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encode<span class="p">(</span>
+<span class="w">        </span><span class="c1">// The EIP712 domain separator type hash.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">            </span><span class="s1">&#39;EIP712Domain(&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;string name,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;string version,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint256 chainId,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address verifyingContract)&#39;</span>
+<span class="w">        </span><span class="p">)),</span>
+<span class="w">        </span><span class="c1">// The EIP712 domain separator values.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span><span class="s1">&#39;ZeroEx&#39;</span><span class="p">),</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span><span class="s1">&#39;1.0.0&#39;</span><span class="p">),</span>
+<span class="w">        </span><span class="m m-Decimal">1</span><span class="p">,</span><span class="w"> </span><span class="c1">// For mainnet</span>
+<span class="w">        </span><span class="mh">0xDef1C0ded9bec7F1a1670819833240f027b25EfF</span><span class="p">,</span><span class="w"> </span><span class="c1">// Address of the Exchange Proxy</span>
+<span class="w">    </span><span class="p">)),</span>
+<span class="w">    </span><span class="c1">// The struct hash.</span>
+<span class="w">    </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encode<span class="p">(</span>
+<span class="w">        </span><span class="c1">// The EIP712 type hash.</span>
+<span class="w">        </span><span class="nb">keccak256</span><span class="p">(</span>abi<span class="p">.</span>encodePacked<span class="p">(</span>
+<span class="w">            </span><span class="s1">&#39;RfqOrder(&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address makerToken,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address takerToken,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint128 makerAmount,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint128 takerAmount,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;address maker,&#39;</span>
+<span class="w">            </span><span class="s1">&#39;address taker,&#39;</span>
+<span class="w">            </span><span class="s1">&#39;address txOrigin,&#39;</span>
+<span class="w">            </span><span class="s1">&#39;bytes32 pool,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint64 expiry,&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;uint256 salt)&#39;</span>
+<span class="w">        </span><span class="p">)),</span>
+<span class="w">        </span><span class="c1">// The struct values.</span>
+<span class="w">        </span>order<span class="p">.</span>makerToken<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>takerToken<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>makerAmount<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>takerAmount<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>maker<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>taker<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>txOrigin<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>pool<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>expiry<span class="p">,</span>
+<span class="w">        </span>order<span class="p">.</span>salt
+<span class="w">    </span><span class="p">))</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</section>
+<section id="registerallowedrfqorigins">
+<h3>registerAllowedRfqOrigins<a class="headerlink" href="#registerallowedrfqorigins" title="Link to this heading"></a></h3>
+<p>The RFQ order includes a <code class="docutils literal notranslate"><span class="pre">txOrigin</span></code> field, which a maker can use to restrict which EOA’s can submit the Ethereum transaction that fills their order. There are two ways a maker can use this field.</p>
+<ol class="arabic simple">
+<li><p>Set to the EOA that will submit the transaction (ex, the Taker or a Meta-Transaction relayer).</p></li>
+<li><p>Set to an EOA owned by the maker, which acts as a registry key to lookup valid tx origins.</p></li>
+</ol>
+<p>Looking at the 2nd use case, a maker can register valid tx origins using this function. They would then set <code class="docutils literal notranslate"><span class="pre">order.origin</span></code> to be the address they used to call <code class="docutils literal notranslate"><span class="pre">registerAllowedRfqOrigins</span></code>.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Mark what tx.origin addresses are allowed to fill an order that</span>
+<span class="c1">///      specifies the message sender as its txOrigin.</span>
+<span class="c1">/// @param origins An array of origin addresses to update.</span>
+<span class="c1">/// @param allowed True to register, false to unregister.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">registerAllowedRfqOrigins</span><span class="p">(</span><span class="kt">address</span><span class="p">[]</span><span class="w"> </span><span class="kt">memory</span><span class="w"> </span>origins<span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nv">allowed</span><span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits a <a class="reference external" href="../basics/events.html#rfqorderoriginsallowed">RfqOrderOriginsAllowed</a> event.</p>
+</section>
+<section id="registerallowedordersigner">
+<h3>registerAllowedOrderSigner<a class="headerlink" href="#registerallowedordersigner" title="Link to this heading"></a></h3>
+<p>Calls to fill functions require a signature provided by the maker. In cases where the signer can’t be the maker itself (e.g. a contract wallet), the maker can delegate signing to another address.</p>
+<p>To register a new delegated order signer, the maker can call <code class="docutils literal notranslate"><span class="pre">registerAllowedOrderSigner</span></code> with <code class="docutils literal notranslate"><span class="pre">allowed</span> <span class="pre">==</span> <span class="pre">true</span></code>.</p>
+<p>To revoke permission to a signer, the maker can call <code class="docutils literal notranslate"><span class="pre">registerAllowedOrderSigner</span></code> with <code class="docutils literal notranslate"><span class="pre">allowed</span> <span class="pre">==</span> <span class="pre">false</span></code>.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Register a signer who can sign on behalf of msg.sender</span>
+<span class="c1">///      This allows one to sign on behalf of a contract that calls this function</span>
+<span class="c1">/// @param signer The address from which you plan to generate signatures</span>
+<span class="c1">/// @param allowed True to register, false to unregister.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">registerAllowedOrderSigner</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">signer</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">allowed</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function emits an <a class="reference external" href="../basics/events.html#ordersignerregistered">OrderSignerRegistered</a> event.</p>
+</section>
+<section id="isvalidordersigner">
+<h3>isValidOrderSigner<a class="headerlink" href="#isvalidordersigner" title="Link to this heading"></a></h3>
+<p>Returns whether the <code class="docutils literal notranslate"><span class="pre">signer</span></code> is allowed to sign orders on behalf of the <code class="docutils literal notranslate"><span class="pre">maker</span></code>.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev checks if a given address is registered to sign on behalf of a maker address</span>
+<span class="c1">/// @param maker The maker address encoded in an order (can be a contract)</span>
+<span class="c1">/// @param signer The address that is providing a signature</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">isValidOrderSigner</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">address</span><span class="w"> </span><span class="nv">signer</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="nv">isAllowed</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="protocol-fees">
+<h2>Protocol Fees<a class="headerlink" href="#protocol-fees" title="Link to this heading"></a></h2>
+<p>There is a fixed protocol fee paid by the Taker each time they fill a <a class="reference external" href="orders.html#limit-orders">Limit Order</a>. Learn more in the <a class="reference external" href="./protocol_fees.html">Protocol Fees Section</a>. Also check out our research in the <a class="reference external" href="../tokenomics/research.html">Tokenomics Section</a>.</p>
+<section id="getprotocolfeemultiplier">
+<h3>getProtocolFeeMultiplier<a class="headerlink" href="#getprotocolfeemultiplier" title="Link to this heading"></a></h3>
+<p>Takers of limit orders pay a protocol fee of Multiplier * tx.gasprice. This returns the Multiplier.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the protocol fee multiplier. This should be multiplied by the</span>
+<span class="c1">///      gas price to arrive at the required protocol fee to fill a native order.</span>
+<span class="c1">/// @return multiplier The protocol fee multiplier.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getProtocolFeeMultiplier</span><span class="p">()</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32</span><span class="w"> </span><span class="nv">multiplier</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="transferprotocolfeesforpools">
+<h3>transferProtocolFeesForPools<a class="headerlink" href="#transferprotocolfeesforpools" title="Link to this heading"></a></h3>
+<p>This function transfers protocol fees from <a class="reference external" href="../architecture/fee_collectors.html">Fee Collectors</a> to the <a class="reference external" href="../tokenomics/staking.html">Staking System</a>.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Transfers protocol fees from the `FeeCollector` pools into</span>
+<span class="c1">///      the staking contract.</span>
+<span class="c1">/// @param poolIds Staking pool IDs</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">transferProtocolFeesForPools</span><span class="p">(</span><span class="kt">bytes32</span><span class="p">[]</span><span class="w"> </span>calldata<span class="w"> </span>poolIds<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nft-orders">
+<h2>NFT Orders<a class="headerlink" href="#nft-orders" title="Link to this heading"></a></h2>
+<section id="sellerc721">
+<h3>sellERC721<a class="headerlink" href="#sellerc721" title="Link to this heading"></a></h3>
+<p>This function sells an ERC721 token given a buy order.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Sells an ERC721 asset to fill the given order.</span>
+<span class="c1">/// @param buyOrder The ERC721 buy order.</span>
+<span class="c1">/// @param signature The order signature from the maker.</span>
+<span class="c1">/// @param erc721TokenId The ID of the ERC721 asset being</span>
+<span class="c1">///        sold. If the given order specifies properties,</span>
+<span class="c1">///        the asset must satisfy those properties. Otherwise,</span>
+<span class="c1">///        it must equal the tokenId in the order.</span>
+<span class="c1">/// @param unwrapNativeToken If this parameter is true and the</span>
+<span class="c1">///        ERC20 token of the order is e.g. WETH, unwraps the</span>
+<span class="c1">///        token before transferring it to the taker.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC721OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC20 tokens have been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC721 asset to the buyer.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">sellERC721</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>buyOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>_calldata_<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc721TokenId</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">unwrapNativeToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_calldata_</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="buyerc721">
+<h3>buyERC721<a class="headerlink" href="#buyerc721" title="Link to this heading"></a></h3>
+<p>This function buys an ERC721 token given a sell order.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Buys an ERC721 asset by filling the given order.</span>
+<span class="c1">/// @param sellOrder The ERC721 sell order.</span>
+<span class="c1">/// @param signature The order signature.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC721OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC721 asset has been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC20 tokens to the seller.</span>
+<span class="c1">///        Native tokens acquired during the callback can be used</span>
+<span class="c1">///        to fill the order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">buyERC721</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>sellOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>_calldata_<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_calldata_</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_payable_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="cancelerc721order">
+<h3>cancelERC721Order<a class="headerlink" href="#cancelerc721order" title="Link to this heading"></a></h3>
+<p>This function cancels an ERC721 order using the order <cite>nonce</cite> field.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel a single ERC721 order by its nonce. The caller</span>
+<span class="c1">///      should be the maker of the order. Silently succeeds if</span>
+<span class="c1">///      an order with the same nonce has already been filled or</span>
+<span class="c1">///      cancelled.</span>
+<span class="c1">/// @param orderNonce The order nonce.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">cancelERC721Order</span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">orderNonce</span><span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="batchcancelerc721orders">
+<h3>batchCancelERC721Orders<a class="headerlink" href="#batchcancelerc721orders" title="Link to this heading"></a></h3>
+<p>This function cancels an number of ERC721 order using the order <cite>nonce</cite> field.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel multiple ERC721 orders by their nonces. The caller</span>
+<span class="c1">///      should be the maker of the orders. Silently succeeds if</span>
+<span class="c1">///      an order with the same nonce has already been filled or</span>
+<span class="c1">///      cancelled.</span>
+<span class="c1">/// @param orderNonces The order nonces.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelERC721Orders</span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>orderNonces<span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="batchbuyerc721s">
+<h3>batchBuyERC721s<a class="headerlink" href="#batchbuyerc721s" title="Link to this heading"></a></h3>
+<p>This function buys a number of ERC721’s. If you wish the transaction to revert unless ALL NFT’s are purchased, set <cite>revertIfIncomplete</cite> to true.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Buys multiple ERC721 assets by filling the</span>
+<span class="c1">///      given orders.</span>
+<span class="c1">/// @param sellOrders The ERC721 sell orders.</span>
+<span class="c1">/// @param signatures The order signatures.</span>
+<span class="c1">/// @param revertIfIncomplete If true, reverts if this</span>
+<span class="c1">///        function fails to fill any individual order.</span>
+<span class="c1">/// @return successes An array of booleans corresponding to whether</span>
+<span class="c1">///         each order in `orders` was successfully filled.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchBuyERC721s</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>sellOrders<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>signatures<span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">revertIfIncomplete</span>
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_payable_
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">[]</span><span class="w"> </span>_memory_<span class="w"> </span>successes<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="matcherc721orders">
+<h3>matchERC721Orders<a class="headerlink" href="#matcherc721orders" title="Link to this heading"></a></h3>
+<p>This function matches a buy order and a sell order together. The matcher receives any spread in price.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Matches a pair of complementary orders that have</span>
+<span class="c1">///      a non-negative spread. Each order is filled at</span>
+<span class="c1">///      their respective price, and the matcher receives</span>
+<span class="c1">///      a profit denominated in the ERC20 token.</span>
+<span class="c1">/// @param sellOrder Order selling an ERC721 asset.</span>
+<span class="c1">/// @param buyOrder Order buying an ERC721 asset.</span>
+<span class="c1">/// @param sellOrderSignature Signature for the sell order.</span>
+<span class="c1">/// @param buyOrderSignature Signature for the buy order.</span>
+<span class="c1">/// @return profit The amount of profit earned by the caller</span>
+<span class="c1">///         of this function (denominated in the ERC20 token</span>
+<span class="c1">///         of the matched orders).</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">matchERC721Orders</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>sellOrder<span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>buyOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>_calldata_<span class="w"> </span>sellOrderSignature<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>_calldata_<span class="w"> </span>buyOrderSignature
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">profit</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="batchmatcherc721orders">
+<h3>batchMatchERC721Orders<a class="headerlink" href="#batchmatcherc721orders" title="Link to this heading"></a></h3>
+<p>This function matches a buy orders and a sell orders together. The matcher receives any spread in price.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Matches pairs of complementary orders that have</span>
+<span class="c1">///      non-negative spreads. Each order is filled at</span>
+<span class="c1">///      their respective price, and the matcher receives</span>
+<span class="c1">///      a profit denominated in the ERC20 token.</span>
+<span class="c1">/// @param sellOrders Orders selling ERC721 assets.</span>
+<span class="c1">/// @param buyOrders Orders buying ERC721 assets.</span>
+<span class="c1">/// @param sellOrderSignatures Signatures for the sell orders.</span>
+<span class="c1">/// @param buyOrderSignatures Signatures for the buy orders.</span>
+<span class="c1">/// @return profits The amount of profit earned by the caller</span>
+<span class="c1">///         of this function for each pair of matched orders</span>
+<span class="c1">///         (denominated in the ERC20 token of the order pair).</span>
+<span class="c1">/// @return successes An array of booleans corresponding to</span>
+<span class="c1">///         whether each pair of orders was successfully matched.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchMatchERC721Orders</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>sellOrders<span class="p">,</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>buyOrders<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>sellOrderSignatures<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>buyOrderSignatures
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="p">[]</span><span class="w"> </span>_memory_<span class="w"> </span>profits<span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="p">[]</span><span class="w"> </span>_memory_<span class="w"> </span>successes<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="presignerc721order">
+<h3>preSignERC721Order<a class="headerlink" href="#presignerc721order" title="Link to this heading"></a></h3>
+<p>This function pre-signs an order. Useful for contracts that wish to buy or sell an NFT.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Approves an ERC721 order on-chain. After pre-signing</span>
+<span class="c1">///      the order, the `PRESIGNED` signature type will become</span>
+<span class="c1">///      valid for that order and signer.</span>
+<span class="c1">/// @param order An ERC721 order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">preSignERC721Order</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="validateerc721ordersignature">
+<h3>validateERC721OrderSignature<a class="headerlink" href="#validateerc721ordersignature" title="Link to this heading"></a></h3>
+<p>A read function to validate an ERC721 order signature.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Checks whether the given signature is valid for the</span>
+<span class="c1">///      the given ERC721 order. Reverts if not.</span>
+<span class="c1">/// @param order The ERC721 order.</span>
+<span class="c1">/// @param signature The signature to validate.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">validateERC721OrderSignature</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>_calldata_<span class="w"> </span>signature
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_view_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="validateerc721orderproperties">
+<h3>validateERC721OrderProperties<a class="headerlink" href="#validateerc721orderproperties" title="Link to this heading"></a></h3>
+<p>A read function to validate a property based order with a particular token id.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev If the given order is buying an ERC721 asset, checks</span>
+<span class="c1">///      whether or not the given token ID satisfies the required</span>
+<span class="c1">///      properties specified in the order. If the order does not</span>
+<span class="c1">///      specify any properties, this function instead checks</span>
+<span class="c1">///      whether the given token ID matches the ID in the order.</span>
+<span class="c1">///      Reverts if any checks fail, or if the order is selling</span>
+<span class="c1">///      an ERC721 asset.</span>
+<span class="c1">/// @param order The ERC721 order.</span>
+<span class="c1">/// @param erc721TokenId The ID of the ERC721 asset.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">validateERC721OrderProperties</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc721TokenId</span>
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_view_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="geterc721orderstatus">
+<h3>getERC721OrderStatus<a class="headerlink" href="#geterc721orderstatus" title="Link to this heading"></a></h3>
+<p>A read function to return the order status. E.g whether it is filled, cancelled or expired.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the current status of an ERC721 order.</span>
+<span class="c1">/// @param order The ERC721 order.</span>
+<span class="c1">/// @return status The status of the order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getERC721OrderStatus</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_view_
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span>LibNFTOrder<span class="p">.</span>OrderStatus<span class="w"> </span>status<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="geterc721orderhash">
+<h3>getERC721OrderHash<a class="headerlink" href="#geterc721orderhash" title="Link to this heading"></a></h3>
+<p>A read function to return the uniquie order hash.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the canonical hash of an ERC721 order.</span>
+<span class="c1">/// @param order The ERC721 order.</span>
+<span class="c1">/// @return orderHash The order hash.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getERC721OrderHash</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC721Order<span class="w"> </span>_calldata_<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_view_
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="geterc721orderstatusbitvector">
+<h3>getERC721OrderStatusBitVector<a class="headerlink" href="#geterc721orderstatusbitvector" title="Link to this heading"></a></h3>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the order status bit vector for the given</span>
+<span class="c1">///      maker address and nonce range.</span>
+<span class="c1">/// @param maker The maker of the order.</span>
+<span class="c1">/// @param nonceRange Order status bit vectors are indexed</span>
+<span class="c1">///        by maker address and the upper 248 bits of the</span>
+<span class="c1">///        order nonce. We define `nonceRange` to be these</span>
+<span class="c1">///        248 bits.</span>
+<span class="c1">/// @return bitVector The order status bit vector for the</span>
+<span class="c1">///         given maker and nonce range.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getERC721OrderStatusBitVector</span><span class="p">(</span><span class="kt">address</span><span class="w"> </span><span class="nv">maker</span><span class="p">,</span><span class="w"> </span><span class="kt">uint248</span><span class="w"> </span><span class="nv">nonceRange</span><span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_view_
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">uint256</span><span class="w"> </span><span class="nv">bitVector</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="sellerc1155">
+<h3>sellERC1155<a class="headerlink" href="#sellerc1155" title="Link to this heading"></a></h3>
+<p>Sells an ERC115 token given a buy order.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Sells an ERC1155 asset to fill the given order.</span>
+<span class="c1">/// @param buyOrder The ERC1155 buy order.</span>
+<span class="c1">/// @param signature The order signature from the maker.</span>
+<span class="c1">/// @param erc1155TokenId The ID of the ERC1155 asset being</span>
+<span class="c1">///        sold. If the given order specifies properties,</span>
+<span class="c1">///        the asset must satisfy those properties. Otherwise,</span>
+<span class="c1">///        it must equal the tokenId in the order.</span>
+<span class="c1">/// @param erc1155SellAmount The amount of the ERC1155 asset</span>
+<span class="c1">///        to sell.</span>
+<span class="c1">/// @param unwrapNativeToken If this parameter is true and the</span>
+<span class="c1">///        ERC20 token of the order is e.g. WETH, unwraps the</span>
+<span class="c1">///        token before transferring it to the taker.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC1155OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC20 tokens have been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC1155 asset to the buyer.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">sellERC1155</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>_calldata_<span class="w"> </span>buyOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>_calldata_<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc1155TokenId</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">erc1155SellAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">unwrapNativeToken</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_calldata_</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="buyerc1155">
+<h3>buyERC1155<a class="headerlink" href="#buyerc1155" title="Link to this heading"></a></h3>
+<p>Buys an ERC115 token given a sell order.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Buys an ERC1155 asset by filling the given order.</span>
+<span class="c1">/// @param sellOrder The ERC1155 sell order.</span>
+<span class="c1">/// @param signature The order signature.</span>
+<span class="c1">/// @param erc1155BuyAmount The amount of the ERC1155 asset</span>
+<span class="c1">///        to buy.</span>
+<span class="c1">/// @param callbackData If this parameter is non-zero, invokes</span>
+<span class="c1">///        `zeroExERC1155OrderCallback` on `msg.sender` after</span>
+<span class="c1">///        the ERC1155 asset has been transferred to `msg.sender`</span>
+<span class="c1">///        but before transferring the ERC20 tokens to the seller.</span>
+<span class="c1">///        Native tokens acquired during the callback can be used</span>
+<span class="c1">///        to fill the order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">buyERC1155</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>_calldata_<span class="w"> </span>sellOrder<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>_calldata_<span class="w"> </span>signature<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="w"> </span><span class="nv">erc1155BuyAmount</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">bytes</span><span class="w"> </span><span class="nv">_calldata_</span><span class="w"> </span>callbackData
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_payable_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="cancelerc1155order">
+<h3>cancelERC1155Order<a class="headerlink" href="#cancelerc1155order" title="Link to this heading"></a></h3>
+<p>Cancels an ERC115 order given the order struct.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel a single ERC1155 order. The caller should be the</span>
+<span class="c1">///      maker of the order. Silently succeeds if the order has</span>
+<span class="c1">///      already been filled or cancelled.</span>
+<span class="c1">/// @param order The order to cancel.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">cancelERC1155Order</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>_calldata_<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="batchcancelerc1155orders">
+<h3>batchCancelERC1155Orders<a class="headerlink" href="#batchcancelerc1155orders" title="Link to this heading"></a></h3>
+<p>Cancels a number of ERC115 orders.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Cancel multiple ERC1155 orders. The caller should be the</span>
+<span class="c1">///      maker of the orders. Silently succeeds if an order has</span>
+<span class="c1">///      already been filled or cancelled.</span>
+<span class="c1">/// @param orders The orders to cancel.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchCancelERC1155Orders</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>orders<span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="batchbuyerc1155s">
+<h3>batchBuyERC1155s<a class="headerlink" href="#batchbuyerc1155s" title="Link to this heading"></a></h3>
+<p>Buys multiple ERC1155 assets given the sell orders.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Buys multiple ERC1155 assets by filling the</span>
+<span class="c1">///      given orders.</span>
+<span class="c1">/// @param sellOrders The ERC1155 sell orders.</span>
+<span class="c1">/// @param signatures The order signatures.</span>
+<span class="c1">/// @param erc1155TokenAmounts The amounts of the ERC1155 assets</span>
+<span class="c1">///        to buy for each order.</span>
+<span class="c1">/// @param revertIfIncomplete If true, reverts if this</span>
+<span class="c1">///        function fails to fill any individual order.</span>
+<span class="c1">/// @return successes An array of booleans corresponding to whether</span>
+<span class="c1">///         each order in `orders` was successfully filled.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">batchBuyERC1155s</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>sellOrders<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>signatures<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint128</span><span class="p">[]</span><span class="w"> </span>_calldata_<span class="w"> </span>erc1155TokenAmounts<span class="p">,</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="nv">revertIfIncomplete</span>
+<span class="p">)</span>
+<span class="w">    </span>_external_
+<span class="w">    </span>_payable_
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">[]</span><span class="w"> </span>_memory_<span class="w"> </span>successes<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="presignerc1155order">
+<h3>preSignERC1155Order<a class="headerlink" href="#presignerc1155order" title="Link to this heading"></a></h3>
+<p>Pre-signs the order on-chain. This is useful for smart contracts.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Approves an ERC1155 order on-chain. After pre-signing</span>
+<span class="c1">///      the order, the `PRESIGNED` signature type will become</span>
+<span class="c1">///      valid for that order and signer.</span>
+<span class="c1">/// @param order An ERC1155 order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">preSignERC1155Order</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>_calldata_<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span>_external_<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="validateerc1155ordersignature">
+<h3>validateERC1155OrderSignature<a class="headerlink" href="#validateerc1155ordersignature" title="Link to this heading"></a></h3>
+<p>A read function to validate the ERC1155 order signatures.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Checks whether the given signature is valid for the</span>
+<span class="c1">///      the given ERC1155 order. Reverts if not.</span>
+<span class="c1">/// @param order The ERC1155 order.</span>
+<span class="c1">/// @param signature The signature to validate.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">validateERC1155OrderSignature</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span>LibSignature<span class="p">.</span>Signature<span class="w"> </span>calldata<span class="w"> </span>signature
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="validateerc1155orderproperties">
+<h3>validateERC1155OrderProperties<a class="headerlink" href="#validateerc1155orderproperties" title="Link to this heading"></a></h3>
+<p>A read function to validate the specific ERC1155 asset against a property based order.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev If the given order is buying an ERC1155 asset, checks</span>
+<span class="c1">///      whether or not the given token ID satisfies the required</span>
+<span class="c1">///      properties specified in the order. If the order does not</span>
+<span class="c1">///      specify any properties, this function instead checks</span>
+<span class="c1">///      whether the given token ID matches the ID in the order.</span>
+<span class="c1">///      Reverts if any checks fail, or if the order is selling</span>
+<span class="c1">///      an ERC1155 asset.</span>
+<span class="c1">/// @param order The ERC1155 order.</span>
+<span class="c1">/// @param erc1155TokenId The ID of the ERC1155 asset.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">validateERC1155OrderProperties</span><span class="p">(</span>
+<span class="w">    </span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">,</span>
+<span class="w">    </span><span class="kt">uint256</span><span class="w"> </span><span class="nv">erc1155TokenId</span>
+<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view<span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="geterc1155orderinfo">
+<h3>getERC1155OrderInfo<a class="headerlink" href="#geterc1155orderinfo" title="Link to this heading"></a></h3>
+<p>A read function to get the ERC1155 order info. Such as whether it has been cancelled, expired or filled.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the order info for an ERC1155 order.</span>
+<span class="c1">/// @param order The ERC1155 order.</span>
+<span class="c1">/// @return orderInfo Infor about the order.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getERC1155OrderInfo</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span>LibNFTOrder<span class="p">.</span>OrderInfo<span class="w"> </span><span class="kt">memory</span><span class="w"> </span>orderInfo<span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="geterc1155orderhash">
+<h3>getERC1155OrderHash<a class="headerlink" href="#geterc1155orderhash" title="Link to this heading"></a></h3>
+<p>A read function to calculate the unique order hash.</p>
+<div class="highlight-solidity notranslate"><div class="highlight"><pre><span></span><span class="c1">/// @dev Get the canonical hash of an ERC1155 order.</span>
+<span class="c1">/// @param order The ERC1155 order.</span>
+<span class="c1">/// @return orderHash The order hash.</span>
+<span class="kt">function</span><span class="w"> </span><span class="nv">getERC1155OrderHash</span><span class="p">(</span>LibNFTOrder<span class="p">.</span>ERC1155Order<span class="w"> </span>calldata<span class="w"> </span>order<span class="p">)</span>
+<span class="w">    </span><span class="kt">external</span>
+<span class="w">    </span>view
+<span class="w">    </span><span class="kt">returns</span><span class="w"> </span><span class="p">(</span><span class="kt">bytes32</span><span class="w"> </span><span class="nv">orderHash</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="orders.html" class="btn btn-neutral float-left" title="Orders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="events.html" class="btn btn-neutral float-right" title="Events" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

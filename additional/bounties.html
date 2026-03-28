@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bounties &mdash; 0x Protocol 4.1 documentation</title>
+      <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=3b2dd2c4"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/js_overrides.js?v=385de118"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contributing" href="contributing.html" />
+    <link rel="prev" title="Audits" href="audits.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            0x Protocol
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Architecture</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/proxy.html">Proxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformers.html">Transformers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/flash_wallet.html">Flash Wallet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/governor.html">Governor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/transformer_deployer.html">Transformer Deployer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/fee_collectors.html">Fee Collectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/plp_sandbox.html">PLP Sandbox</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Basics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../basics/orders.html">Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/functions.html">Basic Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/events.html">Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/allowances.html">Allowances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/protocol_fees.html">Protocol Fees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basics/addresses.html">Addresses</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/mtx.html">Meta-Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/erc20_transformations.html">ERC20 Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/plp.html">Pluggable Liquidity (PLP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced/uniswap.html">Optimized Uniswap Router</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guides/nft_guide.html">NFT Guides - Creating Orders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/smart_nonce.html">Smart Nonces</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Material</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="audits.html">Audits</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bounties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scope">Scope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Bounties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disclosures">Disclosures</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptional_erc20s.html">Exceptional ERC20s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="emergency.html">EMERGENCY</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Connect</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://0xProtocol.org">0x Protocol</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/0xProject/protocol">GitHub</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://forum.0xProtocol.org/">Forum</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://www.reddit.com/r/0xProject/">Reddit</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://discord.com/invite/official0x">Discord</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://twitter.com/zeroexprotocol">Twitter</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">0x Protocol</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Bounties</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/additional/bounties.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bounties">
+<h1>Bounties<a class="headerlink" href="#bounties" title="Link to this heading"></a></h1>
+<p>The bug bounties on this page apply only to the <em>0x smart contracts</em> on Ethereum mainnet, Binance Smart Chain, Polygon, Avalanche, Fantom, Celo, Optimism and future deployments in other EVM-compatible networks announced through our official communication channels.</p>
+<p>Bug reports pertaining to 0x API and 0x web interfaces (e.g. Matcha, 0x.org), both in terms of UI/UX or servers/infrastructure, are not eligible. Only the first reporter of a given contract vulnerability will be rewarded, and findings already discovered as part of a formal audit are ineligible.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>0x has completed smart contract audits with Consensys Diligence, Trail of Bits and ABDK. We run a continuous bug bounty program for the V4 release of the 0x core contracts.</p>
+</section>
+<section id="scope">
+<h2>Scope<a class="headerlink" href="#scope" title="Link to this heading"></a></h2>
+<p>The following contracts are in scope of the bug bounty. Please note that any bugs already reported are considered out of scope. See the <a class="reference external" href="./audits.html">Audits</a> page for 3rd party security reports.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Release</strong></p></td>
+<td><p><strong>Contracts</strong></p></td>
+<td><p><strong>Commit Hash</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Exchange V4</p></td>
+<td><ul class="simple">
+<li><p>Documentation at <a class="reference external" href="https://docs.0xProtocol.org/en/latest/">https://docs.0xProtocol.org/en/latest/</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/tree/development/contracts/zero-ex/contracts/src/ZeroEx.sol">ZeroEx.sol</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/tree/development/contracts/zero-ex/contracts/src/ZeroExOptimized.sol">ZeroExOptimized.sol</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/tree/development/contracts/zero-ex/contracts/src/external">external/*.sol</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/tree/development/contracts/zero-ex/contracts/src/features">features/*.sol</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/tree/development/contracts/zero-ex/contracts/src/fixins">fixins/*.sol</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/tree/development/contracts/zero-ex/contracts/src/migrations">migrations/*.sol</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/protocol/tree/development/contracts/zero-ex/contracts/src/storage">storage/*.sol</a></p></li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Exchange V3</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/fb8360edfd4f42f2d2b127b95c156eb1b0daa02b/contracts/asset-proxy/contracts/src/ERC20BridgeProxy.sol">ERC20BridgeProxy.sol</a> (<a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/asset-proxy/erc20-bridge-proxy.md">spec</a>)</p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/fb8360edfd4f42f2d2b127b95c156eb1b0daa02b/contracts/exchange/contracts/src/Exchange.sol">Exchange.sol</a> (<a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/v3/v3-specification.md">spec</a>)</p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/fb8360edfd4f42f2d2b127b95c156eb1b0daa02b/contracts/multisig/contracts/src/ZeroExGovernor.sol">ZeroExGovernor.sol</a> (<a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/v3/zero-ex-governor.md">spec</a>)</p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/fb8360edfd4f42f2d2b127b95c156eb1b0daa02b/contracts/staking/contracts/src/Staking.sol">Staking.sol</a> (<a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/staking/staking-specification.md">spec</a>)</p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/fb8360edfd4f42f2d2b127b95c156eb1b0daa02b/contracts/staking/contracts/src/StakingProxy.sol">StakingProxy.sol</a> (<a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/staking/staking-specification.md">spec</a>)</p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/fb8360edfd4f42f2d2b127b95c156eb1b0daa02b/contracts/staking/contracts/src/ZrxVault.sol">ZrxVault.sol</a> (<a class="reference external" href="https://github.com/0xProject/0x-protocol-specification/blob/master/staking/staking-specification.md">spec</a>)</p></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/fb8360edfd4f42f2d2b127b95c156eb1b0daa02b/contracts">fb8360edfd</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Exchange V2.1</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/ff70c5ecfe28eff14e1a372c5e493b8f5363e1d0/packages/contracts/src/2.0.0/protocol">src/2.0.0/protocol</a></p></li>
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/ff70c5ecfe28eff14e1a372c5e493b8f5363e1d0/packages/contracts/src/2.0.0/utils">src/2.0.0/utils</a></p></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/ff70c5ecfe28eff14e1a372c5e493b8f5363e1d0/packages/contracts/src/2.0.0">ff70c5ecfe</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>MultiAssetProxy</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/c4d9ef9f83508154fe9db35796b6b86aeb0f2240/contracts/asset-proxy/contracts/src/MultiAssetProxy.sol">MultiAssetProxy.sol</a></p></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/c4d9ef9f83508154fe9db35796b6b86aeb0f2240/contracts">c4d9ef9f83</a></p></td>
+</tr>
+<tr class="row-even"><td><p>ERC1155Proxy</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/77484dc69eea1f4f1a8397590199f3f2489751d2/contracts/asset-proxy/contracts/src/ERC1155Proxy.sol">ERC1155Proxy.sol</a></p></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/77484dc69eea1f4f1a8397590199f3f2489751d2/contracts">77484dc69e</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>StaticCallProxy</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/54f4727adc6da95f312e3721f44857110555d24c/contracts/asset-proxy/contracts/src/StaticCallProxy.sol">StaticCallProxy.sol</a></p></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/54f4727adc6da95f312e3721f44857110555d24c/contracts">54f4727adc</a></p></td>
+</tr>
+<tr class="row-even"><td><p>ERC20BridgeProxy</p></td>
+<td><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/blob/281658ba349a2c5088b40b503998bea5020284a6/contracts/asset-proxy/contracts/src/ERC20BridgeProxy.sol">ERC20BridgeProxy.sol</a></p></li>
+</ul>
+</td>
+<td><p><a class="reference external" href="https://github.com/0xProject/0x-monorepo/tree/281658ba349a2c5088b40b503998bea5020284a6/contracts">281658ba34</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id1">
+<h2>Bounties<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>The bounty program will pay out rewards according to the severity of a vulnerability. The severity of reported vulnerabilities will be graded according to the <a class="reference external" href="https://www.first.org/cvss/">CVSS</a> (Common Vulnerability Scoring Standard).</p>
+<p>The final reward amount is at the sole discretion of 0x Labs and will be paid in the specified sum in either USD or ETH.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Exploit Score</strong></p></td>
+<td><p><strong>Reward</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>Critical (CVSS 9.0 - 10.0)</p></td>
+<td><p>up to $1,000,000</p></td>
+</tr>
+<tr class="row-odd"><td><p>High (CVSS 7.0 - 8.9)</p></td>
+<td><p>up to $350,000</p></td>
+</tr>
+<tr class="row-even"><td><p>Medium (CVSS 4.0 - 6.9)</p></td>
+<td><p>up to $35,000</p></td>
+</tr>
+<tr class="row-odd"><td><p>Low (CVSS 0.0 - 3.9)</p></td>
+<td><p>up to $5,000</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="disclosures">
+<h2>Disclosures<a class="headerlink" href="#disclosures" title="Link to this heading"></a></h2>
+<p>Please e-mail all submissions to <a class="reference external" href="mailto:security&#37;&#52;&#48;0x&#46;org">security<span>&#64;</span>0x<span>&#46;</span>org</a> with the subject “BUG BOUNTY”. Your submission
+should include any steps required to reproduce or exploit the vulnerability. Please allow time for
+the vulnerability to be fixed before discussing any findings publicly. After receiving a submission,
+we will contact you with expected timelines for a fix to be implemented.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="audits.html" class="btn btn-neutral float-left" title="Audits" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, ZeroEx Inc.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
